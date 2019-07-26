@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+
+
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data >
+        <variable name="viewmodel" type="com.mustafayusef.sharay.ui.auth.signup.LoginViewModel"/>
+    </data>
+    <FrameLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:background="@color/white">
+        <com.airbnb.lottie.LottieAnimationView
+                android:inputType="textEmailAddress|textNoSuggestions"
+                android:visibility="invisible"
+                android:id="@+id/animation_loadingSignUp"
+                android:layout_width="234dp"
+                android:layout_height="230dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                app:lottie_rawRes="@raw/loading_animation"
+                app:lottie_loop="true"
+                app:lottie_autoPlay="false"
+
+
+                android:translationZ="1dp"
+        />
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical" android:layout_gravity="center" android:layout_margin="5dp"
+                      android:gravity="center">
+
+
+            <com.google.android.material.textfield.TextInputEditText android:layout_width="match_parent"
+                                                                     android:layout_height="60dp"
+                                                                     android:layout_gravity="center"
+                                                                     android:fontFamily="@font/font_regular"
+                                                                     android:background="@drawable/login_text_back"
+                                                                     android:text="@={viewmodel.userName}"
+                                                                     android:textColor="@color/colorPrimary"
+                                                                     android:textColorHint="@color/colorPrimary"
+                                                                     android:hint="@string/EnterEmail"
+                                                                     android:textSize="18sp"
+
+                                                                     android:paddingBottom="5dp"
+                                                                     android:padding="10dp"
+                                                                     android:id="@+id/userName"
+                                                                     android:layout_margin="15dp"
+                                                                     android:inputType="textEmailAddress"/>
+
+
+            <com.google.android.material.textfield.TextInputEditText android:layout_width="match_parent"
+                                                                     android:layout_height="60dp"
+                                                                     android:fontFamily="@font/font_regular"
+                                                                     android:layout_gravity="center"
+                                                                     android:text="@={viewmodel.password}"
+                                                                     android:background="@drawable/login_text_back"
+                                                                     android:textColor="@color/colorPrimary"
+                                                                     android:textColorHint="@color/colorPrimary"
+                                                                     android:hint="@string/password"
+                                                                     android:textSize="18sp"
+                                                                     android:padding="10dp"
+                                                                     android:id="@+id/Password"
+                                                                     android:layout_margin="15dp"
+                                                                     android:inputType="textPassword"/>
+
+
+            <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/login" android:fontFamily="@font/font_bold"
+                    android:textColor="@color/white"
+                    android:onClick="@{viewmodel::Login}"
+                    android:textSize="20sp" android:gravity="center"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:cornerRadius="30dp"
+                    android:padding="10dp" app:strokeColor="@color/black"
+                    android:shadowColor="@color/black" android:layout_margin="15dp"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:gravity="center">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:textColor="@color/colorPrimary"
+                          android:textColorHint="@color/colorPrimary"
+                          android:hint="@string/goToSignIn"
+                          android:fontFamily="@font/font_regular"
+                          android:layout_marginRight="5dp"
+                          android:textSize="18sp"
+                />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:textColor="@color/colorPrimary"
+                          android:textColorHint="@color/colorPrimary"
+                          android:hint="@string/SignIn"
+
+                          android:fontFamily="@font/font_bold"
+                          android:textSize="18sp"
+                          android:id="@+id/goRegester"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView android:layout_width="match_parent" android:layout_height="153dp"
+                   android:id="@+id/logInPhoto"
+                   android:scaleType="centerInside"
+
+                   android:layout_gravity="top" android:layout_marginRight="20dp" android:layout_marginLeft="20dp"
+                   android:layout_marginTop="20dp"/>
+
+    </FrameLayout>
+</layout>

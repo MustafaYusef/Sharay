@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <FrameLayout android:layout_width="match_parent" android:layout_height="219dp">
+        <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+                   android:src="@drawable/car" android:scaleType="centerCrop" android:id="@+id/carImage1"/>
+        <LinearLayout android:layout_width="wrap_content" android:layout_marginTop="50dp"
+                      android:background="@drawable/btn_car_price" android:layout_height="wrap_content"
+                      android:paddingLeft="5dp" android:paddingRight="5dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/priceCar"
+                      android:text="25,000" android:textColor="#000"
+                      android:padding="5dp" android:textSize="18sp" android:fontFamily="@font/font_bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+
+                      android:text="$" android:textColor="#27AE60"
+                      android:padding="5dp" android:textSize="18sp" android:textStyle="bold"
+                      android:fontFamily="@font/font_bold"/>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_gravity="bottom"
+                      android:orientation="horizontal"
+                      android:layout_height="wrap_content"
+                      android:background="#99000000"
+                      android:weightSum="2" android:padding="10dp">
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1" android:gravity="center_vertical">
+                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                           android:src="@drawable/ic_directions_car_black_24dp" android:scaleType="centerCrop"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="29,000 MI"
+                          android:textSize="18sp"
+                          android:textColor="#fff"
+                          android:layout_marginLeft="5dp" android:layout_marginRight="5dp"
+                          android:id="@+id/engainPower" android:fontFamily="@font/font_bold"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:gravity="right|center_vertical">
+
+                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                           android:src="@drawable/ic_event_black_24dp" android:scaleType="centerCrop"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="2018" android:textSize="18sp"
+                          android:textColor="#fff"
+                          android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:id="@+id/modelYear"
+                          android:fontFamily="@font/font_bold"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <LinearLayout android:orientation="horizontal"
+                  android:layout_width="match_parent" android:layout_height="wrap_content"
+
+                  android:background="#fff" android:paddingLeft="5dp" android:gravity="center_vertical">
+        <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                     android:src="@drawable/ic_call_black_24dp"
+                     android:padding="4dp"
+                     android:layout_margin="3dp"
+                     android:background="@drawable/phone" android:id="@+id/callNumberF"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:textSize="20sp" android:text="hyondai santafia 33333c"
+                  android:textAlignment="textEnd" android:padding="3dp" android:textColor="#000"
+                  android:id="@+id/carNmae" android:fontFamily="@font/font_bold"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:background="@color/white"
+                  android:layout_height="wrap_content" android:gravity="right" android:layout_margin="5dp">
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:orientation="horizontal" android:background="@drawable/delete" android:padding="2dp"
+                      android:gravity="center">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textSize="18dp" android:textColor="@color/red" android:text="@string/Delete"
+                      android:fontFamily="@font/font_bold" android:padding="2dp"/>
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                       android:src="@drawable/ic_delete_black_24dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

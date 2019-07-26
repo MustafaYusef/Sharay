@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+           android:gravity="center"
+              android:padding="5dp"
+>
+
+    <ImageView
+    android:layout_width="100dp" android:layout_height="100dp"
+    android:scaleType="fitXY"
+    android:id="@+id/card_image_search"
+
+
+
+    />
+    <!--<de.hdodenhof.circleimageview.CircleImageView android:layout_width="match_parent"-->
+                                                  <!--android:layout_height="wrap_content"-->
+                                                  <!--android:layout_gravity="center|top"-->
+                                                  <!--app:civ_border_width="3dp"-->
+
+                                                  <!--app:civ_border_color="@color/colorAccent"-->
+                                                  <!--android:src="@drawable/car"-->
+                                                  <!--android:id="@+id/circul_image_search"-->
+                                                  <!--android:layout_margin="100dp"/>-->
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="car title"
+              android:id="@+id/card_title_search"
+    android:fontFamily="@font/font_regular" android:textSize="16sp"
+    android:textColor="@color/black"/>
+</LinearLayout>

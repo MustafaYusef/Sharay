@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">sharay</string>
+    <string name="Main">Main</string>
+    <string name="sections">Sections</string>
+    <string name="Add">Add</string>
+    <string name="Profile">Profile</string>
+    <string name="Setting">Setting</string>
+    <string name="Filters">Filters</string>
+    <string name="search">Search</string>
+    <string name="Delete">Delete</string>
+    <string name="Favorite">My Favorite</string>
+    <string name="MyAds">My Ads</string>
+    <string name="Languge">Languge</string>
+    <string name="who">who we are</string>
+    <string name="contact">Contact us</string>
+    <string name="Carforsale">Car for sale</string>
+    <string name="carcompany">Car Company</string>
+    <string name="carparts">Car parts</string>
+
+    <string name="importcar">Import car</string>
+    <string name="carnumber">Car plate</string>
+    <string name="motorcycle">Motor cycle</string>
+    <string name="carrent">Car for Rent</string>
+    <string name="changeLang">Change Language</string>
+
+    <string name="cancel">Cencel</string>
+    <string name="addedPhoto">Added Pictures</string>
+
+    <string name="EnterEmail">Enter your Email</string>
+    <string name="password">Enter Password</string>
+    <string name="login">Login</string>
+
+    <string name="SignIn">SignIn</string>
+    <string name="EnterPhone">Enter your Phone</string>
+    <string name="EnterFullName">Enter your FullName</string>
+    <string name="goToSignIn">If you dont have account go to</string>
+
+    <string name="MainInfo">Main Info and Status</string>
+    <string name="CarType">Car Type</string>
+    <string name="CarModel">Car Model</string>
+    <string name="Year">Year</string>
+    <string name="Status">Status</string>
+    <string name="Source">Source</string>
+
+    <string name="Engine">Engine</string>
+    <string name="CarTransmissionType">Car Transmission Type</string>
+    <string name="CylinderNo">Cylinder No</string>
+    <string name="EngineSize">Engine Size</string>
+    <string name="FuelType">Fuel Type</string>
+    <string name="PushingSystem">Pushing System</string>
+
+    <string name="Inside">Inside</string>
+    <string name="Sealing">Sealing</string>
+    <string name="Douchmh">Douchmh</string>
+    <string name="WindowsSystem">WindowsSystem</string>
+    <string name="SeatsNo">Seats No</string>
+    <string name="AirBags">Air Bags</string>
+    <string name="Screen">Screen</string>
+    <string name="Roof">Roof</string>
+
+    <string name="Outside">Outside</string>
+    <string name="Doors">Doors</string>
+    <string name="Sensors">Sensors</string>
+    <string name="Camera">Camera</string>
+    <string name="Lights">Lights</string>
+    <string name="Color">Color</string>
+
+    <string name="Details">Details</string>
+
+    <string name="Information">Information</string>
+    <string name="Name">Name</string>
+    <string name="Phone">Phone</string>
+    <string name="Province">Province</string>
+    <string name="AdditionDate">Addition Date</string>
+
+
+</resources>

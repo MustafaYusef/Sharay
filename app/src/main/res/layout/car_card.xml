@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:id="@+id/containerCar"
+              android:layout_height="wrap_content">
+    <FrameLayout android:layout_width="match_parent" android:layout_height="221dp">
+        <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:scaleType="fitXY" android:id="@+id/carImage"
+                   android:src="@drawable/car"
+                   android:cropToPadding="true"/>
+        <LinearLayout android:layout_width="wrap_content" android:layout_marginTop="50dp"
+                      android:background="@drawable/btn_car_price" android:layout_height="wrap_content"
+                      android:paddingLeft="7dp" android:paddingRight="7dp" android:orientation="horizontal"
+                      android:gravity="center">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:id="@+id/priceCar"
+                      android:text="25,000" android:textColor="#000"
+                      android:textSize="18sp" android:fontFamily="@font/font_bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+
+                      android:text="$" android:textColor="#27AE60"
+                      android:textSize="20sp" android:textStyle="bold"
+                      android:fontFamily="@font/font_bold" android:gravity="center" android:layout_marginLeft="3dp"/>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_gravity="bottom"
+                      android:orientation="horizontal"
+                      android:layout_height="wrap_content"
+                      android:background="#99000000"
+                      android:weightSum="2" android:padding="10dp">
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1" android:gravity="center_vertical">
+                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                           android:src="@drawable/ic_directions_car_black_24dp" android:scaleType="centerCrop"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="29,000 MI"
+                          android:textSize="18sp"
+                          android:textColor="#fff"
+                          android:layout_marginLeft="5dp" android:layout_marginRight="5dp"
+                          android:id="@+id/carMile" android:fontFamily="@font/font_bold"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:gravity="right|center_vertical">
+
+                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                           android:src="@drawable/ic_event_black_24dp" android:scaleType="centerCrop"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="2018" android:textSize="18sp"
+                          android:textColor="#fff"
+                          android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:id="@+id/modelYear"
+                          android:fontFamily="@font/font_bold"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <LinearLayout android:orientation="horizontal"
+                  android:layout_width="match_parent" android:layout_height="wrap_content"
+
+                  android:background="#fff" android:paddingLeft="5dp">
+        <ImageButton android:layout_width="40dp" android:layout_height="40dp"
+                     android:src="@drawable/ic_call_black_24dp"
+                     android:padding="4dp"
+                     android:layout_margin="3dp"
+                     android:background="@drawable/phone" android:id="@+id/callNumber"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:textSize="20sp" android:text="hyondai santafia 33333c"
+                  android:textAlignment="textEnd" android:padding="7dp" android:textColor="#000"
+                  android:id="@+id/carNmae" android:fontFamily="@font/font_bold"/>
+    </LinearLayout>
+
+</LinearLayout>

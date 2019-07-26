@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="viewmodel" type="com.mustafayusef.sharay.ui.search.SearchViewModel"/>
+    </data>
+
+
+<FrameLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ui.search.searchFragment"
+>
+
+    <LinearLayout
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent" android:background="@color/gray">
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/ToolBarsearch"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorPrimary" android:gravity="center"
+                android:layout_gravity="center"
+                android:theme="@style/ToolBarTheme"
+                android:padding="5dp"
+        >
+            <ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content"
+                         android:src="@drawable/ic_clear_white"
+                         android:background="#00FFFFFF" android:layout_gravity="right"
+                         android:layout_marginRight="5dp" android:id="@+id/closeSearch"/>
+
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+
+                      android:layout_gravity="center"
+                      android:text="@string/search"
+                      android:textColor="@color/white"
+                      android:textSize="21dp"
+                      android:scaleType="centerCrop"/>
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+        android:orientation="vertical">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:padding="5dp" android:gravity="center_vertical" android:background="@color/white">
+                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                           android:src="@drawable/ic_search_white_24dp" android:id="@+id/searchCarsClick"
+                           android:padding="4dp"
+                android:onClick="@{viewmodel::doSearch}"/>
+                <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:hint="@string/search" android:textSize="20sp"
+                           android:fontFamily="@font/font_regular"
+                          android:text="@={viewmodel.searchText}"
+                          android:id="@+id/searchCars"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:layout_marginTop="10dp"
+                          android:background="@color/white"
+                          android:orientation="vertical"
+
+                          android:id="@+id/lastContainer">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:textColor="@color/black"
+                          android:text="last search"
+                          android:layout_marginLeft="5dp"
+                          android:layout_marginRight="5dp"
+                          android:fontFamily="@font/font_regular"
+                          android:textSize="20sp"
+
+                />
+                <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                                           android:layout_height="wrap_content"
+                                                           android:id="@+id/SearchLastList"
+                                                           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                                           android:layout_centerVertical="true"
+                                                           android:orientation="horizontal">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                                           android:layout_height="wrap_content"
+                android:id="@+id/list_of_search_cars"></androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>
+</layout>

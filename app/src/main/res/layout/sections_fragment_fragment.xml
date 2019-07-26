@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.sections.Sections_fragment">
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
+
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:weightSum="2" android:background="@color/gray" android:padding="5dp">
+            <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                                               android:layout_height="150dp"
+                                               android:layout_weight="1"
+                                               android:layout_margin="10dp"
+                                               android:background="@drawable/round_section" app:cardCornerRadius="15dp"
+                                               android:id="@+id/carForSale">
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+
+                              android:layout_margin="5dp" android:padding="5dp" android:orientation="vertical"
+                              android:gravity="center">
+                    <ImageView android:layout_width="match_parent" android:layout_height="96dp"
+                               android:src="@drawable/car_sale" android:scaleType="centerInside"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/Carforsale" android:layout_marginTop="5dp"
+                              android:textColor="@android:color/black" android:textSize="18sp"
+                              android:fontFamily="@font/font_regular"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                                               android:layout_height="150dp"
+                                               android:layout_weight="1"
+                                               android:layout_margin="10dp"
+                                               android:id="@+id/CarCompany"
+                                               android:background="@drawable/round_section" app:cardCornerRadius="15dp">
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+
+                              android:layout_margin="5dp" android:padding="5dp" android:orientation="vertical"
+                              android:gravity="center">
+                    <ImageView android:layout_width="match_parent" android:layout_height="96dp"
+                               android:src="@drawable/maared" android:scaleType="centerInside"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/carcompany" android:layout_marginTop="5dp"
+                              android:textColor="@android:color/black" android:textSize="18sp"
+                              android:fontFamily="@font/font_regular"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:weightSum="2" android:background="@color/gray" android:padding="5dp">
+            <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                                               android:layout_height="150dp"
+                                               android:layout_weight="1"
+                                               android:id="@+id/PartsCar"
+
+                                               android:layout_margin="10dp"
+                                               android:background="@drawable/round_section" app:cardCornerRadius="15dp">
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+
+                              android:layout_margin="5dp" android:padding="5dp" android:orientation="vertical"
+                              android:gravity="center">
+                    <ImageView android:layout_width="match_parent" android:layout_height="96dp"
+                               android:src="@drawable/parts" android:scaleType="centerInside"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/carparts" android:layout_marginTop="5dp"
+                              android:textColor="@android:color/black" android:textSize="18sp"
+                              android:fontFamily="@font/font_regular"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                                               android:layout_height="150dp"
+                                               android:layout_weight="1"
+                                               android:layout_margin="10dp"
+                                               android:id="@+id/waredCar"
+                                               android:background="@drawable/round_section" app:cardCornerRadius="15dp">
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+
+                              android:layout_margin="5dp" android:padding="5dp" android:orientation="vertical"
+                              android:gravity="center">
+                    <ImageView android:layout_width="match_parent" android:layout_height="96dp"
+                               android:src="@drawable/ward" android:scaleType="centerInside"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/importcar" android:layout_marginTop="5dp"
+                              android:textColor="@android:color/black" android:textSize="18sp"
+                              android:fontFamily="@font/font_regular"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:weightSum="2" android:background="@color/gray" android:padding="5dp">
+            <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                                               android:layout_height="150dp"
+                                               android:layout_weight="1"
+                                               android:layout_margin="10dp"
+                                               android:id="@+id/CarNumbers"
+                                               android:background="@drawable/round_section" app:cardCornerRadius="15dp">
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+
+                              android:layout_margin="5dp" android:padding="5dp" android:orientation="vertical"
+                              android:gravity="center">
+                    <ImageView android:layout_width="match_parent" android:layout_height="96dp"
+                               android:src="@drawable/numbers" android:scaleType="centerInside"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/carnumber" android:layout_marginTop="5dp"
+                              android:textColor="@android:color/black" android:textSize="18sp"
+                              android:fontFamily="@font/font_regular"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                                               android:layout_height="150dp"
+                                               android:layout_weight="1"
+                                               android:layout_margin="10dp"
+                                               android:id="@+id/Motore"
+                                               android:background="@drawable/round_section" app:cardCornerRadius="15dp">
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+
+                              android:layout_margin="5dp" android:padding="5dp" android:orientation="vertical"
+                              android:gravity="center">
+                    <ImageView android:layout_width="match_parent" android:layout_height="96dp"
+                               android:src="@drawable/cycle" android:scaleType="centerInside"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/motorcycle" android:layout_marginTop="5dp"
+                              android:textColor="@android:color/black" android:textSize="18sp"
+                              android:fontFamily="@font/font_regular"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:weightSum="2" android:background="@color/gray" android:padding="5dp"
+                      android:gravity="left">
+            <androidx.cardview.widget.CardView android:layout_width="575dp"
+                                               android:layout_height="150dp"
+                                               android:layout_weight="4"
+                                               android:id="@+id/CarForRent"
+                                               android:layout_margin="10dp"
+                                               android:background="@drawable/round_section" app:cardCornerRadius="15dp">
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+
+                              android:layout_margin="5dp" android:padding="5dp" android:orientation="vertical"
+                              android:gravity="center">
+                    <ImageView android:layout_width="match_parent" android:layout_height="96dp"
+                               android:src="@drawable/rent" android:scaleType="centerInside"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="@string/carrent" android:layout_marginTop="5dp"
+                              android:textColor="@android:color/black" android:textSize="18sp"
+                              android:fontFamily="@font/font_regular"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+</FrameLayout>

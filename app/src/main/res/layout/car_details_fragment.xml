@@ -1,0 +1,837 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="viewmodel" type="com.mustafayusef.sharay.ui.main.cardetails.CarDetailsViewModel"/>
+    </data>
+
+<FrameLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.cardetails.carDetails" android:background="@color/gray">
+    <com.airbnb.lottie.LottieAnimationView
+            android:inputType="textEmailAddress|textNoSuggestions"
+            android:visibility="invisible"
+            android:id="@+id/animation_loadingCarDetails"
+            android:layout_width="234dp"
+            android:layout_height="162dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            app:lottie_rawRes="@raw/loading_animation"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="false"
+
+
+            android:translationZ="1dp"
+    />
+  <ScrollView
+          android:id="@+id/detailsContainer"
+          android:layout_width="match_parent" android:layout_height="wrap_content">
+
+
+      <LinearLayout
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:id="@+id/containerCar"
+              android:layout_height="match_parent">
+          <FrameLayout android:layout_width="match_parent" android:layout_height="221dp">
+              <!--<ImageView android:layout_width="match_parent" android:layout_height="match_parent"-->
+                         <!--android:scaleType="fitXY"-->
+                         <!--android:id="@+id/carImageD"-->
+
+                         <!--android:cropToPadding="true"/>-->
+
+
+                  <com.smarteist.autoimageslider.SliderView
+                          android:id="@+id/carImageD"
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          app:sliderAnimationDuration="600"
+                          android:cropToPadding="true"
+                          app:sliderAutoCycleDirection="back_and_forth"
+                          app:sliderAutoCycleEnabled="true"
+                          app:sliderCircularHandlerEnabled="true"
+                          app:sliderIndicatorAnimationDuration="600"
+                          app:sliderIndicatorGravity="center_horizontal|bottom"
+                          app:sliderIndicatorMargin="15dp"
+                          app:sliderIndicatorOrientation="horizontal"
+                          app:sliderIndicatorPadding="3dp"
+                          app:sliderIndicatorRadius="2dp"
+                          app:sliderIndicatorSelectedColor="#5A5A5A"
+                          app:sliderIndicatorUnselectedColor="#FFF"
+                          app:sliderScrollTimeInSec="1"
+                          app:sliderStartAutoCycle="true" />
+
+
+              <LinearLayout android:layout_width="wrap_content"
+                            android:background="@drawable/btn_car_price" android:layout_height="wrap_content"
+                            android:paddingLeft="10dp" android:paddingRight="10dp" android:layout_gravity="bottom|left"
+                            android:layout_marginBottom="10dp">
+                  <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:id="@+id/priceCarD"
+                            android:text="@={viewmodel.price}" android:textColor="#000"
+                            android:textSize="20sp" android:fontFamily="@font/font_bold"/>
+                  <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+
+                            android:text="$" android:textColor="#27AE60"
+                            android:textSize="20sp" android:textStyle="bold"
+                            android:fontFamily="@font/font_bold" android:layout_marginLeft="3dp"/>
+              </LinearLayout>
+              <LinearLayout android:layout_width="122dp"
+                            android:background="@drawable/rud_count" android:layout_height="wrap_content"
+                            android:paddingLeft="15dp" android:paddingRight="15dp"
+                            android:layout_gravity="bottom|right"
+                            android:gravity="center">
+                  <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                             android:id="@+id/imgNum"
+                            android:text="1/5" android:textColor="#000"
+
+                            android:textSize="24sp" android:fontFamily="@font/font_regular"/>
+                  <ImageView android:layout_width="20dp" android:layout_height="20dp"
+
+                             android:src="@drawable/slider_count"
+                             android:layout_marginLeft="10dp"/>
+              </LinearLayout>
+          </FrameLayout>
+
+          <FrameLayout
+                  android:layout_width="match_parent" android:layout_height="73dp"
+
+                  android:background="#fff" android:padding="5dp">
+              <ImageButton android:layout_width="40dp" android:layout_height="42dp"
+                           android:src="@drawable/ic_call_black_24dp"
+                           android:padding="4dp"
+                           android:background="@drawable/phone" android:id="@+id/callNumberD"
+                           android:layout_marginLeft="3dp"
+                           android:layout_marginRight="3dp" android:layout_marginBottom="3dp"
+                           android:layout_gravity="left|center_vertical"/>
+              <TextView android:layout_width="wrap_content" android:layout_height="60dp"
+                        android:textSize="20sp" android:text="@={viewmodel.name}"
+                        android:layout_gravity="right|center_horizontal"
+                        android:textAlignment="center" android:padding="4dp" android:textColor="#000"
+                        android:id="@+id/StoreNameD" android:gravity="right|center_vertical"
+                        android:layout_marginRight="65dp"/>
+              <LinearLayout android:layout_width="60dp" android:layout_height="60dp"
+                            android:layout_gravity="right"
+                            android:background="@drawable/rounded_profile" android:padding="10dp"
+              >
+                  <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                             android:src="@drawable/ic_person_black_44dp"
+                             android:padding="3dp"/>
+              </LinearLayout>
+          </FrameLayout>
+
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@color/white" android:layout_marginTop="10dp"
+                        android:paddingRight="10dp" android:layout_marginBottom="10dp">
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/black" android:textSize="24sp"
+                        android:text="@={viewmodel.title}"
+                        android:fontFamily="@font/font_regular"
+                        android:id="@+id/titleD"
+                        android:gravity="right"/>
+
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/black" android:textSize="18sp"
+                        android:text="@={viewmodel.description}"
+                        android:fontFamily="@font/font_regular"
+                        android:id="@+id/descD"
+                        android:gravity="right"/>
+          </LinearLayout>
+
+          <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:orientation="vertical"
+
+
+                       >
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/white" android:textSize="20sp"
+                        android:text="@string/MainInfo"
+                        android:fontFamily="@font/font_bold"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center" android:padding="5dp"/>
+
+              <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:orientation="horizontal" android:weightSum="2"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:background="@color/gray" android:layoutDirection="locale">
+                  <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="18sp" android:text="@string/CarType"
+                            android:fontFamily="@font/font_bold"
+                            android:layout_weight="1"
+
+
+                            android:padding="5dp" android:layoutDirection="locale"/>
+                  <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:textSize="18sp" android:text="@string/CarType"
+                            android:fontFamily="@font/font_regular"
+                            android:layout_weight="1"
+                            android:id="@+id/ClassCar"
+                            android:padding="5dp" android:layoutDirection="locale" android:gravity="center"/>
+              </LinearLayout>
+
+              <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:orientation="horizontal" android:weightSum="2"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:background="@color/white" android:layoutDirection="locale">
+                  <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="18sp" android:text="@string/CarModel"
+                            android:fontFamily="@font/font_bold"
+                            android:layout_weight="1"
+
+
+                            android:padding="5dp"/>
+                  <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:textSize="18sp" android:text="@={viewmodel.model}"
+                            android:fontFamily="@font/font_regular"
+                            android:layout_weight="1"
+                            android:id="@+id/modelCar"
+                            android:gravity="center" android:padding="5dp"/>
+              </LinearLayout>
+
+              <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:orientation="horizontal" android:weightSum="2"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:background="@color/gray" android:layoutDirection="locale">
+                  <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="18sp" android:text="@string/Year"
+                            android:fontFamily="@font/font_bold"
+                            android:layout_weight="1"
+
+
+                            android:padding="5dp"/>
+                  <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:text="@={viewmodel.year}"
+                            android:fontFamily="@font/font_regular"
+                            android:layout_weight="1"
+                            android:id="@+id/yearCar"
+
+                            android:gravity="center" android:padding="5dp"/>
+              </LinearLayout>
+
+              <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:orientation="horizontal" android:weightSum="2"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:background="@color/white" android:layoutDirection="locale">
+                  <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="18sp" android:text="@string/Status"
+                            android:fontFamily="@font/font_bold"
+                            android:layout_weight="1"
+
+
+                            android:padding="5dp"/>
+                  <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:textSize="18sp" android:text="@={viewmodel.status}"
+                            android:fontFamily="@font/font_regular"
+                            android:layout_weight="1"
+                            android:id="@+id/status"
+
+                            android:gravity="center" android:padding="5dp"/>
+              </LinearLayout>
+
+              <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:orientation="horizontal" android:weightSum="2"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:background="@color/gray" android:layoutDirection="locale">
+                  <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="18sp" android:text="@string/Source"
+                            android:fontFamily="@font/font_bold"
+                            android:layout_weight="1"
+
+
+                            android:padding="5dp"/>
+                  <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:text="@={viewmodel.warid}"
+                            android:fontFamily="@font/font_regular"
+                            android:layout_weight="1"
+                            android:id="@+id/warid"
+
+                            android:gravity="center" android:padding="5dp"/>
+              </LinearLayout>
+
+          </LinearLayout>
+
+
+          <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/white" android:textSize="20sp"
+                    android:text="@string/Engine"
+                    android:fontFamily="@font/font_bold"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center" android:padding="5dp"/>
+
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:weightSum="2"
+                        android:paddingLeft="5dp"
+                        android:layoutDirection="locale"
+                        android:paddingRight="5dp"
+                        android:background="@color/gray">
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" android:text="@string/CarTransmissionType"
+                        android:fontFamily="@font/font_bold"
+                        android:layout_weight="1"
+
+
+                     android:padding="5dp"/>
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="@={viewmodel.gear}"
+                        android:fontFamily="@font/font_regular"
+                        android:layout_weight="1"
+                        android:id="@+id/gear"
+                        android:gravity="center" android:padding="5dp"/>
+          </LinearLayout>
+
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:weightSum="2"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layoutDirection="locale"
+                        android:background="@color/white">
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" android:text="@string/CylinderNo"
+                        android:fontFamily="@font/font_bold"
+                        android:layout_weight="1"
+
+
+                        android:padding="5dp"/>
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="18sp" android:text="@={viewmodel.cylinders}"
+                        android:fontFamily="@font/font_regular"
+                        android:layout_weight="1"
+                        android:id="@+id/cylinders"
+                        android:gravity="center" android:padding="5dp"/>
+          </LinearLayout>
+
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:weightSum="2"
+                        android:paddingLeft="5dp"
+                        android:layoutDirection="locale"
+                        android:paddingRight="5dp"
+                        android:background="@color/gray">
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" android:text="@string/EngineSize"
+                        android:fontFamily="@font/font_bold"
+                        android:layout_weight="1"
+
+
+                       android:padding="5dp"/>
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="18sp" android:text="@={viewmodel.horse}"
+                        android:fontFamily="@font/font_regular"
+                        android:layout_weight="1"
+                        android:id="@+id/horse"
+                        android:gravity="center" android:padding="5dp"/>
+          </LinearLayout>
+
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:weightSum="2"
+                        android:paddingLeft="5dp"
+                        android:layoutDirection="locale"
+                        android:paddingRight="5dp"
+                        android:background="@color/white">
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/FuelType"
+                        android:fontFamily="@font/font_bold"
+                        android:layout_weight="1"
+
+
+                         android:padding="5dp"/>
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="18sp" android:text="@={viewmodel.fuel}"
+                        android:fontFamily="@font/font_regular"
+                        android:layout_weight="1"
+                        android:id="@+id/fuel"
+                        android:gravity="center" android:padding="5dp"/>
+          </LinearLayout>
+
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:weightSum="2"
+                        android:paddingLeft="5dp"
+                        android:layoutDirection="locale"
+                        android:paddingRight="5dp"
+                        android:background="@color/gray">
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:text="@string/PushingSystem"
+                        android:fontFamily="@font/font_bold"
+                        android:layout_weight="1"
+
+
+                         android:padding="5dp"/>
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="18sp" android:text="@={viewmodel.driveSystem}"
+                        android:fontFamily="@font/font_regular"
+                        android:layout_weight="1"
+                        android:id="@+id/driveSystem"
+
+                        android:gravity="center" android:padding="5dp"/>
+          </LinearLayout>
+
+
+          <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/white" android:textSize="20sp"
+                    android:text="@string/Inside"
+                    android:fontFamily="@font/font_bold"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center" android:padding="5dp"/>
+
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:weightSum="2"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layoutDirection="locale"
+                        android:background="@color/gray">
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" android:text="@string/Sealing"
+                        android:fontFamily="@font/font_bold"
+                        android:layout_weight="1"
+
+
+                         android:padding="5dp"/>
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="18sp" android:text="Description"
+                        android:fontFamily="@font/font_regular"
+                        android:layout_weight="1"
+
+                        android:gravity="center" android:padding="5dp"/>
+          </LinearLayout>
+
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:weightSum="2"
+                        android:paddingLeft="5dp"
+                        android:layoutDirection="locale"
+                        android:paddingRight="5dp"
+                        android:background="@color/white">
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" android:text="@string/Douchmh"
+                        android:fontFamily="@font/font_bold"
+                        android:layout_weight="1"
+
+
+                       android:padding="5dp"/>
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="18sp" android:text="@={viewmodel.roof}"
+                        android:fontFamily="@font/font_regular"
+                        android:layout_weight="1"
+                        android:id="@+id/roof"
+
+                        android:gravity="center" android:padding="5dp"/>
+          </LinearLayout>
+
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:weightSum="2"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layoutDirection="locale"
+                        android:background="@color/gray">
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" android:text="@string/WindowsSystem"
+                        android:fontFamily="@font/font_bold"
+                        android:layout_weight="1"
+
+
+                         android:padding="5dp"/>
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="18sp" android:text="@={viewmodel.window}"
+                        android:fontFamily="@font/font_regular"
+                        android:layout_weight="1"
+                        android:id="@+id/window"
+
+                        android:gravity="center" android:padding="5dp"/>
+          </LinearLayout>
+
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:weightSum="2"
+                        android:paddingLeft="5dp"
+                        android:layoutDirection="locale"
+                        android:paddingRight="5dp"
+                        android:background="@color/white">
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" android:text="@string/SeatsNo"
+                        android:fontFamily="@font/font_bold"
+                        android:layout_weight="1"
+
+
+                         android:padding="5dp"/>
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="18sp" android:text="@={viewmodel.seats}"
+                        android:fontFamily="@font/font_regular"
+                        android:layout_weight="1"
+                        android:id="@+id/seats"
+
+                        android:gravity="center" android:padding="5dp"/>
+          </LinearLayout>
+
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:weightSum="2"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layoutDirection="locale"
+                        android:background="@color/gray">
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" android:text="@string/AirBags"
+                        android:fontFamily="@font/font_bold"
+                        android:layout_weight="1"
+
+
+                         android:padding="5dp"/>
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="18sp" android:text="@={viewmodel.airBags}"
+                        android:fontFamily="@font/font_regular"
+                        android:layout_weight="1"
+                        android:id="@+id/airBags"
+
+                        android:gravity="center" android:padding="5dp"/>
+          </LinearLayout>
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:weightSum="2"
+                        android:paddingLeft="5dp"
+                        android:layoutDirection="locale"
+                        android:paddingRight="5dp"
+                        android:background="@color/white">
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" android:text="@string/Screen"
+                        android:fontFamily="@font/font_bold"
+                        android:layout_weight="1"
+
+
+                        android:padding="5dp"/>
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:textSize="18sp" android:text="tt"
+                        android:fontFamily="@font/font_regular"
+                        android:layout_weight="1"
+
+
+                        android:gravity="center" android:padding="5dp"/>
+          </LinearLayout>
+
+
+          <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textSize="20sp" android:text="@string/Outside"
+                    android:fontFamily="@font/font_bold"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center" android:padding="5dp"/>
+
+
+      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:weightSum="2"
+                    android:paddingLeft="5dp"
+                    android:layoutDirection="locale"
+                    android:paddingRight="5dp"
+                    android:background="@color/white">
+          <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" android:text="@string/Doors"
+                    android:fontFamily="@font/font_bold"
+                    android:layout_weight="1"
+
+
+              android:padding="5dp"/>
+          <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textSize="18sp" android:text="@={viewmodel.doors}"
+                    android:fontFamily="@font/font_regular"
+                    android:layout_weight="1"
+                    android:id="@+id/doors"
+                    android:gravity="center" android:padding="5dp"/>
+      </LinearLayout>
+
+      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:weightSum="2"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layoutDirection="locale"
+                    android:background="@color/gray">
+          <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" android:text="@string/Sensors"
+                    android:fontFamily="@font/font_bold"
+                    android:layout_weight="1"
+
+
+                 android:padding="5dp"/>
+          <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textSize="18sp" android:text="@={viewmodel.sensors}"
+                    android:fontFamily="@font/font_regular"
+                    android:layout_weight="1"
+                    android:id="@+id/sensors"
+                    android:gravity="center" android:padding="5dp"/>
+      </LinearLayout>
+
+      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:weightSum="2"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layoutDirection="locale"
+                    android:background="@color/white">
+          <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" android:text="@string/Camera"
+                    android:fontFamily="@font/font_bold"
+                    android:layout_weight="1"
+
+
+                     android:padding="5dp"/>
+          <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textSize="18sp" android:text="@={viewmodel.camera}"
+                    android:fontFamily="@font/font_regular"
+                    android:layout_weight="1"
+
+                    android:gravity="center" android:padding="5dp" android:id="@+id/cameraD"/>
+      </LinearLayout>
+
+      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:weightSum="2"
+                    android:paddingLeft="5dp"
+                    android:layoutDirection="locale"
+                    android:paddingRight="5dp"
+                    android:background="@color/gray">
+          <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" android:text="@string/Lights"
+                    android:fontFamily="@font/font_bold"
+                    android:layout_weight="1"
+
+
+                    android:padding="5dp"/>
+          <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textSize="18sp" android:text="@={viewmodel.lamps}"
+                    android:fontFamily="@font/font_regular"
+                    android:layout_weight="1"
+                    android:id="@+id/lamps"
+
+                    android:gravity="center" android:padding="5dp"/>
+      </LinearLayout>
+      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:weightSum="2"
+                    android:paddingLeft="5dp"
+                    android:layoutDirection="locale"
+                    android:paddingRight="5dp"
+                    android:background="@color/gray">
+          <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" android:text="@string/Color"
+                    android:fontFamily="@font/font_bold"
+                    android:layout_weight="1"
+
+
+                  android:padding="5dp"/>
+          <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textSize="18sp" android:text="@={viewmodel.color}"
+                    android:fontFamily="@font/font_regular"
+                    android:layout_weight="1"
+                    android:id="@+id/color"
+                    android:gravity="center" android:padding="5dp"/>
+      </LinearLayout>
+
+      <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:textSize="20sp" android:text="@string/Details"
+                android:fontFamily="@font/font_bold"
+                android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:gravity="center" android:padding="5dp"/>
+
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal" android:weightSum="2"
+                  android:paddingLeft="5dp"
+                  android:paddingRight="5dp"
+                  android:layoutDirection="locale"
+                  android:background="@color/white">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="18sp" android:text="@string/Doors"
+                  android:fontFamily="@font/font_bold"
+                  android:layout_weight="1"
+
+
+               android:padding="5dp"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:textSize="18sp" android:text="Description"
+                  android:fontFamily="@font/font_regular"
+                  android:layout_weight="1"
+
+                  android:gravity="center" android:padding="5dp"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal" android:weightSum="2"
+                  android:paddingLeft="5dp"
+                  android:paddingRight="5dp"
+                  android:layoutDirection="locale"
+                  android:background="@color/gray">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="18sp" android:text="@string/Sensors"
+                  android:fontFamily="@font/font_bold"
+                  android:layout_weight="1"
+
+
+          android:padding="5dp"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:textSize="18sp" android:text="Description"
+                  android:fontFamily="@font/font_regular"
+                  android:layout_weight="1"
+
+                  android:gravity="center" android:padding="5dp"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal" android:weightSum="2"
+                  android:paddingLeft="5dp"
+                  android:layoutDirection="locale"
+                  android:paddingRight="5dp"
+                  android:background="@color/white">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="18sp" android:text="@string/Camera"
+                  android:fontFamily="@font/font_bold"
+                  android:layout_weight="1"
+
+
+               android:padding="5dp"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:textSize="18sp" android:text="Description"
+                  android:fontFamily="@font/font_regular"
+                  android:layout_weight="1"
+
+                  android:gravity="center" android:padding="5dp"/>
+    </LinearLayout>
+          <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textSize="20sp" android:text="@string/Information"
+                    android:fontFamily="@font/font_bold"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:layout_weight="1"
+
+                    android:gravity="center" android:padding="5dp"/>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal" android:weightSum="2"
+                  android:paddingLeft="5dp"
+                  android:paddingRight="5dp"
+                  android:layoutDirection="locale"
+                  android:background="@color/gray">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="18sp" android:text="@string/Name"
+                  android:fontFamily="@font/font_bold"
+                  android:layout_weight="1"
+
+
+                 android:padding="5dp"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:textSize="18sp" android:text="@={viewmodel.name}"
+                  android:fontFamily="@font/font_regular"
+                  android:layout_weight="1"
+                   android:id="@+id/name"
+                  android:gravity="center" android:padding="5dp"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal" android:weightSum="2"
+                  android:paddingLeft="5dp"
+                  android:layoutDirection="locale"
+                  android:paddingRight="5dp"
+                  android:background="@color/white">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:textColor="@color/colorPrimary"
+                  android:textSize="18sp" android:text="@string/Phone"
+                  android:fontFamily="@font/font_bold"
+                  android:layout_weight="1"
+
+
+                   android:padding="5dp"/>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:textSize="18sp" android:text="@={viewmodel.phone}"
+                  android:fontFamily="@font/font_regular"
+                  android:layout_weight="1"
+                  android:id="@+id/phone"
+
+                  android:gravity="center" android:padding="5dp"/>
+    </LinearLayout>
+
+
+
+
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:orientation="horizontal" android:weightSum="2"
+              android:paddingLeft="5dp"
+              android:paddingRight="5dp"
+              android:layoutDirection="locale"
+              android:background="@color/gray">
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+          android:textColor="@color/colorPrimary"
+          android:textSize="18sp" android:text="@string/Province"
+          android:fontFamily="@font/font_bold"
+          android:layout_weight="1"
+
+
+          android:padding="5dp"/>
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+          android:textSize="18sp" android:text="@={viewmodel.location}"
+          android:fontFamily="@font/font_regular"
+          android:layout_weight="1"
+          android:id="@+id/location"
+
+          android:gravity="center" android:padding="5dp"/>
+</LinearLayout>
+
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:orientation="horizontal" android:weightSum="2"
+              android:paddingLeft="5dp"
+              android:layoutDirection="locale"
+              android:paddingRight="5dp"
+              android:background="@color/white">
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+          android:textColor="@color/colorPrimary"
+          android:textSize="18sp" android:text="@string/AdditionDate"
+          android:fontFamily="@font/font_bold"
+          android:layout_weight="1"
+
+
+           android:padding="5dp"/>
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+          android:textSize="18sp" android:text="@={viewmodel.date}"
+          android:fontFamily="@font/font_regular"
+          android:layout_weight="1"
+          android:id="@+id/date"
+
+          android:gravity="center" android:padding="5dp"/>
+</LinearLayout>
+
+
+</LinearLayout>
+</ScrollView>
+        </FrameLayout>
+</layout>

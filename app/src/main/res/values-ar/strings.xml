@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">شراي</string>
+    <string name="Main">الرئيسية</string>
+    <string name="sections">الأقسام</string>
+    <string name="Add">أضافة أعلان</string>
+    <string name="Profile">الحساب</string>
+    <string name="Setting">الأعدادات</string>
+    <string name="Filters">الفلاتر</string>
+    <string name="search">البحث</string>
+    <string name="Delete">حذف</string>
+    <string name="Favorite">المفضلة</string>
+    <string name="MyAds">أعلاناتي</string>
+    <string name="Languge">اللغة</string>
+    <string name="who">من نحن</string>
+    <string name="contact">أتصل بنا</string>
+    <string name="Carforsale">سيارات للبيع</string>
+    <string name="carcompany">معارض سيارات</string>
+    <string name="carparts">قطع غيار سيارات</string>
+
+    <string name="importcar">سيارات وارد</string>
+    <string name="carnumber">ارقام سيارات</string>
+    <string name="motorcycle">دراجات نارية</string>
+    <string name="carrent">سيارات للأيجار</string>
+    <string name="changeLang">تغيير اللغة</string>
+    <string name="cancel">خروج</string>
+    <string name="addedPhoto">الصور المضافة</string>
+    <string name="EnterEmail">ادخل بريدك الألكتروني</string>
+    <string name="password">أدخل كلمة المرور</string>
+    <string name="login">دخول</string>
+
+    <string name="SignIn">تسجيل الحساب</string>
+
+    <string name="EnterPhone">رقم الهاتف</string>
+    <string name="EnterFullName">الأسم الكامل</string>
+
+    <string name="goToSignIn">تسجيل الدخول</string>
+
+
+    <string name="MainInfo">المعلومات الرئيسية</string>
+    <string name="CarType">نوع السيارة</string>
+    <string name="CarModel">موديل السيارة</string>
+    <string name="Year">السنة</string>
+    <string name="Status">الحالة</string>
+    <string name="Source">المصدر</string>
+
+    <string name="Engine">المحرك</string>
+    <string name="CarTransmissionType">نوع ناقل الحركة</string>
+    <string name="CylinderNo">عدد الأسطوانات</string>
+    <string name="EngineSize">حجم المحرك</string>
+    <string name="FuelType">نوع الوقود</string>
+    <string name="PushingSystem">نظام الدفع</string>
+
+    <string name="Inside">الداخل</string>
+    <string name="Sealing">Sealing</string>
+    <string name="Douchmh">الدوشمة</string>
+    <string name="WindowsSystem">نظام النوافذ</string>
+    <string name="SeatsNo">عدد المقاعد</string>
+    <string name="AirBags">الوسادات الهوائية</string>
+    <string name="Screen">الشاشة</string>
+    <string name="Roof">السقف</string>
+
+    <string name="Outside">الخارج</string>
+    <string name="Doors">الأبواب</string>
+    <string name="Sensors">الحساسات</string>
+    <string name="Camera">الكامرات</string>
+    <string name="Lights">المصابيح</string>
+    <string name="Color">اللون</string>
+
+    <string name="Details">التفاصيل</string>
+
+    <string name="Information">المعلومات</string>
+    <string name="Name">الأسم</string>
+    <string name="Phone">الرقم</string>
+    <string name="Province">المحافظة</string>
+    <string name="AdditionDate">تاريخ الأضافة</string>
+</resources>

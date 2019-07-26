@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ui.main.Main_fragment">
+    <com.airbnb.lottie.LottieAnimationView
+            android:inputType="textEmailAddress|textNoSuggestions"
+            android:visibility="invisible"
+            android:id="@+id/animation_loadingMain"
+            android:layout_width="234dp"
+            android:layout_height="162dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            app:lottie_rawRes="@raw/loading_animation"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="false"
+
+
+            android:translationZ="1dp"
+    />
+   <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:layout_width="match_parent"
+                                                          android:layout_height="match_parent">
+       <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                                  android:layout_height="match_parent"
+       android:id="@+id/carList">
+
+       </androidx.recyclerview.widget.RecyclerView>
+   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</FrameLayout>
