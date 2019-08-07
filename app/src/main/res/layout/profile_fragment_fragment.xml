@@ -5,11 +5,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.profile.Profile_fragment" android:background="@color/gray">
+    <com.airbnb.lottie.LottieAnimationView
+            android:inputType="textEmailAddress|textNoSuggestions"
+            android:visibility="invisible"
+            android:id="@+id/animation_loadingProfile"
+            android:layout_width="234dp"
+            android:layout_height="162dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            app:lottie_rawRes="@raw/loading_animation"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="false"
+            android:translationZ="1dp"/>
+    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+               android:layout_gravity="right" android:src="@drawable/ic_exit_to_app_black_24dp"
+               android:layout_margin="10dp" android:id="@+id/logOut"/>
 
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+    android:id="@+id/profileContainer">
+
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical">
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_gravity="center_horizontal" android:layout_marginTop="30dp"
+                      android:translationZ="1dp"
+                      android:background="@drawable/rounded_profile" android:padding="10dp">
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                       android:src="@drawable/ic_person_black_44dp"
+                       android:padding="7dp"/>
+        </LinearLayout>
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
                   android:orientation="vertical" android:layout_marginLeft="15dp"
                   android:layout_marginRight="15dp"
-                  android:layout_marginTop="40dp"
+                 android:layout_marginTop="-20dp"
                   android:background="@color/white" android:gravity="center_horizontal"
                   android:paddingLeft="5dp" android:paddingRight="5dp">
         <LinearLayout android:layout_width="match_parent"
@@ -53,6 +84,24 @@
                       android:layout_marginTop="10dp" android:gravity="right">
 
             <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
+                      android:id="@+id/secondPhone"
+                      android:textSize="20sp" android:text="phone number"
+                      android:textColor="#000" android:textAlignment="gravity" android:gravity="center"
+                      android:layout_marginRight="10dp" android:fontFamily="@font/font_regular"/>
+            <LinearLayout android:background="@drawable/rounded_profile_frag"
+                          android:layout_width="50dp" android:layout_height="50dp" android:gravity="center"
+            >
+                <ImageView android:layout_width="35dp" android:layout_height="35dp"
+                           android:src="@drawable/ic_call_black_24dp_dark" android:scaleType="centerCrop"
+                           android:layout_gravity="center"/>
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp" android:gravity="right">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="match_parent"
                       android:id="@+id/emailUser"
                       android:textSize="20sp" android:text="mustafayusef@gmail.com"
                       android:textColor="#000" android:textAlignment="gravity" android:gravity="center"
@@ -79,12 +128,7 @@
                 app:cornerRadius="50dp" android:padding="10dp" android:textSize="20sp"
                 android:fontFamily="@font/font_bold"/>
     </LinearLayout>
-    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:layout_gravity="center_horizontal" android:layout_marginTop="10dp"
-                  android:background="@drawable/rounded_profile" android:padding="10dp">
-        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                   android:src="@drawable/ic_person_black_44dp"
-                   android:padding="7dp"/>
-    </LinearLayout>
 
+</LinearLayout>
+    </ScrollView>
 </FrameLayout>

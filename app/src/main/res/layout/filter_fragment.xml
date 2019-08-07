@@ -3,8 +3,24 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".ui.filters.filterFragment">
+
+    <com.airbnb.lottie.LottieAnimationView
+            android:inputType="textEmailAddress|textNoSuggestions"
+            android:visibility="invisible"
+            android:id="@+id/animation_loadingFilter"
+            android:layout_width="234dp"
+            android:layout_height="162dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            app:lottie_rawRes="@raw/loading_animation"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="false"
+            android:translationZ="1dp"/>
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
+
 
     <LinearLayout android:layout_width="match_parent"
                   android:orientation="vertical"
@@ -15,6 +31,7 @@
                 android:layout_height="50dp"
                 android:background="@color/colorPrimary" android:gravity="center"
                 android:layout_gravity="top"
+                android:visibility="gone"
                 android:theme="@style/ToolBarTheme"
                 android:padding="5dp"
         >
@@ -37,9 +54,237 @@
         </androidx.appcompat.widget.Toolbar>
 
 
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+
+        android:orientation="vertical">
+
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginRight="15dp"
+                      android:layout_marginLeft="15dp"
+
+                      android:padding="5dp" android:id="@+id/yearDilog">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:gravity="left"
+                      android:textSize="18sp"
+                      android:text="@string/Year"
+                      android:fontFamily="@font/font_bold"
+                      android:layout_weight="1"
+
+                      android:padding="5dp" android:id="@+id/typeFilter"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:textSize="18sp"
+                      android:fontFamily="@font/font_regular"
+                      android:layout_weight="1"
+                      android:textColor="@color/colorPrimary"
+                      android:text="@string/Year"
+                      android:gravity="right" android:padding="5dp"/>
+
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="2dp"
+                      android:orientation="horizontal"
+                      android:layout_margin="10dp"
+                      android:background="@color/colorPrimary"
+                      android:padding="5dp"/>
+
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginRight="15dp"
+                      android:layout_marginLeft="15dp"
+                      android:padding="5dp" android:id="@+id/carClassDilog">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:gravity="left"
+                      android:textSize="18sp"
+                      android:text="@string/CarClass"
+                      android:fontFamily="@font/font_bold"
+                      android:layout_weight="1"
+
+                      android:padding="5dp" android:id="@+id/classFilter"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:textSize="18sp"
+                      android:fontFamily="@font/font_regular"
+                      android:layout_weight="1"
+                      android:textColor="@color/colorPrimary"
+                      android:text="@string/CarClass"
+                      android:gravity="right" android:padding="5dp"/>
+
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="2dp"
+                      android:orientation="horizontal"
+                      android:layout_margin="10dp"
+                      android:background="@color/colorPrimary"
+                      android:padding="5dp"/>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginRight="15dp"
+                      android:layout_marginLeft="15dp"
+                      android:padding="5dp" android:id="@+id/carModelDilog">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:gravity="left"
+                      android:textSize="18sp"
+                      android:text="@string/CarModel"
+                      android:fontFamily="@font/font_bold"
+                      android:id="@+id/carModelFilter"
+                      android:layout_weight="1"
+
+                      android:padding="5dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:textSize="18sp"
+                      android:fontFamily="@font/font_regular"
+                      android:layout_weight="1"
+                      android:textColor="@color/colorPrimary"
+
+                      android:text="@string/CarModel"
+                      android:gravity="right" android:padding="5dp"/>
+
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="2dp"
+                      android:orientation="horizontal"
+                      android:layout_margin="10dp"
+                      android:background="@color/colorPrimary"
+                      android:padding="5dp"/>
+
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginRight="15dp"
+                      android:layout_marginLeft="15dp"
+                      android:padding="5dp" android:id="@+id/locationDilog">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+
+                      android:textSize="18sp" android:text="@string/location"
+                      android:fontFamily="@font/font_bold"
+                      android:layout_weight="1"
+                      android:gravity="left"
+                      android:id="@+id/locationFilter"
+                      android:padding="5dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:textSize="18sp"
+                      android:fontFamily="@font/font_regular"
+                      android:layout_weight="1"
+                      android:textColor="@color/colorPrimary"
+
+                      android:text="@string/location"
+                      android:gravity="right" android:padding="5dp"/>
+
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="2dp"
+                      android:orientation="horizontal"
+                      android:layout_margin="10dp"
+                      android:background="@color/colorPrimary"
+                      android:padding="5dp"/>
+
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginRight="15dp"
+                      android:layout_marginLeft="15dp"
+
+                      android:padding="5dp" android:id="@+id/priceDilog">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:gravity="left"
+                      android:textSize="18sp"
+                      android:text="@string/price"
+                      android:fontFamily="@font/font_bold"
+                      android:layout_weight="1"
+                      android:id="@+id/priceFilter"
+                      android:padding="5dp"/>
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:textSize="18sp"
+                      android:fontFamily="@font/font_regular"
+                      android:layout_weight="1"
+                      android:textColor="@color/colorPrimary"
+
+                      android:text="@string/price"
+                      android:gravity="right" android:padding="5dp"/>
+
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="2dp"
+                      android:orientation="horizontal"
+                      android:layout_margin="10dp"
+                      android:background="@color/colorPrimary"
+                      android:padding="5dp"/>
+
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginRight="15dp"
+                      android:layout_marginLeft="15dp"
+                      android:padding="5dp" android:id="@+id/sourceDilog">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:gravity="left"
+                      android:textSize="18sp"
+                      android:text="@string/Source"
+                      android:id="@+id/sourceFilter"
+                      android:fontFamily="@font/font_bold"
+                      android:layout_weight="1"
+
+                      android:padding="5dp"/>
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:textSize="18sp"
+                      android:fontFamily="@font/font_regular"
+                      android:layout_weight="1"
+                      android:textColor="@color/colorPrimary"
+
+                      android:text="@string/Source"
+                      android:gravity="right" android:padding="5dp"/>
+
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="2dp"
+                      android:orientation="horizontal"
+                      android:layout_margin="10dp"
+                      android:background="@color/colorPrimary"
+                      android:padding="5dp"/>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginRight="15dp"
+                      android:layout_marginLeft="15dp"
+                      android:padding="5dp" android:id="@+id/milesDilog">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:gravity="left"
+                      android:textSize="18sp"
+                      android:text="@string/miles"
+                      android:fontFamily="@font/font_bold"
+                      android:layout_weight="1"
+                      android:id="@+id/mileFilter"
+                      android:padding="5dp"/>
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:textSize="18sp"
+                      android:fontFamily="@font/font_regular"
+                      android:layout_weight="1"
+                      android:textColor="@color/colorPrimary"
+
+                      android:text="@string/miles"
+                      android:gravity="right" android:padding="5dp"/>
+
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="2dp"
+                      android:orientation="horizontal"
+                      android:layout_margin="10dp"
+                      android:background="@color/colorPrimary"
+                      android:padding="5dp"/>
+
+            <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/applay" android:fontFamily="@font/font_bold"
+                    android:textColor="@color/white"
+                    android:layout_weight="1"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20sp" android:gravity="center" app:backgroundTint="@color/colorAccent"
+                    app:cornerRadius="20dp"
+                    android:id="@+id/applayFilters" android:padding="5dp" app:strokeColor="@color/black"
+                    android:shadowColor="@color/black" android:layout_marginBottom="20dp"/>
     </LinearLayout>
-
-
+    </LinearLayout>
+    </ScrollView>
 
 
 </FrameLayout>

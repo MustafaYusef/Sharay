@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ui.sections.motors.motorDetails">
+    <com.airbnb.lottie.LottieAnimationView
+
+            android:visibility="invisible"
+            android:id="@+id/animation_loadingMotor"
+            android:layout_width="234dp"
+            android:layout_height="162dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            app:lottie_rawRes="@raw/loading_animation"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="false"
+
+
+            android:translationZ="1dp"
+    />
+    <ScrollView
+            android:id="@+id/detailsMotorContainer"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:id="@+id/containerCar"
+                android:layout_height="match_parent">
+            <FrameLayout android:layout_width="match_parent" android:layout_height="221dp">
+                <!--<ImageView android:layout_width="match_parent" android:layout_height="match_parent"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:id="@+id/carImageD"-->
+
+                <!--android:cropToPadding="true"/>-->
+
+
+                <com.smarteist.autoimageslider.SliderView
+                        android:id="@+id/MotorImageD"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:sliderAnimationDuration="600"
+                        android:cropToPadding="true"
+                        app:sliderAutoCycleDirection="back_and_forth"
+                        app:sliderAutoCycleEnabled="true"
+                        app:sliderCircularHandlerEnabled="true"
+                        app:sliderIndicatorAnimationDuration="600"
+                        app:sliderIndicatorGravity="center_horizontal|bottom"
+                        app:sliderIndicatorMargin="15dp"
+                        app:sliderIndicatorOrientation="horizontal"
+                        app:sliderIndicatorPadding="3dp"
+                        app:sliderIndicatorRadius="2dp"
+                        app:sliderIndicatorSelectedColor="#5A5A5A"
+                        app:sliderIndicatorUnselectedColor="#FFF"
+                        app:sliderScrollTimeInSec="1"
+                        app:sliderStartAutoCycle="true" />
+
+
+
+
+            </FrameLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                          android:orientation="vertical"
+
+
+            >
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:textColor="@color/white" android:textSize="20sp"
+                          android:text="@string/MainInfo"
+                          android:layout_marginTop="10dp"
+                          android:fontFamily="@font/font_bold"
+                          android:background="@color/colorPrimary"
+                          android:gravity="center" android:padding="5dp"/>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:weightSum="2"
+                              android:paddingLeft="5dp"
+                              android:paddingRight="5dp"
+                              android:background="@color/gray" android:layoutDirection="locale">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:textColor="@color/colorPrimary"
+                              android:textSize="18sp" android:text="@string/Name"
+                              android:fontFamily="@font/font_bold"
+                              android:layout_weight="1"
+
+
+                              android:padding="5dp" android:layoutDirection="locale"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:textSize="18sp" android:text="@string/CarModel"
+                              android:fontFamily="@font/font_regular"
+                              android:layout_weight="1"
+                              android:id="@+id/motorNameD"
+                              android:padding="5dp" android:layoutDirection="locale" android:gravity="center"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:weightSum="2"
+                              android:paddingLeft="5dp"
+                              android:paddingRight="5dp"
+                              android:background="@color/white" android:layoutDirection="locale">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:textColor="@color/colorPrimary"
+                              android:textSize="18sp" android:text="@string/MotoreModel"
+                              android:fontFamily="@font/font_bold"
+                              android:layout_weight="1"
+
+
+                              android:padding="5dp"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:textSize="18sp"
+                              android:fontFamily="@font/font_regular"
+                              android:layout_weight="1"
+                              android:id="@+id/modelMotorD"
+                              android:gravity="center" android:padding="5dp"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:weightSum="2"
+                              android:paddingLeft="5dp"
+                              android:paddingRight="5dp"
+                              android:background="@color/gray" android:layoutDirection="locale">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:textColor="@color/colorPrimary"
+                              android:textSize="18sp" android:text="@string/Year"
+                              android:fontFamily="@font/font_bold"
+                              android:layout_weight="1"
+
+
+                              android:padding="5dp"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:textSize="18sp"
+
+                              android:fontFamily="@font/font_regular"
+                              android:layout_weight="1"
+                              android:id="@+id/yearMotorD"
+
+                              android:gravity="center" android:padding="5dp"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:weightSum="2"
+                              android:paddingLeft="5dp"
+                              android:paddingRight="5dp"
+                              android:background="@color/white" android:layoutDirection="locale">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:textColor="@color/colorPrimary"
+                              android:textSize="18sp" android:text="@string/Status"
+                              android:fontFamily="@font/font_bold"
+                              android:layout_weight="1"
+
+
+                              android:padding="5dp"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:textSize="18sp"
+                              android:fontFamily="@font/font_regular"
+                              android:layout_weight="1"
+                              android:id="@+id/statusMotorD"
+
+                              android:gravity="center" android:padding="5dp"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:weightSum="2"
+                              android:paddingLeft="5dp"
+                              android:paddingRight="5dp"
+                              android:background="@color/gray" android:layoutDirection="locale">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:textColor="@color/colorPrimary"
+                              android:textSize="18sp" android:text="@string/Color"
+                              android:fontFamily="@font/font_bold"
+                              android:layout_weight="1"
+
+
+                              android:padding="5dp"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:textSize="18sp"
+
+                              android:fontFamily="@font/font_regular"
+                              android:layout_weight="1"
+                              android:id="@+id/colorMotorD"
+
+                              android:gravity="center" android:padding="5dp"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:weightSum="2"
+                              android:paddingLeft="5dp"
+                              android:layoutDirection="locale"
+                              android:paddingRight="5dp"
+                              android:background="@color/white">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:textColor="@color/colorPrimary"
+                              android:textSize="18sp" android:text="@string/miles"
+                              android:fontFamily="@font/font_bold"
+                              android:layout_weight="1"
+
+
+                              android:padding="5dp"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:textSize="18sp"
+                              android:fontFamily="@font/font_regular"
+                              android:layout_weight="1"
+                              android:id="@+id/mileMotorD"
+                              android:gravity="center" android:padding="5dp"/>
+                </LinearLayout>
+
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:weightSum="2"
+                              android:paddingLeft="5dp"
+                              android:layoutDirection="locale"
+                              android:paddingRight="5dp"
+                              android:background="@color/gray">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:textColor="@color/colorPrimary"
+                              android:textSize="18sp" android:text="@string/price"
+                              android:fontFamily="@font/font_bold"
+                              android:layout_weight="1"
+
+
+                              android:padding="5dp"/>
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:textSize="18sp"
+                              android:fontFamily="@font/font_regular"
+                              android:layout_weight="1"
+                              android:id="@+id/priceMotorD"
+                              android:gravity="center" android:padding="5dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:textColor="@color/white" android:textSize="20sp"
+                      android:text="@string/descrption"
+                      android:fontFamily="@font/font_bold"
+                      android:background="@color/colorPrimary"
+                      android:gravity="center" android:padding="5dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal" android:weightSum="2"
+                          android:paddingLeft="5dp"
+                          android:layoutDirection="locale"
+                          android:paddingRight="5dp"
+                          android:layout_margin="5dp"
+                          android:background="@color/white">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:textColor="@color/colorPrimary"
+                          android:textSize="18sp" android:text="@string/descrption"
+                          android:fontFamily="@font/font_bold"
+                          android:layout_weight="1"
+                          android:id="@+id/desMotorD"
+
+                          android:padding="5dp"/>
+
+            </LinearLayout>
+
+
+
+
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:textSize="20sp" android:text="@string/Information"
+                      android:fontFamily="@font/font_bold"
+                      android:background="@color/colorPrimary"
+                      android:textColor="@color/white"
+                      android:layout_weight="1"
+
+                      android:gravity="center" android:padding="5dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal" android:weightSum="2"
+                          android:paddingLeft="5dp"
+                          android:paddingRight="5dp"
+                          android:layoutDirection="locale"
+                          android:background="@color/gray">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:textColor="@color/colorPrimary"
+                          android:textSize="18sp" android:text="@string/Name"
+                          android:fontFamily="@font/font_bold"
+                          android:layout_weight="1"
+
+
+                          android:padding="5dp"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:textSize="18sp"
+                          android:fontFamily="@font/font_regular"
+                          android:layout_weight="1"
+                          android:id="@+id/nameMotorD"
+                          android:gravity="center" android:padding="5dp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal" android:weightSum="2"
+                          android:paddingLeft="5dp"
+                          android:layoutDirection="locale"
+                          android:paddingRight="5dp"
+                          android:background="@color/white">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:textColor="@color/colorPrimary"
+                          android:textSize="18sp" android:text="@string/Phone"
+                          android:fontFamily="@font/font_bold"
+                          android:layout_weight="1"
+
+
+                          android:padding="5dp"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:textSize="18sp"
+                          android:fontFamily="@font/font_regular"
+                          android:layout_weight="1"
+                          android:id="@+id/phoneDmOTOR"
+
+                          android:gravity="center" android:padding="5dp"/>
+            </LinearLayout>
+
+
+
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal" android:weightSum="2"
+                          android:paddingLeft="5dp"
+                          android:paddingRight="5dp"
+                          android:layoutDirection="locale"
+                          android:background="@color/gray">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:textColor="@color/colorPrimary"
+                          android:textSize="18sp" android:text="@string/Province"
+                          android:fontFamily="@font/font_bold"
+                          android:layout_weight="1"
+
+
+                          android:padding="5dp"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:textSize="18sp"
+                          android:fontFamily="@font/font_regular"
+                          android:layout_weight="1"
+                          android:id="@+id/statesMD"
+
+                          android:gravity="center" android:padding="5dp"/>
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

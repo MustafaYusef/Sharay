@@ -42,18 +42,426 @@
 
             <LinearLayout android:background="@color/white"
                           android:layout_marginTop="10dp"
-                          android:layout_width="match_parent" android:layout_height="50dp" android:gravity="center"
-                          android:id="@+id/showList" android:orientation="horizontal" android:layout_weight="1"
+                          android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:gravity="center"
+                          android:id="@+id/showList" android:orientation="vertical" android:layout_weight="1"
                           android:layoutDirection="locale" android:textDirection="locale">
 
-
-                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                           android:src="@drawable/ic_keyboard_arrow_left_black_24dp"/>
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:text="@string/sections"
-                          android:textSize="20sp" android:textColor="@color/black" android:id="@+id/sectionsAdd"
-                          android:layout_weight="1" android:padding="5dp" android:layoutDirection="locale"/>
+                          android:textColor="@color/white" android:textSize="20sp"
+                          android:text="@string/mainTitle"
+                          android:fontFamily="@font/font_bold"
+                          android:background="@color/colorPrimary"
+                          android:gravity="center" android:padding="5dp"/>
+
+                <com.google.android.material.textfield.TextInputEditText android:layout_width="match_parent"
+                                                                         android:layout_height="50dp"
+                                                                         android:textColor="@color/colorPrimary"
+                                                                         android:layout_margin="10dp"
+                                                                         android:gravity="center"
+                                                                         android:fontFamily="@font/font_regular"
+                                                                         android:textSize="20sp"
+                                                                         android:id="@+id/MainTitleAdd"
+                                                                         android:textColorHint="@color/colorPrimary"
+                                                                         android:background="@drawable/add_input"
+                                                                         android:hint="@string/mainTitle"/>
+
+
             </LinearLayout>
+
+            <LinearLayout android:background="@color/white"
+                          android:layout_marginTop="10dp"
+                          android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:gravity="center"
+                          android:orientation="vertical" android:layout_weight="1"
+                          android:layoutDirection="locale" android:textDirection="locale">
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:textColor="@color/white" android:textSize="20sp"
+                          android:text="@string/MainInfo"
+                          android:fontFamily="@font/font_bold"
+                          android:background="@color/colorPrimary"
+                          android:gravity="center" android:padding="5dp"/>
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:weightSum="2">
+
+                    <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                                android:layout_height="45dp"
+                                                                android:layout_weight="1"
+                                                                android:layout_margin="10dp"
+                                                                android:gravity="center"
+                                                                android:fontFamily="@font/font_regular"
+                                                                android:textSize="20sp"
+                                                                android:textColorHint="@color/white"
+                                                                android:background="@drawable/add_btn"
+                                                                android:id="@+id/CarClassAdd"
+                                                                android:hint="@string/CarClass"
+                                                                android:spinnerMode="dialog"
+                                                                android:textAlignment="center"/>
+
+                    <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                               android:layout_height="45dp"
+                                                               android:layout_weight="1"
+
+                                                               android:layout_margin="10dp"
+                                                               android:gravity="center"
+                                                               android:fontFamily="@font/font_regular"
+                                                               android:textSize="20sp"
+                                                               android:textColorHint="@color/white"
+                                                               android:background="@drawable/add_btn"
+                                                               android:id="@+id/carModelAdd"
+                                                               android:hint="@string/CarModel"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:weightSum="2">
+
+                    <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                                             android:layout_height="45dp"
+                                                                             android:layout_weight="1"
+                                                                             android:textColor="@color/colorPrimary"
+                                                                             android:layout_margin="10dp"
+                                                                             android:gravity="center"
+                                                                             android:fontFamily="@font/font_regular"
+                                                                             android:textSize="20sp"
+                                                                             android:textColorHint="@color/colorPrimary"
+                                                                             android:background="@drawable/add_input"
+                                                               android:id="@+id/ColorAdd"
+                                                                             android:hint="@string/Color"/>
+
+                    <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                               android:layout_height="45dp"
+                                                               android:layout_weight="1"
+                                                               android:textColor="@color/colorPrimary"
+                                                               android:layout_margin="10dp"
+                                                               android:gravity="center"
+                                                               android:fontFamily="@font/font_regular"
+                                                               android:textSize="20sp"
+                                                               android:textColorHint="@color/colorPrimary"
+                                                               android:background="@drawable/add_input"
+                                                               android:id="@+id/statusAdd"
+                                                               android:hint="@string/Status"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:weightSum="2">
+
+                    <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                               android:layout_height="45dp"
+                                                               android:layout_weight="1"
+                                                               android:textColor="@color/colorPrimary"
+                                                               android:layout_margin="10dp"
+                                                               android:gravity="center"
+                                                               android:fontFamily="@font/font_regular"
+                                                               android:textSize="20sp"
+                                                               android:textColorHint="@color/colorPrimary"
+                                                               android:background="@drawable/add_input"
+                                                               android:id="@+id/YearAdd"
+                                                               android:hint="@string/Year"/>
+
+                    <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                               android:layout_height="45dp"
+                                                               android:layout_weight="1"
+                                                               android:textColor="@color/colorPrimary"
+                                                               android:layout_margin="10dp"
+                                                               android:gravity="center"
+                                                               android:fontFamily="@font/font_regular"
+                                                               android:textSize="20sp"
+                                                               android:textColorHint="@color/colorPrimary"
+                                                               android:background="@drawable/add_input"
+                                                               android:id="@+id/sourceAdd"
+                                                               android:hint="@string/Source"/>
+                </LinearLayout>
+                <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                           android:layout_height="45dp"
+                                                           android:layout_weight="1"
+                                                           android:textColor="@color/colorPrimary"
+                                                           android:layout_margin="10dp"
+                                                           android:gravity="center"
+                                                           android:fontFamily="@font/font_regular"
+                                                           android:textSize="20sp"
+                                                           android:textColorHint="@color/colorPrimary"
+                                                           android:background="@drawable/add_input"
+                                                           android:id="@+id/MilesAdd"
+                                                           android:hint="@string/miles"/>
+                <com.google.android.material.textfield.TextInputEditText android:layout_width="match_parent"
+                                                                         android:layout_height="45dp"
+                                                                         android:textColor="@color/colorPrimary"
+                                                                         android:layout_margin="10dp"
+                                                                         android:gravity="center"
+                                                                         android:fontFamily="@font/font_regular"
+                                                                         android:textSize="20sp"
+                                                                         android:id="@+id/PriceAdd"
+                                                                         android:inputType="number"
+                                                                         android:textColorHint="@color/colorPrimary"
+                                                                         android:background="@drawable/add_input"
+                                                                         android:hint="@string/price"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout android:background="@color/white"
+                          android:layout_marginTop="10dp"
+                          android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:gravity="center"
+                          android:orientation="vertical" android:layout_weight="1"
+                          android:layoutDirection="locale" android:textDirection="locale">
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:textColor="@color/white" android:textSize="20sp"
+                          android:text="@string/Engine"
+                          android:fontFamily="@font/font_bold"
+                          android:background="@color/colorPrimary"
+                          android:gravity="center" android:padding="5dp"/>
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:weightSum="2">
+
+                    <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                               android:layout_height="45dp"
+                                                               android:layout_weight="1"
+
+                                                               android:layout_margin="10dp"
+                                                               android:gravity="center"
+                                                               android:fontFamily="@font/font_regular"
+                                                               android:textSize="20sp"
+                                                               android:textColorHint="@color/colorPrimary"
+                                                               android:background="@drawable/add_input"
+                                                               android:id="@+id/cylenderAdd"
+                                                               android:hint="@string/CylinderNo"
+                                                               android:textColor="@color/colorPrimary"/>
+
+                    <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                               android:layout_height="45dp"
+                                                               android:layout_weight="1"
+
+                                                               android:layout_margin="10dp"
+                                                               android:gravity="center"
+                                                               android:fontFamily="@font/font_regular"
+                                                               android:textSize="20sp"
+                                                               android:textColorHint="@color/colorPrimary"
+                                                               android:background="@drawable/add_input"
+                                                               android:id="@+id/GearAdd"
+                                                               android:hint="@string/GearNum"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:weightSum="2">
+
+                    <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                               android:layout_height="45dp"
+                                                               android:layout_weight="1"
+                                                               android:textColor="@color/colorPrimary"
+                                                               android:layout_margin="10dp"
+                                                               android:gravity="center"
+                                                               android:fontFamily="@font/font_regular"
+                                                               android:textSize="20sp"
+                                                               android:textColorHint="@color/colorPrimary"
+                                                               android:background="@drawable/add_input"
+                                                               android:id="@+id/TransmissionTypeAdd"
+                                                               android:hint="@string/CarTransmissionType"/>
+
+                    <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                               android:layout_height="45dp"
+                                                               android:layout_weight="1"
+                                                               android:textColor="@color/colorPrimary"
+                                                               android:layout_margin="10dp"
+                                                               android:gravity="center"
+                                                               android:fontFamily="@font/font_regular"
+                                                               android:textSize="20sp"
+                                                               android:textColorHint="@color/colorPrimary"
+                                                               android:background="@drawable/add_input"
+                                                               android:id="@+id/FuelTypeAdd"
+                                                               android:hint="@string/FuelType"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout android:background="@color/white"
+                          android:layout_marginTop="10dp"
+                          android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:gravity="center"
+                          android:orientation="vertical" android:layout_weight="1"
+                          android:layoutDirection="locale" android:textDirection="locale">
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:textColor="@color/white" android:textSize="20sp"
+                          android:text="@string/Inside"
+                          android:fontFamily="@font/font_bold"
+                          android:background="@color/colorPrimary"
+                          android:gravity="center" android:padding="5dp"/>
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:weightSum="2">
+
+                    <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                               android:layout_height="45dp"
+                                                               android:layout_weight="1"
+
+                                                               android:layout_margin="10dp"
+                                                               android:gravity="center"
+                                                               android:fontFamily="@font/font_regular"
+                                                               android:textSize="20sp"
+                                                               android:textColorHint="@color/colorPrimary"
+                                                               android:background="@drawable/add_input"
+                                                               android:id="@+id/RoofAdd"
+                                                               android:hint="@string/Roof"
+                                                               android:textColor="@color/colorPrimary"/>
+
+                    <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                               android:layout_height="45dp"
+                                                               android:layout_weight="1"
+
+                                                               android:layout_margin="10dp"
+                                                               android:gravity="center"
+                                                               android:fontFamily="@font/font_regular"
+                                                               android:textSize="20sp"
+                                                               android:textColorHint="@color/colorPrimary"
+                                                               android:background="@drawable/add_input"
+                                                               android:id="@+id/DouchmhAdd"
+                                                               android:hint="@string/Douchmh"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:weightSum="2">
+
+                    <androidx.appcompat.widget.AppCompatEditText android:layout_width="match_parent"
+                                                               android:layout_height="45dp"
+                                                               android:layout_weight="1"
+                                                               android:textColor="@color/colorPrimary"
+                                                               android:layout_margin="10dp"
+                                                               android:gravity="center"
+                                                                 android:inputType="number"
+                                                               android:fontFamily="@font/font_regular"
+                                                               android:textSize="20sp"
+                                                               android:textColorHint="@color/colorPrimary"
+                                                               android:background="@drawable/add_input"
+                                                               android:id="@+id/SeatAdd"
+                                                               android:hint="@string/SeatsNo"/>
+
+                    <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                               android:layout_height="45dp"
+                                                               android:layout_weight="1"
+                                                               android:textColor="@color/colorPrimary"
+                                                               android:layout_margin="10dp"
+                                                               android:gravity="center"
+                                                               android:fontFamily="@font/font_regular"
+                                                               android:textSize="20sp"
+                                                               android:textColorHint="@color/colorPrimary"
+                                                               android:background="@drawable/add_input"
+                                                               android:id="@+id/WindowAdd"
+                                                               android:hint="@string/WindowsSystem"/>
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputEditText android:layout_width="match_parent"
+                                                           android:layout_height="45dp"
+                                                           android:layout_weight="1"
+                                                           android:textColor="@color/colorPrimary"
+                                                           android:layout_margin="10dp"
+                                                           android:gravity="center"
+                                                           android:id="@+id/airBagAdd"
+                                                               android:inputType="number"
+                                                           android:fontFamily="@font/font_regular"
+                                                           android:textSize="20sp"
+                                                           android:textColorHint="@color/colorPrimary"
+                                                           android:background="@drawable/add_input"
+
+                                                           android:hint="@string/AirBags"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:textColor="@color/white" android:textSize="20sp"
+                          android:text="@string/descrption"
+                          android:fontFamily="@font/font_bold"
+                          android:background="@color/colorPrimary"
+                          android:gravity="center" android:padding="5dp"/>
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:orientation="horizontal" android:weightSum="2">
+
+
+                    <androidx.appcompat.widget.AppCompatEditText android:layout_width="match_parent"
+                                                                 android:layout_height="110dp"
+                                                                 android:layout_weight="1"
+
+                                                                 android:layout_margin="10dp"
+                                                                 android:gravity="center_horizontal"
+                                                                 android:fontFamily="@font/font_regular"
+                                                                 android:textSize="20sp"
+                                                                 android:inputType="textMultiLine"
+                                                                 android:textColorHint="@color/colorPrimary"
+                                                                 android:background="@drawable/add_input"
+                                                                 android:id="@+id/DescAdd"
+                                                                 android:hint="@string/descrption"/>
+                </LinearLayout>
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:textColor="@color/white" android:textSize="20sp"
+                          android:text="@string/Information"
+                          android:fontFamily="@font/font_bold"
+                          android:background="@color/colorPrimary"
+                          android:gravity="center" android:padding="5dp"/>
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:orientation="vertical" >
+
+
+                    <androidx.appcompat.widget.AppCompatEditText android:layout_width="match_parent"
+                                                                 android:layout_height="45dp"
+                                                                 android:layout_weight="1"
+
+                                                                 android:layout_margin="10dp"
+                                                                 android:gravity="center_horizontal"
+                                                                 android:fontFamily="@font/font_regular"
+                                                                 android:textSize="20sp"
+                                                                 android:inputType="text"
+                                                                 android:textColorHint="@color/colorPrimary"
+                                                                 android:background="@drawable/add_input"
+                                                                 android:id="@+id/NameAdd"
+                                                                 android:hint="@string/Name"/>
+                    <androidx.appcompat.widget.AppCompatEditText android:layout_width="match_parent"
+                                                                 android:layout_height="45dp"
+                                                                 android:layout_weight="1"
+
+                                                                 android:layout_margin="10dp"
+                                                                 android:gravity="center_horizontal"
+                                                                 android:fontFamily="@font/font_regular"
+                                                                 android:textSize="20sp"
+                                                                 android:inputType="phone"
+                                                                 android:textColorHint="@color/colorPrimary"
+                                                                 android:background="@drawable/add_input"
+                                                                 android:id="@+id/phoneNumAdd"
+                                                                 android:hint="@string/Phone"/>
+                    <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                                 android:layout_height="45dp"
+                                                                 android:layout_weight="1"
+
+                                                                 android:layout_margin="10dp"
+                                                                 android:gravity="center_horizontal"
+                                                                 android:fontFamily="@font/font_regular"
+                                                                 android:textSize="20sp"
+
+                                                                 android:textColorHint="@color/colorPrimary"
+                                                                 android:background="@drawable/add_input"
+                                                                 android:id="@+id/provincAdd"
+                                                                 android:hint="@string/Province"/>
+
+                </LinearLayout>
+                <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
+                                                           android:layout_height="50dp"
+                                                           android:layout_weight="1"
+                                                           android:textColor="@color/white"
+                                                           android:layout_margin="20dp"
+                                                           android:gravity="center"
+                                                           android:fontFamily="@font/font_regular"
+                                                           android:textSize="20sp"
+                                                          android:id="@+id/BtnAdd"
+                                                           android:background="@drawable/btn"
+                                                           android:textColorHint="@color/white"
+                                                           android:hint="@string/Add"/>
+            </LinearLayout>
+
+
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

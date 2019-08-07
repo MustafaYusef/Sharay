@@ -2,37 +2,79 @@ package com.mustafayusef.sharay.data.networks
 
 import com.mustafayusef.holidaymaster.networks.networkIntercepter
 import com.mustafayusef.sharay.data.models.*
+
+import com.mustafayusef.sharay.data.models.favorite.addResFav
+import com.mustafayusef.sharay.data.models.favorite.favoriteModel
+import com.mustafayusef.sharay.data.models.sections.*
 import com.mustafayusef.sharay.data.networks.repostorys.SignUpAuth
 import com.mustafayusef.sharay.data.networks.repostorys.UserAuth
-import okhttp3.ConnectionSpec
-import okhttp3.OkHttpClient
+import okhttp3.*
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
-import java.util.Collections.singletonList
-import okhttp3.CipherSuite
-import okhttp3.TlsVersion
 import retrofit2.Response
 import retrofit2.http.*
-import java.security.KeyStore
-import java.security.SecureRandom
-import java.security.cert.X509Certificate
+import retrofit2.http.Headers
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.*
-import javax.security.cert.CertificateException
-import javax.xml.datatype.DatatypeConstants.SECONDS
-
-
-
+import kotlin.collections.HashMap
 
 
 interface myApi {
 
    // @FormUrlEncoded
-   @Headers("Content-Type: application/json")
+   @Multipart
+    @POST("add")
+   suspend fun AddCar(
+
+        @Part("title") title: String,
+    @Part("brand") brand: String,
+    @Part("class") `class`: String,
+    @Part("status") status: String,
+    @Part("year") year: Int,
+    @Part("warid") warid: String,
+    @Part("mileage") mileage: Int,
+    @Part("price") price: Int,
+    @Part("gear") gear: String,
+    @Part("cylinders") cylinders: Int,
+        @Part("fuel") fuel: String,
+    @Part("driveSystem") driveSystem: String,
+    @Part("roof") roof: String,
+    @Part("seats") seats: Int,
+    @Part("type") type: String,
+    @Part("window") window: String,
+    @Part("airBags") airBags: String,
+    @Part("color") color: String,
+    @Part("description") description: String,
+    @Part("name") name: String,
+    @Part("phone") phone: String,
+    @Part("location") location: String,
+    @Part("state") state: String,
+    @Part("date") date: String,
+    @Part("userId") userId: Int,
+    @Part("storeId") storeId: Int,
+    @Part("active") active: Boolean,
+    @Part("isRent") isRent: Boolean,
+    @Part("isImported") isImported: Boolean,
+    @Part("image") image: MultipartBody.Part
+    ): Response<addRes>
+
+
+    @POST("cars/filter?")
+    suspend fun Filters(
+        @Body filter:HashMap<String,String>
+//        @Query("brand") brand: String?,
+//        @Query("class") `class`: String?,
+//        @Query("year") year: String?,
+//        @Query("warid") warid: String?,
+//        @Query("mileage") mileage: String?,
+//        @Query("priceMin") priceMin: String?,
+//        @Query("priceMax") priceMax: String?,
+//        @Query("location") location: String?
+    ): Response<CarsModel>
+
     @POST("signin")
-   suspend fun getLogin(
+    suspend fun getLogin(
         @Body user: UserAuth
     ): Response<signUp>
 
@@ -52,6 +94,49 @@ interface myApi {
     @GET("user")
     suspend fun getUserInfo(@Header("token")token:String): Response<UserInfo>
 
+    @GET("numbers")
+    suspend fun getNumbers(): Response<NumbersModel>
+
+    @GET("stores")
+    suspend fun getStores(): Response<StoresModel>
+
+    @GET("cars/rent?")
+    suspend fun GetRent(): Response<RentModel>
+
+    @GET("cars/imported?")
+    suspend fun GetImport(): Response<RentModel>
+
+    @GET("parts")
+    suspend fun GetPart(): Response<PartsModel>
+
+    @GET("motors")
+    suspend fun GetMotor(): Response<motorModel>
+
+    @GET("motor/{id}")
+    suspend fun GetMotorDetails(
+        @Path("id")id:Int
+    ): Response<motorDetailsModel>
+
+    @GET("banners")
+    suspend fun getBanners(): Response<banners>
+
+    @GET("store/{id}")
+    suspend fun GetDetailsStore(
+        @Path("id")id:Int): Response<StoreDetails>
+
+    @GET("favorite/get?")
+    suspend fun GetFavorite(
+        @Header("token")token:String): Response<List<favoriteModel>>
+
+    @Multipart
+    @POST("favorite?")
+    suspend fun AddFavorite(
+        @Header("token")token:String,@Part("id") id:Int,@Part("type") type:Int): Response<addResFav>
+
+    @Multipart
+    @POST("favorite/delete?id={id}")
+    suspend fun DeleteFavorite(
+        @Header("token")token:String,@Path("id") idUser:Int,@Part id:Int): Response<delete>
     companion object{
 
         operator fun invoke(
@@ -70,8 +155,8 @@ interface myApi {
 
 
             val client = OkHttpClient.Builder()
-                .connectTimeout(100, TimeUnit.SECONDS)
-                .readTimeout(100,TimeUnit.SECONDS)
+                .connectTimeout(50, TimeUnit.SECONDS)
+                .readTimeout(50,TimeUnit.SECONDS)
                 .addInterceptor(networkIntercepter)
                 .connectionSpecs(Collections.singletonList(spec))
                 .connectionSpecs(Collections.singletonList(spec1))
@@ -85,3 +170,8 @@ interface myApi {
         }
     }
 }
+data class delete(
+
+    val `data`: String,
+    val errMsg: String
+    )

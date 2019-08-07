@@ -7,6 +7,7 @@ import com.mustafayusef.holidaymaster.utils.corurtins
 import com.mustafayusef.holidaymaster.utils.noInternetExeption
 import com.mustafayusef.sharay.data.networks.repostorys.userRepostary
 import com.mustafayusef.sharay.ui.auth.AuthLesener
+import java.net.SocketTimeoutException
 
 class SignUpUserViewModel(val repostary: userRepostary) : ViewModel() {
 
@@ -14,17 +15,19 @@ class SignUpUserViewModel(val repostary: userRepostary) : ViewModel() {
     var password:String?=null
     var phone:String?=null
     var name:String?=null
+    var phoneSecond:String=""
     var Auth: AuthLesener?=null
 
     fun SignIn(view: View){
         Auth?.OnStart()
-        if(email.isNullOrEmpty()||password.isNullOrEmpty()||phone.isNullOrEmpty()||name.isNullOrEmpty()){
-            Auth?.onFailer("invalid password or email")
+        if(email.isNullOrEmpty()||password.isNullOrEmpty()||phone.isNullOrEmpty()||name.isNullOrEmpty()
+            ){
+            Auth?.onFailer("fill requerd field password or email")
             return
         }
         corurtins.main {
             try {
-                val onewayResponse=repostary.getSignUpDate(email!!,password!!,phone!!,name!!)
+                val onewayResponse=repostary.getSignUpDate(email!!,password!!,phone!!,phoneSecond!!,name!!)
                 onewayResponse ?.let {
                     Auth?.onSucsessSignIn(it!!)
                 }
@@ -33,6 +36,8 @@ class SignUpUserViewModel(val repostary: userRepostary) : ViewModel() {
                 e.message?.let { Auth?.onFailer(it) }
 
             }catch (e: noInternetExeption){
+                e.message?.let { Auth?.onFailer(it) }
+            }catch (e: SocketTimeoutException){
                 e.message?.let { Auth?.onFailer(it) }}
 
         }

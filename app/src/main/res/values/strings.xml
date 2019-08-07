@@ -27,6 +27,8 @@
     <string name="addedPhoto">Added Pictures</string>
 
     <string name="EnterEmail">Enter your Email</string>
+    <string name="EnterSecondPhone">Enter your Second Phone number</string>
+
     <string name="password">Enter Password</string>
     <string name="login">Login</string>
 
@@ -36,14 +38,14 @@
     <string name="goToSignIn">If you dont have account go to</string>
 
     <string name="MainInfo">Main Info and Status</string>
-    <string name="CarType">Car Type</string>
+    <string name="CarClass">Car Class</string>
     <string name="CarModel">Car Model</string>
     <string name="Year">Year</string>
     <string name="Status">Status</string>
     <string name="Source">Source</string>
 
     <string name="Engine">Engine</string>
-    <string name="CarTransmissionType">Car Transmission Type</string>
+    <string name="CarTransmissionType">Drive System</string>
     <string name="CylinderNo">Cylinder No</string>
     <string name="EngineSize">Engine Size</string>
     <string name="FuelType">Fuel Type</string>
@@ -73,5 +75,22 @@
     <string name="Province">Province</string>
     <string name="AdditionDate">Addition Date</string>
 
+    <string name="mainTitle">Main Title</string>
+    <string name="price">Price</string>
+
+    <string name="miles">Miles</string>
+    <string name="GearNum">Gear Transmmition</string>
+
+    <string name="applay">applay</string>
+
+    <string name="descrption">Descrption</string>
+    <string name="MotoreModel">Motore Type</string>
+    <string name="location">Location</string>
+
+    <string name="from">from</string>
+
+    <string name="to">to</string>
+    <string name="lastSearch">Last Search</string>
+    <string name="slogan">Lead you to the Best</string>
 
 </resources>

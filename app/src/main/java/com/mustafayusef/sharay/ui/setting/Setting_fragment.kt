@@ -20,6 +20,8 @@ import android.widget.LinearLayout
 
 import java.util.*
 import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.mustafayusef.sharay.R
 import kotlinx.android.synthetic.main.languge_setting.view.*
 
@@ -31,7 +33,7 @@ import com.mustafayusef.sharay.ui.MainActivity.cacheObj.language
 
 
 class Setting_fragment : Fragment() {
-
+    private lateinit var navController: NavController
     companion object {
         fun newInstance() = Setting_fragment()
     }
@@ -57,6 +59,7 @@ class Setting_fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController= Navigation.findNavController(view)
         languagClick.setOnClickListener {
             showSearch()
         }

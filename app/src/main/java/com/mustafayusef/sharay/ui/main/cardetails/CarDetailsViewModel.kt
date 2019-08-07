@@ -1,12 +1,12 @@
 package com.mustafayusef.sharay.ui.main.cardetails
 
-import androidx.databinding.Bindable
 import androidx.lifecycle.ViewModel
 import com.mustafayusef.holidaymaster.utils.ApiExaptions
 import com.mustafayusef.holidaymaster.utils.corurtins
 import com.mustafayusef.holidaymaster.utils.noInternetExeption
 import com.mustafayusef.sharay.data.networks.repostorys.CarsRepostary
 import com.mustafayusef.sharay.ui.main.MainCarLesener
+import java.net.SocketTimeoutException
 
 class CarDetailsViewModel(val repostary: CarsRepostary) : ViewModel() {
     var CarImages: List<String>?=null
@@ -50,6 +50,8 @@ class CarDetailsViewModel(val repostary: CarsRepostary) : ViewModel() {
   //var it:carDetails?=null
 
     var Auth: MainCarLesener?=null
+    var Fav: FavCarLesener?=null
+
 
     fun GetDetailsCars(id:Int){
         Auth?.OnStart()
@@ -61,16 +63,45 @@ class CarDetailsViewModel(val repostary: CarsRepostary) : ViewModel() {
 
 
 
-                    Auth?.onSucsessDetails(it1.data[0]!!)
+                    Auth?.onSucsessDetails(it1.data?.get(0)!!)
                 }
 
             }catch (e: ApiExaptions){
                 e.message?.let { Auth?.onFailer(it) }
 
             }catch (e: noInternetExeption){
+                e.message?.let { Auth?.onFailer(it) }
+            }catch (e: SocketTimeoutException){
                 e.message?.let { Auth?.onFailer(it) }}
 
         }
 
     }
+
+    fun AddFav(token:String,id:Int,type:Int){
+        Fav?.OnStartFav()
+
+        corurtins.main {
+            try {
+                val CarsDetailsResponse=repostary.AddFavorite(token,id,type)
+                CarsDetailsResponse ?.let {it1->
+
+
+
+                    Fav?.onSucsessFav(it1)
+                }
+
+            }catch (e: ApiExaptions){
+                e.message?.let { Fav?.onFailerFav(it) }
+
+            }catch (e: noInternetExeption){
+                e.message?.let { Fav?.onFailerFav(it) }
+            } catch (e: SocketTimeoutException){
+                e.message?.let { Fav?.onFailerFav(it) }}
+
+        }
+
+    }
+
+
 }

@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable name="viewmodel" type="com.mustafayusef.sharay.ui.search.SearchViewModel"/>
-    </data>
+
 
 
 <FrameLayout
 
         android:layout_width="match_parent"
         android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         tools:context=".ui.search.searchFragment"
->
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
                   android:orientation="vertical"
@@ -20,10 +16,12 @@
                   android:layout_height="match_parent" android:background="@color/gray">
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/ToolBarsearch"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/colorPrimary" android:gravity="center"
                 android:layout_gravity="center"
+
                 android:theme="@style/ToolBarTheme"
                 android:padding="5dp"
         >
@@ -51,26 +49,29 @@
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:orientation="horizontal"
                           android:padding="5dp" android:gravity="center_vertical" android:background="@color/white">
-                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                           android:src="@drawable/ic_search_white_24dp" android:id="@+id/searchCarsClick"
-                           android:padding="4dp"
-                android:onClick="@{viewmodel::doSearch}"/>
-                <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:hint="@string/search" android:textSize="20sp"
-                           android:fontFamily="@font/font_regular"
-                          android:text="@={viewmodel.searchText}"
-                          android:id="@+id/searchCars"/>
+
+                <androidx.appcompat.widget.SearchView android:layout_width="match_parent"
+                                                      android:layout_height="wrap_content"
+                                                      android:hint="@string/search" android:textSize="20sp"
+                                                      android:background="@color/gray"
+                                                      app:iconifiedByDefault="false"
+                                                      android:padding="5dp"
+                                                      app:queryHint="@string/search"
+                                                      android:fontFamily="@font/font_regular"
+                                                      android:inputType="textFilter"
+                                                      android:clickable="false"
+                                                      android:id="@+id/searchCars"
+                                                      app:searchIcon="@drawable/ic_search_black_24dp"/>
             </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:layout_marginTop="10dp"
                           android:background="@color/white"
                           android:orientation="vertical"
-
+                            android:gravity="center"
                           android:id="@+id/lastContainer">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:textColor="@color/black"
-                          android:text="last search"
+                          android:textColor="@color/colorPrimary"
+                          android:text="@string/lastSearch"
                           android:layout_marginLeft="5dp"
                           android:layout_marginRight="5dp"
                           android:fontFamily="@font/font_regular"
@@ -89,10 +90,9 @@
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
                 <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
                                                            android:layout_height="wrap_content"
-                android:id="@+id/list_of_search_cars"></androidx.recyclerview.widget.RecyclerView>
+                                                           android:id="@+id/list_of_search_cars"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>
-</layout>

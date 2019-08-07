@@ -1,5 +1,6 @@
 package com.mustafayusef.sharay.data.models
 
+import android.os.Parcelable
 import java.io.Serializable
 
 data class UserInfo(

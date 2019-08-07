@@ -19,11 +19,12 @@ import com.bumptech.glide.Glide
 import android.R
 import android.view.View.OnClickListener
 import com.bumptech.glide.request.RequestOptions
+import com.mustafayusef.sharay.database.entitis.latestCar
 import kotlinx.android.synthetic.main.last_search_card.view.*
 import kotlinx.android.synthetic.main.sections_cards.view.*
 
 
-class lastSearchAdapter(val context:Context, var onNoteLisener: OnNoteLisener) : RecyclerView.Adapter<lastSearchAdapter.CustomViewHolder>(){
+class lastSearchAdapter(val context:Context, var onNoteLisener: OnLastLisener,val searchResult: List<latestCar>) : RecyclerView.Adapter<lastSearchAdapter.CustomViewHolder>(){
     //
     //var displayList=list
     private  var mOnNotlesener=onNoteLisener
@@ -38,7 +39,7 @@ class lastSearchAdapter(val context:Context, var onNoteLisener: OnNoteLisener) :
 
     override fun getItemCount(): Int {
         // count=holidayFeed!!.count().toString()
-        return 4
+        return searchResult.size
 
     }
 
@@ -48,14 +49,14 @@ class lastSearchAdapter(val context:Context, var onNoteLisener: OnNoteLisener) :
 
         // holder.view.LogoAir .startAnimation(AnimationUtils.loadAnimation(context,R.anim.left_to_right))
 
-
+        var car=searchResult.get(position)
 
 //        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
 
 //        Glide.with(context).load(com.mustafayusef.sharay.R.drawable.car).into(holder.view?.carImage)
-        holder.view.card_title_search.text="Hyondai"
+        holder.view.card_title_search.text=car.title
 
-       Glide.with(context).load(com.mustafayusef.sharay.R.drawable.car)
+       Glide.with(context).load("http://api.centralmarketiq.com/"+car.image+".png")
            .apply(RequestOptions.circleCropTransform())
            .into( holder.view.card_image_search)
 
@@ -66,10 +67,10 @@ class lastSearchAdapter(val context:Context, var onNoteLisener: OnNoteLisener) :
         notifyDataSetChanged()
     }
 
-    class CustomViewHolder(val view : View, var onNoteLisener: OnNoteLisener ) : RecyclerView.ViewHolder(view), View.OnClickListener{
-        var OnNotlesener:OnNoteLisener
+    class CustomViewHolder(val view : View, var onNoteLisener: OnLastLisener ) : RecyclerView.ViewHolder(view), View.OnClickListener{
+        var OnNotlesener:OnLastLisener
         override fun onClick(view: View?) {
-            onNoteLisener.onNoteClick(layoutPosition)
+            onNoteLisener.OnLastLisener(layoutPosition)
         }
 
         init {
@@ -82,8 +83,8 @@ class lastSearchAdapter(val context:Context, var onNoteLisener: OnNoteLisener) :
     }
 
 
-    interface OnNoteLisener {
-        fun onNoteClick( position: Int)
+    interface OnLastLisener {
+        fun OnLastLisener( position: Int)
     }
 
 

@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -28,7 +30,7 @@ import kotlinx.android.synthetic.main.sign_up_user_fragment.signPhoto
 
 class SignUpUser : Fragment(),AuthLesener {
 
-
+    private lateinit var navController: NavController
     companion object {
         fun newInstance() = SignUpUser()
     }
@@ -75,6 +77,11 @@ class SignUpUser : Fragment(),AuthLesener {
         context?.let { Glide.with(it).load(com.mustafayusef.sharay.R.drawable.sharay_logo).into(signPhoto) }
 
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController= Navigation.findNavController(view)
+    }
     override fun OnStart() {
         animation_loadingSignIn.visibility=View.VISIBLE
         animation_loadingSignIn.playAnimation()
@@ -88,7 +95,7 @@ class SignUpUser : Fragment(),AuthLesener {
         animation_loadingSignIn.pauseAnimation()
         if( !loginResponse.token.isNullOrEmpty()){
             MainActivity.cacheObj.token=loginResponse.token
-            view?.findNavController()?.navigate(R.id.add_fragment)
+            view?.findNavController()?.navigate(R.id.signUp)
             context?.toast("you have account now")
         }else{
             context?.toast("you already have account")

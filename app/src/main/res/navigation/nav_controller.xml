@@ -9,11 +9,14 @@
         <action android:id="@+id/goTocarDetails" app:destination="@+id/carDetails"
                 app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
                 app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        <action android:id="@+id/action_main_fragment_to_detailsStore" app:destination="@id/detailsStore"/>
     </fragment>
     <fragment android:id="@+id/sections_fragment_fragment"
               android:name="com.mustafayusef.sharay.ui.sections.Sections_fragment"
               android:label="@string/sections" tools:layout="@layout/sections_fragment_fragment">
-        <action android:id="@+id/SectionsToPublic" app:destination="@id/careRent"/>
+        <action android:id="@+id/SectionsToPublic" app:destination="@id/careRent">
+            <argument android:defaultValue="null" android:name="Section"/>
+        </action>
     </fragment>
     <fragment android:id="@+id/setting_fragment" android:name="com.mustafayusef.sharay.ui.setting.Setting_fragment"
               android:label="@string/Setting" tools:layout="@layout/setting_fragment_fragment"/>
@@ -26,7 +29,9 @@
               android:label="@string/Profile" tools:layout="@layout/profile_fragment_fragment">
         <action android:id="@+id/goToLogin" app:destination="@id/signUp" app:enterAnim="@anim/nav_default_enter_anim"
                 app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" app:popUpTo="@+id/main_fragment"/>
+        <action android:id="@+id/goToMyCars" app:destination="@id/myAdd"/>
+        <action android:id="@+id/action_profile_fragment_to_myFav" app:destination="@id/myFav"/>
     </fragment>
     <fragment android:id="@+id/carDetails" android:name="com.mustafayusef.sharay.ui.main.cardetails.carDetails"
               android:label="car_details_fragment" tools:layout="@layout/car_details_fragment">
@@ -34,20 +39,48 @@
     </fragment>
     <fragment android:id="@+id/signUp" android:name="com.mustafayusef.sharay.ui.auth.signup.Login" android:label="sign_up_fragment"
               tools:layout="@layout/login_fragment">
-        <action android:id="@+id/action_signUp_to_profile_fragment" app:destination="@id/profile_fragment"/>
+        <action android:id="@+id/action_signUp_to_profile_fragment" app:destination="@id/profile_fragment"
+        />
         <action android:id="@+id/goToRegester" app:destination="@id/signUpUser"/>
     </fragment>
     <fragment android:id="@+id/listOfAdd" android:name="com.mustafayusef.sharay.ui.lists_Add.listOfAdd"
               android:label="list_of_add_fragment" tools:layout="@layout/list_of_add_fragment"/>
     <fragment android:id="@+id/searchFragment" android:name="com.mustafayusef.sharay.ui.search.searchFragment"
-              android:label="search_fragment" tools:layout="@layout/search_fragment"/>
+              android:label="search_fragment" tools:layout="@layout/search_fragment">
+        <action android:id="@+id/action_searchFragment_to_carDetails" app:destination="@id/carDetails"/>
+    </fragment>
     <fragment android:id="@+id/filterFragment" android:name="com.mustafayusef.sharay.ui.filters.filterFragment"
-              android:label="filter_fragment" tools:layout="@layout/filter_fragment"/>
+              android:label="filter_fragment" tools:layout="@layout/filter_fragment">
+        <action android:id="@+id/action_filterFragment_to_showResult" app:destination="@id/showResult"/>
+    </fragment>
     <fragment android:id="@+id/signUpUser" android:name="com.mustafayusef.sharay.ui.auth.signin.SignUpUser"
               android:label="SignUpUser"/>
 
-    <fragment android:id="@+id/careRent" android:name="com.mustafayusef.sharay.ui.sections.carRent.CareRent"
+    <fragment android:id="@+id/careRent" android:name="com.mustafayusef.sharay.ui.sections.carrent.CareRent"
               android:label="public_fragment" tools:layout="@layout/public_fragment">
         <argument android:name="Section" app:argType="string" android:defaultValue="null"/>
+        <action android:id="@+id/action_careRent_to_carDetails" app:destination="@id/carDetails"/>
+        <action android:id="@+id/rentToStoreDetails" app:destination="@id/detailsStore"/>
+        <action android:id="@+id/fromCarRentToMotorDetails" app:destination="@id/motorDetails"/>
     </fragment>
+
+    <fragment android:id="@+id/myAdd" android:name="com.mustafayusef.sharay.ui.profile.myads.myFav"
+              android:label="fragment_my_add" tools:layout="@layout/fragment_my_add">
+        <action android:id="@+id/action_myAdd_to_carDetails" app:destination="@id/carDetails"/>
+    </fragment>
+    <fragment android:id="@+id/detailsStore" android:name="com.mustafayusef.sharay.ui.sections.stores.detailsStore"
+              android:label="details_store_fragment" tools:layout="@layout/details_store_fragment">
+        <argument android:name="storeId" app:argType="integer"/>
+        <action android:id="@+id/detailsStoreToCarDetails" app:destination="@id/carDetails"/>
+    </fragment>
+    <fragment android:id="@+id/motorDetails" android:name="com.mustafayusef.sharay.ui.sections.motors.motorDetails"
+              android:label="motor_details_fragment" tools:layout="@layout/motor_details_fragment">
+        <argument android:name="motorId" app:argType="integer"/>
+    </fragment>
+    <fragment android:id="@+id/myFav" android:name="com.mustafayusef.sharay.ui.profile.myads.myFav"
+              android:label="fragment_my_fav" tools:layout="@layout/fragment_my_fav">
+        <action android:id="@+id/action_myFav_to_carDetails" app:destination="@id/carDetails"/>
+    </fragment>
+    <fragment android:id="@+id/showResult" android:name="com.mustafayusef.sharay.ui.filters.show.ShowResult"
+              android:label="show_result_fragment" tools:layout="@layout/show_result_fragment"/>
 </navigation>

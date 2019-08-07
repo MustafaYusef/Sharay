@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+
+              android:layout_width="match_parent"
+              android:background="@drawable/back_filter"
+              android:layout_height="wrap_content" android:layout_margin="10dp">
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:fontFamily="@font/font_regular" android:textSize="20sp"
+              android:padding="5dp"
+              android:text="@string/price"
+              android:gravity="center"
+
+              android:textColor="@color/white"
+              android:background="@drawable/title_filter"/>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+    android:weightSum="2">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+                      android:gravity="center_horizontal"
+                      android:layout_weight="1">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:fontFamily="@font/font_bold"
+                      android:textSize="22sp"
+                      android:gravity="center"
+            android:text="@string/from"/>
+            <NumberPicker
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:focusable="auto"
+                    android:id="@+id/min"
+                    android:layout_weight="1"
+                    android:tooltipText="20sp"
+                    android:filterTouchesWhenObscured="false"
+                    android:solidColor="@color/white"
+                    android:descendantFocusability="blocksDescendants"
+                    android:background="@color/white"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical"
+        android:layout_weight="1">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:fontFamily="@font/font_bold"
+                      android:textSize="22sp"
+                      android:gravity="center"
+                      android:text="@string/to"/>
+        <NumberPicker
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:focusable="auto"
+                android:layout_weight="1"
+                android:id="@+id/max"
+                android:tooltipText="20sp"
+                android:filterTouchesWhenObscured="false"
+                android:solidColor="@color/white"
+                android:descendantFocusability="blocksDescendants"
+                android:background="@color/white"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:layout_marginTop="15dp" android:background="@drawable/round_slang"
+                  android:layout_marginLeft="10dp"
+                  android:weightSum="2"
+                  android:layout_marginRight="10dp">
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/cancel" android:fontFamily="@font/font_bold"
+                android:textColor="@color/colorPrimaryDark"
+                 android:layout_weight="1"
+                android:textSize="20sp" android:gravity="center" app:backgroundTint="@color/gray"
+                app:cornerRadius="20dp"
+                android:layout_marginRight="20dp"
+                android:id="@+id/closePriceF" android:padding="5dp" app:strokeColor="@color/black"
+                android:shadowColor="@color/black"/>
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/applay" android:fontFamily="@font/font_bold"
+                android:textColor="@color/white"
+              android:layout_weight="1"
+                android:textSize="20sp" android:gravity="center" app:backgroundTint="@color/colorAccent"
+                app:cornerRadius="20dp"
+                android:id="@+id/applayFilterPrice" android:padding="5dp" app:strokeColor="@color/black"
+                android:shadowColor="@color/black"/>
+
+    </LinearLayout>
+</LinearLayout>

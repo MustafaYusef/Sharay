@@ -13,6 +13,8 @@
             android:roundIcon="@drawable/icon"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".ui.main.carStores.storeCar">
+        </activity>
         <activity android:name=".ui.splash.Lottie">
         </activity>
         <activity android:name=".ui.splash.splashScreen">
@@ -23,7 +25,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.MainActivity">
-
         </activity>
     </application>
 

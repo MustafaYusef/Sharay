@@ -6,6 +6,7 @@ import com.mustafayusef.holidaymaster.utils.corurtins
 import com.mustafayusef.holidaymaster.utils.noInternetExeption
 import com.mustafayusef.sharay.data.models.CarsModel
 import com.mustafayusef.sharay.data.networks.repostorys.CarsRepostary
+import java.net.SocketTimeoutException
 
 class MainFragmentViewModel(val repostary: CarsRepostary) : ViewModel() {
     var Auth: MainCarLesener?=null
@@ -25,6 +26,29 @@ class MainFragmentViewModel(val repostary: CarsRepostary) : ViewModel() {
                 e.message?.let { Auth?.onFailer(it) }
 
             }catch (e: noInternetExeption){
+                e.message?.let { Auth?.onFailer(it) }
+            } catch (e: SocketTimeoutException){
+                e.message?.let { Auth?.onFailer(it) }}
+
+        }
+
+    }
+
+    fun getBanners(){
+        Auth?.OnStart()
+ corurtins.main {
+            try {
+                val bannerResponse=repostary.getBanners()
+                bannerResponse ?.let {
+                    Auth?.onSucsessBanners(it!!)
+                }
+
+            }catch (e: ApiExaptions){
+                e.message?.let { Auth?.onFailer(it) }
+
+            }catch (e: noInternetExeption){
+                e.message?.let { Auth?.onFailer(it) }
+            } catch (e: SocketTimeoutException){
                 e.message?.let { Auth?.onFailer(it) }}
 
         }

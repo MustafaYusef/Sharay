@@ -3,6 +3,7 @@ package com.mustafayusef.holidaymaster.networks
 import android.content.Context
 import android.net.ConnectivityManager
 import com.mustafayusef.holidaymaster.utils.noInternetExeption
+import com.mustafayusef.holidaymaster.utils.toast
 
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -17,8 +18,14 @@ class networkIntercepter(context: Context):Interceptor {
     }
     fun isNetworkAvilable():Boolean{
         val connectivityManager = appcontext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-         connectivityManager.activeNetworkInfo.also {
-             return it != null && it.isConnected
-         }
+        try {
+            connectivityManager.activeNetworkInfo.also {
+                return it != null && it.isConnected
+
+            }
+        } catch (e:NullPointerException){
+            e.message?.let { appcontext.toast(it) }
+            return false
+        }
     }
 }

@@ -18,10 +18,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import android.R
 import android.view.View.OnClickListener
+import com.mustafayusef.sharay.data.models.DataCars
 
 
-class searchResultAdapter(val context:Context,var onNoteLisener: OnNoteLisener) : RecyclerView.Adapter<searchResultAdapter.CustomViewHolder>(){
+class searchResultAdapter(val context:Context,var onNoteLisener: OnNoteLisener,val listCar:List<DataCars>) : RecyclerView.Adapter<searchResultAdapter.CustomViewHolder>(){
     //
+    var displayList=listCar
     private  var mOnNotlesener=onNoteLisener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         // println(holidayFeed)
@@ -34,7 +36,7 @@ class searchResultAdapter(val context:Context,var onNoteLisener: OnNoteLisener) 
 
     override fun getItemCount(): Int {
         // count=holidayFeed!!.count().toString()
-        return 10
+        return listCar.size
 
     }
 
@@ -47,8 +49,16 @@ class searchResultAdapter(val context:Context,var onNoteLisener: OnNoteLisener) 
 
 
 //        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
+        var carsP=displayList.get(position)
 
-        Glide.with(context).load(com.mustafayusef.sharay.R.drawable.car).into(holder.view?.carImage)
+
+//        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
+
+        holder.view.priceCar.text=carsP.price.toString()+"$"
+        holder.view.carMile.text=carsP.mileage.toString()
+        holder.view.modelYear.text=carsP.year
+        holder.view.carNmae.text=carsP.title
+        Glide.with(context).load("http://api.centralmarketiq.com/"+carsP.image+".png").into(holder.view?.carImage)
 
     }
 
@@ -73,7 +83,10 @@ class searchResultAdapter(val context:Context,var onNoteLisener: OnNoteLisener) 
     interface OnNoteLisener {
         fun onNoteClick( position: Int)
     }
-
+    fun updateList(list1: List<DataCars>) {
+        displayList = list1
+        notifyDataSetChanged()
+    }
 
 
 }

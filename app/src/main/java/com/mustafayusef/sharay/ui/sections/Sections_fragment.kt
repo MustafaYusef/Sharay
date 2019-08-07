@@ -7,7 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import com.mustafayusef.sharay.R
 import com.mustafayusef.sharay.ui.LocaleHelper
@@ -16,7 +21,7 @@ import kotlinx.android.synthetic.main.sections_fragment_fragment.*
 import kotlinx.android.synthetic.main.sections_fragment_fragment.view.*
 
 class Sections_fragment : Fragment() {
-
+    private lateinit var navController: NavController
     companion object {
         fun newInstance() = Sections_fragment()
     }
@@ -49,48 +54,65 @@ class Sections_fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         carForSale.setOnClickListener {
             val type= "cars"
-            val action =Sections_fragmentDirections.SectionsToPublic(type)
-            view?.findNavController()?.navigate(action)
+            var bundle = bundleOf("type" to type)
+            view.findNavController().navigate(R.id.SectionsToPublic, bundle)
         }
 
         CarCompany.setOnClickListener {
            val type= "stores"
-            val action =Sections_fragmentDirections.SectionsToPublic(type)
-            view?.findNavController()?.navigate(action)
+            var bundle = bundleOf("type" to type)
+            view.findNavController().navigate(R.id.SectionsToPublic, bundle)
         }
 
         CarForRent.setOnClickListener {
             val type= "rent"
-            val action =Sections_fragmentDirections.SectionsToPublic(type)
-            view?.findNavController()?.navigate(action)
+            var bundle = bundleOf("type" to type)
+            view.findNavController().navigate(R.id.SectionsToPublic, bundle)
         }
 
         CarNumbers.setOnClickListener {
             val type= "numbers"
-            val action =Sections_fragmentDirections.SectionsToPublic(type)
-            view?.findNavController()?.navigate(action)
+
+            var bundle = bundleOf("type" to type)
+            view.findNavController().navigate(R.id.SectionsToPublic, bundle)
+
+//            val action =Sections_fragmentDirections.SectionsToPublic("numbers")
+//            view?.findNavController()?.navigate(action)
         }
 
         PartsCar.setOnClickListener {
             val type= "parts"
-            val action =Sections_fragmentDirections.SectionsToPublic(type)
-            view?.findNavController()?.navigate(action)
+            var bundle = bundleOf("type" to type)
+            view.findNavController().navigate(R.id.SectionsToPublic, bundle)
         }
 
         waredCar.setOnClickListener {
-            val type= "wared"
-            val action =Sections_fragmentDirections.SectionsToPublic(type)
-            view?.findNavController()?.navigate(action)
+            val type= "import"
+            var bundle = bundleOf("type" to type)
+            view.findNavController().navigate(R.id.SectionsToPublic, bundle)
         }
 
         Motore.setOnClickListener {
             val type= "motore"
-            val action =Sections_fragmentDirections.SectionsToPublic(type)
-            view?.findNavController()?.navigate(action)
+            var bundle = bundleOf("type" to type)
+            view.findNavController().navigate(R.id.SectionsToPublic, bundle)
         }
+        val navBar = activity?.findViewById<BottomNavigationView> (R.id.bottomNav)
+        val toolbar = activity?.findViewById<Toolbar> (R.id.ToolBar)
 
+        view.findNavController()?.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id == R.id.careRent) {
+                toolbar?.visibility = View.GONE
+                //toolbar?.visibility = View.GONE
+
+            } else {
+                toolbar?.visibility = View.VISIBLE
+               // toolbar?.visibility = View.VISIBLE
+            }
+        }
 
 
 

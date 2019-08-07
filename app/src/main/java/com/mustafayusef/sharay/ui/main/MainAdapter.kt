@@ -6,52 +6,90 @@ import kotlinx.android.synthetic.main.car_card.view.*
 
 
 import android.content.Context
-import android.content.Intent
+
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import android.R
-import android.view.View.OnClickListener
+import android.graphics.Color
 import com.mustafayusef.sharay.data.models.DataCars
+import com.smarteist.autoimageslider.IndicatorAnimations
+import com.smarteist.autoimageslider.SliderAnimations
+import com.smarteist.autoimageslider.SliderView
+import kotlinx.android.synthetic.main.first.view.*
 
 
-class MainAdapter(val context:Context,var onNoteLisener: OnNoteLisener,val cars:List<DataCars> ) : RecyclerView.Adapter<MainAdapter.CustomViewHolder>(){
+class MainAdapter(
+    val context: Context,
+    var onNoteLisener: OnNoteLisener,
+    val cars: List<DataCars>
+) : RecyclerView.Adapter<MainAdapter.CustomViewHolder>(){
 //
   private  var mOnNotlesener=onNoteLisener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         // println(holidayFeed)
+         if(viewType==1){
+             val layoutInflater =LayoutInflater.from(parent.context)
+             val cardItem=layoutInflater.inflate(com.mustafayusef.sharay.R.layout.car_card ,parent,false)
 
-        val layoutInflater =LayoutInflater.from(parent.context)
-        val cardItem=layoutInflater.inflate(com.mustafayusef.sharay.R.layout.car_card ,parent,false)
+             return  CustomViewHolder(cardItem,mOnNotlesener)
+         }
+        else{
+            val layoutInflater =LayoutInflater.from(parent.context)
+             val cardItem=layoutInflater.inflate(com.mustafayusef.sharay.R.layout.first,parent,false)
 
-        return  CustomViewHolder(cardItem,mOnNotlesener)
+             return  CustomViewHolder(cardItem,mOnNotlesener)
+         }
+
     }
 
     override fun getItemCount(): Int {
         // count=holidayFeed!!.count().toString()
-    return cars.size
+    return cars.size+1
 
     }
 
+    override fun getItemViewType(position: Int): Int {
+       if(position==0){
+           return 0
+       }
+        else{
+           return 1
+       }
+    }
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         //holder.view.containerCar.startAnimation(AnimationUtils.loadAnimation(context, R.anim.zoom_in))
         //holder.view. OneContainer.startAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_in_list))
 
         // holder.view.LogoAir .startAnimation(AnimationUtils.loadAnimation(context,R.anim.left_to_right))
-        var carsP=cars.get(position)
+      if(position==0){
+//          val adapter = bannersAdapter(context!!,cars)
+//
+//          holder.view.storeSlider?.sliderAdapter = adapter
+//          //  context?.let { Glide.with(it).load(com.mustafayusef.sharay.R.drawable.car).into(carImageD) }
+//          holder.view.storeSlider?.setIndicatorAnimation(IndicatorAnimations.WORM) //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+//          holder.view.storeSlider?.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
+//          holder.view.storeSlider?.autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH
+//          holder.view. storeSlider?.indicatorSelectedColor = Color.WHITE
+//          holder.view. storeSlider?.indicatorUnselectedColor = Color.GRAY
+//          holder.view. storeSlider?.scrollTimeInSec = 4 //set scroll delay in seconds :
+//          holder.view. storeSlider?.startAutoCycle()
+      }
+        else{
+          var carsP=cars.get(position-1)
 
 
 //        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
 
-        holder.view.priceCar.text=carsP.price.toString()+"$"
-        holder.view.carMile.text=carsP.mileage.toString()
-        holder.view.modelYear.text=carsP.year
-        holder.view.carNmae.text=carsP.title
-        Glide.with(context).load("http://api.centralmarketiq.com/"+carsP.image+".png").into(holder.view?.carImage)
+          holder.view.priceCar.text=carsP.price.toString()+"$"
+          holder.view.carMile.text=carsP.mileage.toString()
+          holder.view.modelYear.text=carsP.year
+          holder.view.carNmae.text=carsP.title
+          Glide.with(context).load("http://api.centralmarketiq.com/"+carsP.image+".png").into(holder.view?.carImage)
+
+      }
 
     }
 
@@ -60,6 +98,7 @@ class MainAdapter(val context:Context,var onNoteLisener: OnNoteLisener,val cars:
     class CustomViewHolder(val view : View, var onNoteLisener: OnNoteLisener ) : RecyclerView.ViewHolder(view), View.OnClickListener{
            var OnNotlesener:OnNoteLisener
         override fun onClick(view: View?) {
+            if (layoutPosition!=0)
            onNoteLisener.onNoteClick(layoutPosition)
         }
 

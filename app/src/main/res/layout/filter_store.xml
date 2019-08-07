@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@drawable/back_filter"
+              android:layout_height="wrap_content" android:layout_margin="10dp">
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:fontFamily="@font/font_regular" android:textSize="20sp"
+              android:padding="5dp"
+              android:text="@string/Province"
+              android:gravity="center"
+              android:textColor="@color/white"
+              android:background="@drawable/title_filter"/>
+    <NumberPicker
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:focusable="auto"
+            android:id="@+id/provId"
+            android:filterTouchesWhenObscured="false"
+            android:solidColor="@color/white"
+            android:descendantFocusability="blocksDescendants"
+            android:background="@color/white"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:layout_marginTop="15dp" android:background="@drawable/round_slang"
+                  android:layout_marginLeft="5dp"
+                  android:weightSum="2"
+                  android:orientation="horizontal"
+                  android:layout_marginRight="5dp">
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/cancel" android:fontFamily="@font/font_bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_weight="1"
+                android:layout_marginRight="20dp"
+                android:textSize="16sp" android:gravity="center" app:backgroundTint="@color/gray"
+                app:cornerRadius="20dp"
+                android:id="@+id/closeFilter" android:padding="5dp" app:strokeColor="@color/black"
+                android:shadowColor="@color/black"/>
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/applay" android:fontFamily="@font/font_bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_weight="1"
+                android:textSize="16sp" android:gravity="center" app:backgroundTint="@color/colorAccent"
+                app:cornerRadius="20dp"
+                android:id="@+id/applayFilter" android:padding="5dp" app:strokeColor="@color/black"
+                android:shadowColor="@color/black"/>
+    </LinearLayout>
+</LinearLayout>

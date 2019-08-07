@@ -2,7 +2,7 @@ package com.mustafayusef.sharay.data.networks.repostorys
 
 import com.mustafayusef.holidaymaster.networks.SafeApiRequest
 import com.mustafayusef.sharay.data.models.CarsModel
-import com.mustafayusef.sharay.data.models.carDetails
+import com.mustafayusef.sharay.data.models.sections.*
 import com.mustafayusef.sharay.data.networks.myApi
 
 class SectionRepostary(val api: myApi): SafeApiRequest() {
@@ -11,37 +11,50 @@ class SectionRepostary(val api: myApi): SafeApiRequest() {
             api.GetCars()
         }}
 
-    suspend fun GetRent(): CarsModel {
+    suspend fun GetRent(): RentModel {
         return SafeRequest {
-            api.GetCars()
+            api.GetRent()
         }
     }
-    suspend fun GetNumbers(): CarsModel {
+    suspend fun GetNumbers(): NumbersModel {
         return SafeRequest {
-            api.GetCars()
-        }
-    }
-
-    suspend fun GetParts(): CarsModel {
-        return SafeRequest {
-            api.GetCars()
+            api.getNumbers()
         }
     }
 
-    suspend fun GetStores(): CarsModel {
+    suspend fun GetParts(): PartsModel {
         return SafeRequest {
-            api.GetCars()
-        }
-    }
-    suspend fun GetWared(): CarsModel {
-        return SafeRequest {
-            api.GetCars()
+            api.GetPart()
         }
     }
 
-    suspend fun GetMotors(): CarsModel {
+    suspend fun GetStores(): StoresModel {
         return SafeRequest {
-            api.GetCars()
+            api.getStores()
         }
     }
+    suspend fun GetImport(): RentModel {
+        return SafeRequest {
+            api.GetImport()
+        }
+    }
+
+    suspend fun GetMotors(): motorModel {
+        return SafeRequest {
+            api.GetMotor()
+        }
+    }
+    suspend fun GetMotorDetails(id:Int): motorDetailsModel {
+        return SafeRequest {
+            api.GetMotorDetails(id)
+        }
+    }
+
+
+    suspend fun GetStoreDetails(id:Int): StoreDetails {
+        return SafeRequest {
+            api.GetDetailsStore(id)
+        }
+    }
+
 }

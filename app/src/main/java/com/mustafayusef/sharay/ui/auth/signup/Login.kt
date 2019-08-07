@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 
 
 import androidx.navigation.findNavController
@@ -32,7 +34,7 @@ class Login : Fragment(), AuthLesener {
 
     }
 
-
+    private lateinit var navController: NavController
     companion object {
         fun newInstance() = Login()
     }
@@ -65,6 +67,10 @@ class Login : Fragment(), AuthLesener {
         return binding?.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController= Navigation.findNavController(view)
+    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val navBar = activity?.findViewById<BottomNavigationView> (R.id.bottomNav)
@@ -100,7 +106,7 @@ class Login : Fragment(), AuthLesener {
         animation_loadingSignUp.visibility=View.GONE
         animation_loadingSignUp.pauseAnimation()
         MainActivity.cacheObj.token=loginResponse.token
-        view?.findNavController()?.navigate(R.id.add_fragment)
+        view?.findNavController()?.navigate(R.id.profile_fragment)
 
     }
 

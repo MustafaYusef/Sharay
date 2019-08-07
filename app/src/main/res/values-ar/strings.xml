@@ -38,7 +38,7 @@
 
 
     <string name="MainInfo">المعلومات الرئيسية</string>
-    <string name="CarType">نوع السيارة</string>
+    <string name="CarClass">نوع السيارة</string>
     <string name="CarModel">موديل السيارة</string>
     <string name="Year">السنة</string>
     <string name="Status">الحالة</string>
@@ -74,4 +74,21 @@
     <string name="Phone">الرقم</string>
     <string name="Province">المحافظة</string>
     <string name="AdditionDate">تاريخ الأضافة</string>
+
+    <string name="mainTitle">العنوان الرئيسي</string>
+    <string name="price">السعر</string>
+    <string name="miles">المسافة</string>
+
+    <string name="GearNum">ناقل السرعة</string>
+    <string name="EnterSecondPhone">ادخل الرقم الثاني</string>
+    <string name="applay">تم</string>
+    <string name="descrption">الوصف</string>
+    <string name="MotoreModel">نوع الدراجة</string>
+
+    <string name="location">الموقع</string>
+    <string name="from">من</string>
+    <string name="to">إلى</string>
+    <string name="lastSearch">أخر نتائج البحث</string>
+    <string name="slogan">نرشدك إلى الأفضل</string>
+
 </resources>

@@ -27,7 +27,11 @@ class MainActivity : AppCompatActivity() {
 
         var language by stringPref("")
         var token by stringPref("")
-
+         var Email by stringPref("")
+        var phone by stringPref("")
+        var Secondphone by stringPref("")
+        var name by stringPref("")
+        var id by intPref(0)
     }
    private lateinit var navController: NavController
 
@@ -41,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         navController= Navigation.findNavController(this, com.mustafayusef.sharay.R.id.navHost)
-        bottomNav.setupWithNavController(navController)
+       bottomNav.setupWithNavController(navController)
 //        NavigationUI.setupActionBarWithNavController(this,navController)
         searchBtn.setOnClickListener {
             //val view:View?=null
@@ -65,19 +69,19 @@ class MainActivity : AppCompatActivity() {
             //val view:View?=null
             navController?.navigate(R.id.filterFragment)
 
-            val navBar = this?.findViewById<BottomNavigationView> (R.id.bottomNav)
-            val toolbar = this?.findViewById<Toolbar> (R.id.ToolBar)
-
-            navController?.addOnDestinationChangedListener { _, destination, _ ->
-                if(destination.id == R.id.filterFragment) {
-                    navBar?.visibility = View.GONE
-                    toolbar?.visibility = View.GONE
-                } else {
-                    navBar?.visibility = View.VISIBLE
-                    toolbar?.visibility = View.VISIBLE
-                }
-
-            }
+//            val navBar = this?.findViewById<BottomNavigationView> (R.id.bottomNav)
+//            val toolbar = this?.findViewById<Toolbar> (R.id.ToolBar)
+//
+//            navController?.addOnDestinationChangedListener { _, destination, _ ->
+//                if(destination.id == R.id.filterFragment) {
+//                    navBar?.visibility = View.GONE
+//                    toolbar?.visibility = View.GONE
+//                } else {
+//                    navBar?.visibility = View.VISIBLE
+//                    toolbar?.visibility = View.VISIBLE
+//                }
+//
+//            }
         }
       //  searchBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.search_fragment, null))
 
