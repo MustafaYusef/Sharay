@@ -1,11 +1,13 @@
 package com.mustafayusef.sharay.ui.add
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.Activity.RESULT_OK
-import android.content.ContentResolver
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -19,48 +21,57 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.*
-import com.bumptech.glide.Glide
+
 
 import com.mustafayusef.sharay.R
 import com.mustafayusef.sharay.ui.LocaleHelper
 import com.mustafayusef.sharay.ui.MainActivity
 import kotlinx.android.synthetic.main.add_fragment_fragment.*
-import kotlinx.android.synthetic.main.car_details_fragment.*
 
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.FileProvider
-import androidx.core.net.toFile
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.util.FileUtil
+
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import com.mustafayusef.holidaymaster.networks.networkIntercepter
+import com.mustafayusef.holidaymaster.utils.toast
 import com.mustafayusef.sharay.data.models.DataCars
 import com.mustafayusef.sharay.data.models.addRes
 import com.mustafayusef.sharay.data.models.carData
 import com.mustafayusef.sharay.data.networks.myApi
 import com.mustafayusef.sharay.data.networks.repostorys.CarsRepostary
-import com.mustafayusef.sharay.ui.filters.FilterViewModel
-import com.mustafayusef.sharay.ui.filters.FiltersCarViewModelFactory
-import kotlinx.android.synthetic.main.filter_fragment.*
-import kotlinx.android.synthetic.main.filter_store.view.*
+import com.mustafayusef.sharay.ui.auth.signup.Login
+import com.mustafayusef.sharay.ui.profile.Profile_fragment
 import kotlinx.android.synthetic.main.filters_dilog1.view.*
 import kotlinx.android.synthetic.main.filters_dilog1.view.applayFilter
+import kotlinx.android.synthetic.main.info.view.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+
 import java.io.File
+import java.text.SimpleDateFormat
 import java.util.*
+
 import kotlin.collections.ArrayList
 
 
 class Add_fragment : Fragment(),PictureAdapter.OnNoteLisener,AddCarLesener {
+
+
+    val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE=123
+    var PICK_IMAGE_MULTIPLE = 1
+    lateinit var imagePath: String
+    var imagesPathList: MutableList<String> = arrayListOf()
+
     var title: String?=null
     var brand: String?=null
     var `class`: String?=null
@@ -68,29 +79,33 @@ class Add_fragment : Fragment(),PictureAdapter.OnNoteLisener,AddCarLesener {
     var year: Int?=null
     var warid: String?=null
     var mileage: Int?=null
-    var price: String?=null
+    var price: Int?=null
     var gear: String?=null
     var cylinders: Int?=null
     var driveSystem: String?=null
     var roof: String?=null
-    var seats: Int?=null
+    var seats: Int=1
     var type: String?=null
-    var window: String?=null
-    var airBags: String?=null
+    var window: String=" "
+    var airBags: String=" "
     var color: String?=null
-    var description: String?=null
-    var name: String?=null
+    var description: String=" "
+    var name=MainActivity.cacheObj  .name
     var phone: String?=null
     var location: String?=null
     var state: String?=null
     var date: String?=null
-    var userId: Int?=null
-    var storeId: Int?=null
-    var active: Boolean?=null
-    var fuel:String?=null
-    var isRent: Boolean?=null
-    var isImported: Boolean?=null
+    var userId: Int=MainActivity.cacheObj .id
+    var storeId: Int=0
+    var active: Boolean=true
+    var fuel:String=" 1"
+    var isRent: Boolean=false
+    var isImported: Boolean=false
     var image: MultipartBody.Part?=null
+    var imagesBodyList: MutableList<MultipartBody.Part> = arrayListOf()
+    var imagesBodyList2: MutableList<MultipartBody.Part> = arrayListOf()
+    var navBar:BottomNavigationView?=null
+    var toolbar:Toolbar?=null
   //  var filePart:MultipartBody.Part
     var responseCars:List<DataCars>?=null
     val locations= arrayListOf("بغداد","القادسية","دهوك","حلبجة","البصرة","بابل","انبار","اربيل","ذي قار","السليمانية","صلاح الدين","ديالى","كركوك","كربلاء","المثنى","ميسان","النجف","نينوى","واسط","الموصل")
@@ -124,12 +139,35 @@ class Add_fragment : Fragment(),PictureAdapter.OnNoteLisener,AddCarLesener {
     var imageFile:RequestBody?=null
    lateinit var carsNames:List<String>
     private lateinit var navController: NavController
-    var PICK_IMAGE_MULTIPLE = 1
-    lateinit var imagePath: String
-    var imagesPathList: MutableList<Uri> = arrayListOf()
+
+//    var PICK_IMAGE_MULTIPLE = 1
+//    lateinit var imagePath: String
+    var imagesPathListUri: MutableList<Uri> = arrayListOf()
   var ind=0
-    var indClass=0
+    var indClass=-1
+    var indBrand=0
     var indLoc=0
+var loc2:List<carData>?=null
+
+    var keyFlag:Boolean=false
+//    var easyImage= EasyImage.Builder(context!!)
+//
+//
+//// Chooser only
+//// Will appear as a system chooser title, DEFAULT empty string
+////.setChooserTitle("Pick media")
+//// Will tell chooser that it should show documents or gallery apps
+////.setChooserType(ChooserType.CAMERA_AND_DOCUMENTS)  you can use this or the one below
+////.setChooserType(ChooserType.CAMERA_AND_GALLERY)
+//
+//// Setting to true will cause taken pictures to show up in the device gallery, DEFAULT false
+//        .setCopyImagesToPublicGalleryFolder(false)
+//// Sets the name for images stored if setCopyImagesToPublicGalleryFolder = true
+//        .setFolderName("EasyImage sample")
+//
+//// Allow multiple picking
+//        .allowMultiple(true)
+//        .build();
     companion object {
         fun newInstance() = Add_fragment()
     }
@@ -147,6 +185,7 @@ class Add_fragment : Fragment(),PictureAdapter.OnNoteLisener,AddCarLesener {
         return inflater.inflate(com.mustafayusef.sharay.R.layout.add_fragment_fragment, container, false)
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val networkIntercepter= context?.let { networkIntercepter(it) }
@@ -154,18 +193,17 @@ class Add_fragment : Fragment(),PictureAdapter.OnNoteLisener,AddCarLesener {
         val repostary= CarsRepostary(api!!)
         val factory= AddCarFactory(repostary)
 
-
         viewModel = ViewModelProviders.of(this,factory).get(AddFragmentViewModel::class.java)
         viewModel?.Auth=this
         view?.findNavController()?.addOnDestinationChangedListener { _, destination, _ ->
             if(destination.id == R.id.add_fragment) {
 
-                if(MainActivity.cacheObj.token=="")
+                if(MainActivity.cacheObj  .token=="")
                     view?.findNavController()?.navigate(R.id.fromAddToLogin)
             }
         }
         val suggest: Array<carData>
-        var json: String = ""
+
         val objectArrayString: String = context?.resources?.openRawResource(R.raw.cars)?.bufferedReader()
             .use { it!!.readText() }
         val gson = Gson()
@@ -174,118 +212,123 @@ class Add_fragment : Fragment(),PictureAdapter.OnNoteLisener,AddCarLesener {
         for (i in suggest) {
             names.add(i.name)
         }
+        CarClassAdd.setOnClickListener {
+            showClass(names as ArrayList<String>,CarClassAdd)
+        }
+        carModelAdd.setOnClickListener {
+            if(indClass==-1){
+                CarClassAdd.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
+               // CarClassAdd.setTextColor(-0x01ffff)
+            }else{
+              showBrand(suggest[indClass].data as ArrayList<String>, carModelAdd)
+                brand=suggest[indClass].data[indBrand]
+            }
+        }
 
-        val location1: Array<carData>
-        var json1: String = ""
+        var location1: Array<carData>
+        var locnames = mutableListOf("")
         val objectArrayString1: String = context?.resources?.openRawResource(R.raw.state)?.bufferedReader()
             .use { it!!.readText() }
         val gson1 = Gson()
         location1 = gson1.fromJson(objectArrayString1, Array<carData>::class.java)
-        var names1 = mutableListOf("")
+        loc2=location1.toList()
+        var provinc = mutableListOf("")
         for (i in location1) {
-            names1.add(i.name)
+            locnames.add(i.name)
         }
+
         provincAdd.setOnClickListener {
-            indLoc= showMiles(names1 as ArrayList<String>)
-            location=names1[indLoc]
-
-            ind= showMiles(location1[indLoc].data as ArrayList<String>)
-            state=suggest[indLoc].data[ind]
-
-//                ind=showMiles(locations)
-//                state=status[ind].toString()
+            showLoc(locnames as ArrayList<String>, CarClassAdd)
         }
+         navBar= activity?.findViewById<BottomNavigationView> (R.id.bottomNav)
+         toolbar = activity?.findViewById<Toolbar> (R.id.ToolBar)
 
         BtnAdd.setOnClickListener {
-            viewModel.AddCar( title!!, brand!!, `class`!!, status!!,
-                year!!, warid!!, mileage!!, price!!.toInt(), gear!!, cylinders!!, fuel!!, driveSystem!!,
-                roof!!, seats!!, type!!, window!!, airBags!!, color!!, description!!,
-                name!!, phone!!, location!!, state!!, date!!,userId!!,
-                storeId!!, active!!, isRent!!, isImported!!, image!!)
+
+
+            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+            val currentDate = sdf.format(Date())
+            date=currentDate
+            if(brand==null||`class`==null||status==null
+                ||year==null||warid==null||mileage==null||gear==null||cylinders==null||
+                fuel==null||driveSystem==null||roof==null||seats==null||type==null||color==null
+                ||location==null
+                ||state==null||imagesBodyList.size==0||MainTitleAdd.text.toString()==""
+                ||PriceAdd.text.toString()==""||phoneNumAdd.text.toString()==""){
+                  context?.toast(getResources().getString(R.string.complete))
+            }else if(phoneNumAdd.text.toString().length<=10&&phoneNumAdd.text.toString().length<16){
+                context?.toast(getResources().getString(R.string.EnterPhoneCorrect))
+            }else if(imagesBodyList.size>12){
+                context?.toast(getResources().getString(R.string.maximum))
+
+            }
+            else{
+                title= MainTitleAdd.text.toString()
+                price=PriceAdd.text.toString().toInt()
+                phone=phoneNumAdd.text.toString()
+                navBar?.isClickable=false
+                toolbar?.isClickable=false
+
+
+                viewModel.AddCar( title!!, brand!!, `class`!!, status!!,
+                    year!!, warid!!, mileage!!, price!!, gear!!, cylinders!!, fuel!!, driveSystem!!,
+                    roof!!, seats!!, type!!, window!!, airBags!!, color!!, description!!,
+                    name!!, phone!!, location!!, state!!, date!!,userId!!,
+                    storeId!!, active!!, isRent!!, isImported!!, imagesBodyList.get(0)!!)
+            }
+
         }
 
 
-            CarClassAdd.setOnClickListener {
-                indClass= showMiles(names as ArrayList<String>)
-                `class`=names[ind]
-            }
-            carModelAdd.setOnClickListener {
-                ind= showMiles(suggest[indClass].data as ArrayList<String>)
-                brand=suggest[indClass].data[ind]
-            }
+
             ColorAdd.setOnClickListener {
-                ind= showMiles(colors)
-                color=colors[ind]
+               Reuseable(colors,ColorAdd)
+
+
             }
             statusAdd.setOnClickListener {
-                ind= showMiles(statusArr)
-                status=statusArr[ind]
+                Reuseable(statusArr,statusAdd)
+
             }
             YearAdd.setOnClickListener {
-                ind= showMiles(years)
-                year=years[ind].toInt()
+                Reuseable(years,YearAdd)
+
             }
             sourceAdd.setOnClickListener {
-                ind= showMiles(sources)
-                warid=sources[ind].toString()
+
+                Reuseable(statusArr,sourceAdd)
+
             }
             MilesAdd.setOnClickListener {
-                ind=showMiles(milesArr)
-                mileage=milesArr[ind].toInt()
+
+                Reuseable(milesArr,MilesAdd)
             }
             cylenderAdd.setOnClickListener {
-                ind=showMiles(cylindersArr)
-                cylinders=cylindersArr[ind].toInt()
+
+                Reuseable(cylindersArr,cylenderAdd)
+
             }
             GearAdd.setOnClickListener {
-                ind=showMiles(driveSystemArr)
-                driveSystem=driveSystemArr[ind]
+
+                Reuseable(driveSystemArr,GearAdd)
             }
             TransmissionTypeAdd.setOnClickListener {
-                ind=showMiles(gearTransmitionArr)
-                gear=gearTransmitionArr[ind].toString()
+
+                Reuseable(gearTransmitionArr,TransmissionTypeAdd)
             }
             FuelTypeAdd.setOnClickListener {
-                ind=showMiles(fuelTypeArr)
-                fuel=fuelTypeArr[ind]
+                Reuseable(fuelTypeArr,FuelTypeAdd)
             }
             RoofAdd.setOnClickListener {
-                ind=showMiles(roofArr)
-                roof=roofArr[ind].toString()
+                Reuseable(roofArr,RoofAdd)
             }
             DouchmhAdd.setOnClickListener {
-                ind=showMiles(douchmahArr)
-                type=douchmahArr[ind].toString()
-            }
+                Reuseable(douchmahArr,DouchmhAdd)
 
-            WindowAdd.setOnClickListener {
-                ind=showMiles(windowsSystemArr)
-                window=windowsSystemArr[ind].toString()
             }
 
 
-            title=MainTitleAdd.text.toString()
 
-
-
-            price=PriceAdd.text.toString()
-
-
-            seats=SeatAdd.text.toString().toInt()
-
-
-            airBags=airBagAdd.text.toString()
-
-            description=DescAdd.text.toString()
-            name=NameAdd.text.toString()
-            phone= phoneNumAdd.text.toString()
-
-            date=Date().toString()
-            userId=MainActivity.cacheObj.id
-            storeId=0
-            active=false
-            isRent=false
-            isImported=false
 
 
         }
@@ -295,7 +338,26 @@ class Add_fragment : Fragment(),PictureAdapter.OnNoteLisener,AddCarLesener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //navController= Navigation.findNavController(view)
+        val dview: View = layoutInflater.inflate(R.layout.info, null)
+        val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
+        val malert= builder?.show()
 
+        malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dview.info?.text=
+            "\n" +
+                    "اعلان لدنيا\n" +
+                    "لاعلان سيارتكم انقر على (اضافة اعلان)،اتبع الخطوات بملئ الحقول جميعها من السعر (ينصح بكتابة السعر) وتحميل الصور على ان تكون صور في اضاءة جيدة و اختيار زوايا مناسبة لجوانب السيارة الاربعة كاملة دون اقتطاع ، مع صورتين لداخلية السيارة.\n" +
+                    "ستصلكم رسالة نصية على جوالكم عند نشر الاعلان\n" +
+                    "\n" +
+                    "للاستفسار او للمساعدة الفنية اتصل على \n" +
+                    "0781 000 6405\n" +
+                    "0771 460 1419\n" +
+                    "Central.marketiq@gmail.com"
+
+        dview.goLog?.setOnClickListener {
+            malert?.dismiss()
+        }
         addedPictureList?.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
 
@@ -308,45 +370,307 @@ class Add_fragment : Fragment(),PictureAdapter.OnNoteLisener,AddCarLesener {
 //        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
 
+    // if(ContextCompat.checkSelfPermission(context,android.Manifest.permission.READ_EXTERNAL_STORAGE))
 
 
+//        Intent.ACTION_PICK,
+//        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
 
+//        openGallary.setOnClickListener {
+//
+//           // val intent = Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+//
+//            val intent = Intent(Intent.ACTION_GET_CONTENT)
+//            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true)
+//            intent.type = "image/*"
+//           // intent.action=Intent.ACTION_GET_CONTENT
+//            //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true)
+//
+//            startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1)
+//
+//        }
+// Here, thisActivity is the current activity
 
+//        if (ContextCompat.checkSelfPermission(context!!,
+//                Manifest.permission.READ_EXTERNAL_STORAGE)
+//            != PackageManager.PERMISSION_GRANTED) {
+//
+//            // Permission is not granted
+//            // Should we show an explanation?
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(activity?.parent!!,
+//                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+//                // Show an explanation to the user *asynchronously* -- don't block
+//                // this thread waiting for the user's response! After the user
+//                // sees the explanation, try again to request the permission.
+//            } else {
+//                // No explanation needed, we can request the permission.
+//                ActivityCompat.requestPermissions(activity?.parent!!,
+//                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+//                    100)
+//
+//                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+//                // app-defined int constant. The callback method gets the
+//                // result of the request.
+//            }
+//        } else {
+//            // Permission has already been granted
+//        }
         openGallary.setOnClickListener {
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            intent.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1)
+           if (Build.VERSION.SDK_INT < 19) {
+                var intent = Intent()
+                intent.type = "image/*"
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                intent.action = Intent.ACTION_GET_CONTENT
+                startActivityForResult(
+                    Intent.createChooser(intent, "Select Picture")
+                    , PICK_IMAGE_MULTIPLE
+                )
+
+
+            } else {
+            if (Build.VERSION.SDK_INT >=23) {
+                if(checkPermissionREAD_EXTERNAL_STORAGE(context!!)){
+                    var intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                    intent.addCategory(Intent.CATEGORY_OPENABLE)
+                    intent.type = "image/*"
+                    startActivityForResult(intent, PICK_IMAGE_MULTIPLE);
+                }else{
+                    context?.toast("you can not pick images")
+                }
+            }else{
+                var intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                intent.addCategory(Intent.CATEGORY_OPENABLE)
+                intent.type = "image/*"
+                startActivityForResult(intent, PICK_IMAGE_MULTIPLE);
+            }
+
+
+            }
+
+            }
+
+
+
         }
+//
+//        ImagePicker.create(this)
+//            .returnMode(ReturnMode.ALL) // set whether pick and / or camera action should return immediate result or not.
+//            .folderMode(true) // folder mode (false by default)
+//            .toolbarFolderTitle("Folder") // folder selection title
+//            .toolbarImageTitle("Tap to select") // image selection title
+//            .toolbarArrowColor(Color.BLACK) // Toolbar 'up' arrow color
+//
+//
+//            .multi() // multi mode (default mode)
+//            .limit(12) // max images can be selected (99 by default)
+//
+//
+//
+//
+//
+//            .enableLog(false) // disabling log
+//
+//            .start(); // start image picker activity with request code
 
-     }
-    override fun OnStart() {
 
-    }
 
-    override fun onSucsess(CarResponse: addRes) {
-
-    }
-
-    override fun onFailer(message: String) {
-
-    }
-    override fun onNoteClick(position: Int) {
-        Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-        imagesPathList.removeAt(position)
-        addedPictureList?.adapter = context?.let {
-            PictureAdapter(
-                it, this,
-                imagesPathList.toTypedArray()
-            )
-        }
-    }
-    fun showMiles(array:ArrayList<String>):Int {
+//   override fun onActivityResult(requestCode:Int,resultCode:Int, data:Intent) {
+//        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
+//            // Get a list of picked images
+//            List<Image> images = ImagePicker.getImages(data)
+//            // or get a single image only
+//            Image image = ImagePicker.getFirstImageOrNull(data)
+//        }
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
+    fun Reuseable(
+        array: ArrayList<String>,
+         colorAdd: AppCompatButton
+    ):Int{
         val dview: View = layoutInflater.inflate(R.layout.filters_dilog1, null)
         val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
         val malert= builder?.show()
         malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dview.filterTitle.text="Add"
+        dview.filterPicker.minValue = 0
+        dview.filterPicker.maxValue = array.size-1
+        dview.filterPicker.wrapSelectorWheel = true
+        dview.filterPicker.displayedValues = array.toTypedArray()
+        var index=0
+        var index2=0
+        dview.filterPicker.setOnValueChangedListener { picker, oldVal, newVal ->
+            //
+            //Display the newly selected number to text view
+            index=newVal
+            // println(country +"   cooodkl,dl")
+        }
+        dview.applayFilter.setOnClickListener {
+
+            //mileFilter.text=selectMile
+
+            index2=index
+            colorAdd.text=array[index2]
+            when(colorAdd.id){
+                R.id.ColorAdd->color=array[index2]
+                R.id.statusAdd->status=array[index2]
+                R.id.YearAdd->year=array[index2].trim().toInt()
+                R.id.sourceAdd->warid=array[index2]
+                R.id.MilesAdd->mileage=array[index2].trim() .toInt()
+                R.id.cylenderAdd->cylinders=array[index2].trim().toInt()
+                R.id.GearAdd->gear=array[index2]
+                R.id.TransmissionTypeAdd->driveSystem=array[index2]
+                R.id.FuelTypeAdd->fuel=array[index2]
+                R.id.RoofAdd->roof=array[index2]
+                R.id.DouchmhAdd->type=array[index2]
+
+            }
+            colorAdd.text=array[index2]
+            malert?.dismiss()
+        }
+        dview.closeDf.setOnClickListener {
+            malert?.dismiss()
+            index=0
+        }
+     return index2
+    }
+    override fun OnStart() {
+        BtnAdd.isClickable=false
+//        navBar?.visibility=View.GONE
+//        //keyFlag=false
+//
+//        toolbar?.visibility=View.GONE
+
+       // navBar?.setOnClickListener(null);
+
+        animation_loadingAdd?.visibility=View.VISIBLE
+        animation_loadingAdd?.playAnimation()
+    }
+
+    override fun onSucsess(CarResponse: addRes) {
+        if(imagesBodyList.size>1){
+            for(i in 1 until imagesBodyList.size){
+                imagesBodyList2.add(i-1,imagesBodyList.get(i))
+            }
+            context?.toast(resources.getString(R.string.PleaseWait))
+            viewModel.addImages(imagesBodyList2,CarResponse.data.id)
+        }else{
+            if(!keyFlag){
+            animation_loadingAdd?.visibility=View.INVISIBLE
+
+                val dview: View? = layoutInflater?.inflate(R.layout.info, null)
+                val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
+                val malert= builder?.show()
+
+                malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+                dview?.info?.text=resources.getString(R.string.showYourAdd)
+
+                dview?.goLog?.text=resources.getString(R.string.Profile)
+                dview?.goLog?.setOnClickListener {
+                    malert?.dismiss()
+                    view?.findNavController()?.navigate(R.id.myAdd)
+                }}
+
+
+//            navBar?.visibility=View.VISIBLE
+//
+//
+//            toolbar?.visibility=View.VISIBLE
+
+            BtnAdd?.isClickable=true
+        }
+
+
+
+    }
+
+    override fun onFailer(message: String) {
+        context?.toast(message)
+        animation_loadingAdd?.visibility=View.INVISIBLE
+        BtnAdd.isClickable=true
+        println(message)
+
+        navBar?.visibility=View.VISIBLE
+
+
+        toolbar?.visibility=View.VISIBLE
+
+
+    }
+
+
+    override fun OnStartAddImages() {
+        context?.toast("start images")
+    }
+
+    override fun onSucsessAddImages(message: String) {
+        //context?.toast("Added sucessfully")
+
+
+        animation_loadingAdd?.visibility=View.INVISIBLE
+           if(!keyFlag){
+               val dview: View? = layoutInflater?.inflate(R.layout.info, null)
+               val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
+               val malert= builder?.show()
+
+               malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+               dview?.info?.text=resources.getString(R.string.showYourAdd)
+
+               dview?.goLog?.text=resources.getString(R.string.Profile)
+               dview?.goLog?.setOnClickListener {
+                   malert?.dismiss()
+                   view?.findNavController()?.navigate(R.id.myAdd)
+               }
+           }
+
+
+
+
+        navBar?.visibility=View.VISIBLE
+
+
+        toolbar?.visibility=View.VISIBLE
+
+        BtnAdd?.isClickable=true
+
+
+
+    }
+
+    override fun OnFailerAddImages(message: String) {
+        context?.toast(message)
+        BtnAdd?.isClickable=true
+        animation_loadingAdd?.visibility=View.INVISIBLE
+        navBar?.visibility=View.VISIBLE
+
+
+        toolbar?.visibility=View.VISIBLE
+    }
+    override fun onNoteClick(position: Int) {
+        Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
+        imagesPathListUri.removeAt(position)
+
+            imagesBodyList.removeAt(position)
+
+        addedPictureList?.adapter = context?.let {
+            PictureAdapter(
+                it, this,
+                imagesPathListUri.toTypedArray()
+            )
+        }
+    }
+    fun showClass(
+        array: ArrayList<String>,
+        carClassAdd: AppCompatButton
+    ){
+        val dview: View = layoutInflater.inflate(R.layout.filters_dilog1, null)
+        val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
+        val malert= builder?.show()
+        malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dview.filterTitle.text="Add"
         dview.filterPicker.minValue = 0
         dview.filterPicker.maxValue = array.size-1
         dview.filterPicker.wrapSelectorWheel = true
@@ -362,63 +686,346 @@ class Add_fragment : Fragment(),PictureAdapter.OnNoteLisener,AddCarLesener {
         dview.applayFilter.setOnClickListener {
 
             //mileFilter.text=selectMile
+            indClass=index-1
+            carClassAdd.text=array[index]
+            `class`=array[index]
             malert?.dismiss()
         }
         dview.closeDf.setOnClickListener {
             malert?.dismiss()
             index=0
         }
-        return index
+
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                if (data == null) {
-                    // something is wrong
-                }
+    fun showBrand(
+        array: ArrayList<String>,
+        carClassAdd: AppCompatButton
+    ){
+        val dview: View = layoutInflater.inflate(R.layout.filters_dilog1, null)
+        val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
+        val malert= builder?.show()
+        malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dview.filterTitle.text="Add"
+        dview.filterPicker.minValue = 0
+        dview.filterPicker.maxValue = array.size-1
+        dview.filterPicker.wrapSelectorWheel = true
+        dview.filterPicker.displayedValues = array.toTypedArray()
+        var index=0
 
-                val clipData = data?.clipData
-                if (clipData != null) { // handle multiple photo
-                    for (i in 0 until clipData.itemCount) {
-                        val uri = clipData.getItemAt(i).uri
-                        imagesPathList.add(i, uri)
+        dview.filterPicker.setOnValueChangedListener { picker, oldVal, newVal ->
+            //
+            //Display the newly selected number to text view
+            index=newVal
+            // println(country +"   cooodkl,dl")
+        }
+        dview.applayFilter.setOnClickListener {
+
+            //mileFilter.text=selectMile
+            indBrand=index-1
+            carModelAdd.text=array[index]
+            brand=array[index]
+            malert?.dismiss()
+        }
+        dview.closeDf.setOnClickListener {
+            malert?.dismiss()
+            index=0
+        }
+
+    }
+    fun showLoc2(
+        array: ArrayList<String>,
+        carClassAdd: AppCompatButton
+    ){
+        val dview: View = layoutInflater.inflate(R.layout.filters_dilog1, null)
+        val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
+        val malert= builder?.show()
+        malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dview.filterTitle.text="Add"
+        dview.filterPicker.minValue = 0
+        dview.filterPicker.maxValue = array.size-1
+        dview.filterPicker.wrapSelectorWheel = true
+        dview.filterPicker.displayedValues = array.toTypedArray()
+        var index=0
+
+        dview.filterPicker.setOnValueChangedListener { picker, oldVal, newVal ->
+            //
+            //Display the newly selected number to text view
+            index=newVal
+            // println(country +"   cooodkl,dl")
+        }
+        dview.applayFilter.setOnClickListener {
+
+            //mileFilter.text=selectMile
+            //indBrand=index-1
+            carModelAdd.text=array[index]
+            state=array[index]
+
+            provincAdd.text=location+"/"+array[index]
+            malert?.dismiss()
+        }
+        dview.closeDf.setOnClickListener {
+            malert?.dismiss()
+            index=0
+        }
+
+    }
+    fun showLoc(
+        array: ArrayList<String>,
+        carClassAdd: AppCompatButton
+    ){
+        val dview: View = layoutInflater.inflate(R.layout.filters_dilog1, null)
+        val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
+        val malert= builder?.show()
+        malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dview.filterTitle.text="Add"
+        dview.filterPicker.minValue = 0
+        dview.filterPicker.maxValue = array.size-1
+        dview.filterPicker.wrapSelectorWheel = true
+        dview.filterPicker.displayedValues = array.toTypedArray()
+        var index=0
+
+        dview.filterPicker.setOnValueChangedListener { picker, oldVal, newVal ->
+            //
+            //Display the newly selected number to text view
+            index=newVal
+            // println(country +"   cooodkl,dl")
+        }
+        dview.applayFilter.setOnClickListener {
+
+            //mileFilter.text=selectMile
+            indLoc=index-1
+            carModelAdd.text=array[index]
+            location=array[index]
+            malert?.dismiss()
+            showLoc2(this!!.loc2?.get(indLoc)?.data as ArrayList<String>, CarClassAdd)
+
+        }
+        dview.closeDf.setOnClickListener {
+            malert?.dismiss()
+            index=0
+        }
+
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        super.onActivityResult(requestCode, resultCode, data)
+        // When an Image is picked
+        if (requestCode == PICK_IMAGE_MULTIPLE && resultCode == Activity.RESULT_OK
+            && null != data
+        ) {
+            if (data.getClipData() != null) {
+
+                    for (i in 0 until data.getClipData()!!.itemCount) {
+                        val uri = data.getClipData()!!.getItemAt(i).uri
+                        imagesPathListUri.add(i, uri)
 
                         addedPictureList?.adapter = context?.let {
                             PictureAdapter(
                                 it, this,
-                                imagesPathList.toTypedArray()
+                                imagesPathListUri.toTypedArray()
                             )
                         }
-                        var oregnal:File=imagesPathList.get(0).toFile()
-                        imageFile= RequestBody.create(
-                        MediaType.parse(context?.contentResolver?.getType(imagesPathList.get(0))),
-                            oregnal)
-
-                        image=MultipartBody.Part.createFormData("image",
-                           oregnal.name,imageFile)
-
 
                     }
-                } else { // handle single photo
-                    val uri: Uri? = data?.data
-                    uri?.let { imagesPathList.add(0, it) }
-                    addedPictureList?.adapter = context?.let {
-                        PictureAdapter(
-                            it, this,
-                            imagesPathList.toTypedArray()
+
+//                    var imageUri: Uri = data.clipData.getItemAt(0).uri
+//                    getPathFromURI(imageUri)
+//                    var count = data.clipData.itemCount
+//                    var oregnal = File(imagesPathList.get(0))
+//                    imageFile = RequestBody.create(
+//                        MediaType.parse(context?.contentResolver?.getType(imageUri)),
+//                        oregnal
+//                    )
+//
+//                    image = MultipartBody.Part.createFormData("image", oregnal.name, imageFile)
+                    //imagesPathList.clear()
+                    var count = data.clipData?.itemCount
+                    for (i in 0 until count!!) {
+                        var imageUri: Uri = data.clipData!!.getItemAt(i).uri
+                        getPathFromURI(imageUri)
+
+                        var oregnal = File(imagesPathList.get(i))
+                        imageFile = RequestBody.create(
+                            MediaType.parse(context?.contentResolver?.getType(imageUri)),
+                            oregnal
                         )
-                    }
-                    var oregnal:File=imagesPathList.get(0).toFile()
-                    imageFile= RequestBody.create(
-                        MediaType.parse(context?.contentResolver?.getType(imagesPathList.get(0))),
-                        oregnal)
+                        if(i==0){
+                            imagesBodyList.add(i,MultipartBody.Part.createFormData("image", oregnal.name, imageFile))
 
-                    image=MultipartBody.Part.createFormData("image",
-                        oregnal.name,imageFile)
+                        }else{
+                            imagesBodyList.add(i,MultipartBody.Part.createFormData("image${i-1}", oregnal.name, imageFile))
+
+                        }
+
+                    }
+
+
+            }else{
+                context?.toast(resources.getString(R.string.multiple))
+            }
+                //single image
+//            } else if (data.getData() != null) {
+//                val uri: Uri? = data?.data
+//                    uri?.let { imagesPathListUri.add(0, it) }
+//                    addedPictureList?.adapter = context?.let {
+//                        PictureAdapter(
+//                            it, this,
+//                            imagesPathListUri.toTypedArray()
+//                        )}
+//
+//
+//                var imagePath: String = data.data.path
+//                var oregnal=File(imagePath)
+//                    imageFile= RequestBody.create(
+//                        MediaType.parse(context?.contentResolver?.getType(uri)),
+//                        oregnal)
+//
+//                    image=MultipartBody.Part.createFormData("image", oregnal.name,imageFile)
+//                Log.e("imagePath", imagePath);
+//            }
+
+
+        }
+    }
+
+
+
+
+//    override  fun onActivityResult(requestCode:Int , resultCode:Int, data:Intent) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        easyImage.handleActivityResult(requestCode, resultCode, data, this, DefaultCallback {
+//            override fun onMediaFilesPicked(imageFiles:List<MediaFile>,  source: MediaSource) {
+//             //   onPhotosReturned(imageFiles);
+//            }
+//
+//            override fun onImagePickerError(@NonNull Throwable error, @NonNull MediaSource source) {
+//                //Some error handling
+//                error.printStackTrace();
+//            }
+//
+//            override fun onCanceled(@NonNull MediaSource source) {
+//                //Not necessary to remove any files manually anymore
+//            }
+//        });
+//    }
+    @SuppressLint("NewApi")
+    fun getPathFromURI(uri: Uri) {
+        var path: String = uri.path!! // uri = any content Uri
+
+        val databaseUri: Uri
+        val selection: String?
+        val selectionArgs: Array<String>?
+        if (path.contains("/document/image:")) { // files selected from "Documents"
+            databaseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            selection = "_id=?"
+            selectionArgs = arrayOf(DocumentsContract.getDocumentId(uri).split(":")[1])
+        } else { // files selected from all other sources, especially on Samsung devices
+            databaseUri = uri
+            selection = null
+            selectionArgs = null
+        }
+        try {
+            val projection = arrayOf(
+                MediaStore.Images.Media.DATA,
+                MediaStore.Images.Media._ID,
+                MediaStore.Images.Media.ORIENTATION,
+                MediaStore.Images.Media.DATE_TAKEN
+            ) // some example data you can query
+            val cursor = context?.contentResolver ?.query(
+                databaseUri,
+                projection, selection, selectionArgs, null
+            )
+            if (cursor!!.moveToFirst()) {
+                val columnIndex = cursor!!.getColumnIndex(projection[0])
+                imagePath = cursor!!.getString(columnIndex)
+                // Log.e("path", imagePath);
+                imagesPathList.add(imagePath)
+            }
+            cursor!!.close()
+        } catch (e: Exception) {
+            Log.e(TAG, e.message, e)
+        }
+    }
+ fun checkPermissionREAD_EXTERNAL_STORAGE(
+             context: Context
+ ):Boolean {
+        var currentAPIVersion = Build.VERSION.SDK_INT;
+        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(context,
+                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        context as Activity ,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    showDialog("External storage", context,
+                            Manifest.permission.READ_EXTERNAL_STORAGE);
+
+                } else {
+                    ActivityCompat
+                            .requestPermissions(
+                                context as Activity ,
+                                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE) ,
+                                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
                 }
+                return false;
+            } else {
+                return true;
+            }
+
+        } else {
+            return true;
+        }
+    }
+fun showDialog(  msg:String, context:Context ,
+              permission:String) {
+        var alertBuilder:AlertDialog.Builder = AlertDialog.Builder(context);
+        alertBuilder.setCancelable(true);
+        alertBuilder.setTitle("Permission necessary");
+        alertBuilder.setMessage(msg + " permission is necessary");
+        alertBuilder.setPositiveButton(android.R.string.yes,
+                 DialogInterface.OnClickListener(
+                     fun(dialog: DialogInterface, which:Int) {
+                         ActivityCompat.requestPermissions(context as Activity,
+                             arrayOf(permission ),
+                             MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                     }
+                 )
+
+
+
+                )
+       val  alert:AlertDialog = alertBuilder.create();
+        alert.show();
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE -> {
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return
+            }
+
+            // Add other 'when' lines to check for other
+            // permissions this app might request.
+            else -> {
+                // Ignore all other requests.
             }
         }
+    }
 
+    override fun onDetach() {
+        keyFlag=true
+        navBar?.visibility=View.VISIBLE
+        toolbar?.visibility=View.VISIBLE
+        super.onDetach()
     }
 }

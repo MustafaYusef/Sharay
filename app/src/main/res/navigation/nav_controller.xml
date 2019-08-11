@@ -23,19 +23,16 @@
     <fragment android:id="@+id/add_fragment" android:name="com.mustafayusef.sharay.ui.add.Add_fragment"
               tools:layout="@layout/add_fragment_fragment" android:label="@string/Add">
         <action android:id="@+id/fromAddToLogin" app:destination="@id/signUp" app:popUpTo="@+id/main_fragment"/>
-        <action android:id="@+id/goToSectionList" app:destination="@id/listOfAdd"/>
     </fragment>
     <fragment android:id="@+id/profile_fragment" android:name="com.mustafayusef.sharay.ui.profile.Profile_fragment"
               android:label="@string/Profile" tools:layout="@layout/profile_fragment_fragment">
         <action android:id="@+id/goToLogin" app:destination="@id/signUp" app:enterAnim="@anim/nav_default_enter_anim"
                 app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
                 app:popExitAnim="@anim/nav_default_pop_exit_anim" app:popUpTo="@+id/main_fragment"/>
-        <action android:id="@+id/goToMyCars" app:destination="@id/myAdd"/>
-        <action android:id="@+id/action_profile_fragment_to_myFav" app:destination="@id/myFav"/>
     </fragment>
     <fragment android:id="@+id/carDetails" android:name="com.mustafayusef.sharay.ui.main.cardetails.carDetails"
               android:label="car_details_fragment" tools:layout="@layout/car_details_fragment">
-        <argument android:name="carId" app:argType="integer" android:defaultValue="0"/>
+        <argument android:name="carId" app:argType="integer"/>
     </fragment>
     <fragment android:id="@+id/signUp" android:name="com.mustafayusef.sharay.ui.auth.signup.Login" android:label="sign_up_fragment"
               tools:layout="@layout/login_fragment">
@@ -43,8 +40,6 @@
         />
         <action android:id="@+id/goToRegester" app:destination="@id/signUpUser"/>
     </fragment>
-    <fragment android:id="@+id/listOfAdd" android:name="com.mustafayusef.sharay.ui.lists_Add.listOfAdd"
-              android:label="list_of_add_fragment" tools:layout="@layout/list_of_add_fragment"/>
     <fragment android:id="@+id/searchFragment" android:name="com.mustafayusef.sharay.ui.search.searchFragment"
               android:label="search_fragment" tools:layout="@layout/search_fragment">
         <action android:id="@+id/action_searchFragment_to_carDetails" app:destination="@id/carDetails"/>
@@ -64,10 +59,6 @@
         <action android:id="@+id/fromCarRentToMotorDetails" app:destination="@id/motorDetails"/>
     </fragment>
 
-    <fragment android:id="@+id/myAdd" android:name="com.mustafayusef.sharay.ui.profile.myads.myFav"
-              android:label="fragment_my_add" tools:layout="@layout/fragment_my_add">
-        <action android:id="@+id/action_myAdd_to_carDetails" app:destination="@id/carDetails"/>
-    </fragment>
     <fragment android:id="@+id/detailsStore" android:name="com.mustafayusef.sharay.ui.sections.stores.detailsStore"
               android:label="details_store_fragment" tools:layout="@layout/details_store_fragment">
         <argument android:name="storeId" app:argType="integer"/>
@@ -77,10 +68,10 @@
               android:label="motor_details_fragment" tools:layout="@layout/motor_details_fragment">
         <argument android:name="motorId" app:argType="integer"/>
     </fragment>
-    <fragment android:id="@+id/myFav" android:name="com.mustafayusef.sharay.ui.profile.myads.myFav"
-              android:label="fragment_my_fav" tools:layout="@layout/fragment_my_fav">
-        <action android:id="@+id/action_myFav_to_carDetails" app:destination="@id/carDetails"/>
-    </fragment>
     <fragment android:id="@+id/showResult" android:name="com.mustafayusef.sharay.ui.filters.show.ShowResult"
               android:label="show_result_fragment" tools:layout="@layout/show_result_fragment"/>
+    <fragment android:id="@+id/myFavFragment" android:name="com.mustafayusef.sharay.ui.profile.myFavarote.myFav"
+              android:label="myFav"/>
+    <fragment android:id="@+id/myAdd" android:name="com.mustafayusef.sharay.ui.profile.myAds.myAdd"
+              android:label="fragment_my_add" tools:layout="@layout/fragment_my_add"/>
 </navigation>

@@ -6,7 +6,8 @@
               android:background="@drawable/back_filter"
               android:layout_height="wrap_content" android:layout_margin="10dp">
     <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="200dp"
+                  android:layout_height="wrap_content"
+                  android:gravity="center_horizontal"
                   android:orientation="vertical">
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:fontFamily="@font/font_regular" android:textSize="20sp"
@@ -15,15 +16,31 @@
 
                   android:gravity="center"
                   android:textColor="@color/white"
-                  android:background="@drawable/title_filter"/>
+
+                  android:background="@drawable/title_filter" android:id="@+id/title"/>
         <TextView android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-        android:padding="5dp" android:layout_margin="3dp"
-          android:fontFamily="@font/font_regular"
+                  android:layout_height="68dp"
+                  android:gravity="center_horizontal"
+                  android:padding="5dp" android:layout_margin="3dp"
+                  android:fontFamily="@font/font_regular"
                   android:id="@+id/descPart"
 
-           android:textSize="17sp"/>
+                  android:textSize="17sp"/>
 
+        <Button android:layout_width="131dp" android:layout_height="wrap_content"
+                android:text="@string/applay" android:fontFamily="@font/font_bold"
+                android:textColor="@color/white"
+                android:id="@+id/conform"
+                android:visibility="gone"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="20sp" android:gravity="center"
+                app:backgroundTint="@color/colorAccent"
+                app:cornerRadius="30dp"
+                android:padding="5dp" app:strokeColor="@color/black"
+                android:shadowColor="@color/black" android:layout_margin="15dp"/>
     </LinearLayout>
 
 </LinearLayout>

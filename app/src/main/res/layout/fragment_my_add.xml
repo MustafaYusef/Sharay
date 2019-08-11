@@ -2,8 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".ui.profile.myads.myFav">
+             android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+             tools:context=".ui.profile.myAds.myAdd">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -11,4 +11,43 @@
                                                android:layout_height="match_parent"
     android:id="@+id/myCarsList"></androidx.recyclerview.widget.RecyclerView>
 
+    <LinearLayout android:layout_width="250dp"
+                  android:visibility="gone"
+                  android:layout_height="250dp"
+                  android:id="@+id/noNetContainerMyadd"
+                  android:orientation="vertical"
+                  android:layout_gravity="center" android:gravity="center">
+        <ImageView android:layout_width="100dp" android:layout_height="100dp"
+                   android:src="@drawable/no_wifi"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="@string/noNet"
+                  android:layout_margin="10dp" android:textSize="18sp" android:fontFamily="@font/font_regular"/>
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="@string/Retry" android:fontFamily="@font/font_bold"
+                android:textColor="@color/white"
+                android:id="@+id/retryBtnMyAdd"
+                android:textSize="20sp" android:gravity="center"
+                app:backgroundTint="@color/colorPrimary"
+                app:cornerRadius="20dp"
+                android:paddingRight="25dp"
+                android:paddingLeft="25dp" app:strokeColor="@color/black"
+                android:shadowColor="@color/black"
+
+        />
+    </LinearLayout>
+
+
+    <com.airbnb.lottie.LottieAnimationView
+            android:inputType="textEmailAddress|textNoSuggestions"
+            android:visibility="invisible"
+            android:id="@+id/animation_loadingMyadd"
+            android:layout_width="234dp"
+            android:layout_height="162dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            app:lottie_rawRes="@raw/loading_animation"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+
+    />
 </FrameLayout>

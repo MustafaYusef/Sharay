@@ -20,6 +20,7 @@ import android.widget.LinearLayout
 
 import java.util.*
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.mustafayusef.sharay.R
@@ -30,6 +31,8 @@ import kotlinx.android.synthetic.main.setting_fragment_fragment.*
 import com.mustafayusef.sharay.ui.LocaleHelper
 import com.mustafayusef.sharay.ui.MainActivity
 import com.mustafayusef.sharay.ui.MainActivity.cacheObj.language
+import kotlinx.android.synthetic.main.desc_parts.view.*
+import kotlinx.android.synthetic.main.info.view.*
 
 
 class Setting_fragment : Fragment() {
@@ -54,7 +57,7 @@ class Setting_fragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(SettingFragmentViewModel::class.java)
-        // TODO: Use the ViewModel
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,6 +66,40 @@ class Setting_fragment : Fragment() {
         languagClick.setOnClickListener {
             showSearch()
         }
+        whoWe.setOnClickListener {
+            val dview: View = layoutInflater.inflate(R.layout.info, null)
+            val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
+            val malert= builder?.show()
+
+            malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            dview.titleInfo.text=getResources().getString(R.string.who)
+            malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dview.info?.text="من نحن\n" +
+                    "سوق الكتروني للسيارات يتيح لك البيع و الشراء من خلال نشر اعلانك و مشاهدة كافة العروض في كل المحافظات و مشاهدة عروض معارض السيارات بكل سهولة.\n" +
+                    "ايضاً يوجد خدمات اضافية بكل ما يخص السيارات من مركز صيانة و محلات بيع قطع الغيار للتسهيل على كل الاشخاص."
+
+            dview.goLog?.visibility=View.INVISIBLE
+        }
+        contactUs.setOnClickListener {
+
+            val dview: View = layoutInflater.inflate(R.layout.info, null)
+            val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
+            val malert= builder?.show()
+
+            malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dview.titleInfo.text=getResources().getString(R.string.contact)
+            dview.info?.text=  "Inst: central.iq\n" +
+                    "Twi: central.iq\n" +
+                    "FB:https://m.facebook.com/\n" +
+                    "السوق-المركزي-للسيارات-Central-Market-1275942529247303/"
+
+            dview.goLog?.visibility=View.INVISIBLE
+//                    dview.goLog?.setOnClickListener {
+//                        malert?.dismiss()
+//                    }
+        }
+
 
 
 //        val config = resources.configuration
@@ -114,17 +151,17 @@ class Setting_fragment : Fragment() {
 
         //view.minimumHeight=600
         val mBottomSheetDialog = Dialog(
-            context,
+            context!!,
             R.style.MaterialDialogSheet
         )
-        mBottomSheetDialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        mBottomSheetDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         mBottomSheetDialog.setContentView(view)
         mBottomSheetDialog.setCancelable(true)
-        mBottomSheetDialog.window.setLayout(
+        mBottomSheetDialog.window!!.setLayout(
             width-100,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
-        mBottomSheetDialog.window.setGravity(Gravity.BOTTOM)
+        mBottomSheetDialog.window!!.setGravity(Gravity.BOTTOM)
 
         mBottomSheetDialog.show()
         view.closeLang .setOnClickListener {

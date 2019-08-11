@@ -18,6 +18,7 @@
             android:focusable="auto"
             android:id="@+id/provId"
             android:filterTouchesWhenObscured="false"
+            android:theme="@style/NumberPickerText"
             android:solidColor="@color/white"
             android:descendantFocusability="blocksDescendants"
             android:background="@color/white"/>

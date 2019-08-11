@@ -12,6 +12,8 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
+import com.chibatching.kotpref.KotprefModel
+import com.chibatching.kotpref.bulk
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mustafayusef.holidaymaster.networks.networkIntercepter
 import com.mustafayusef.holidaymaster.utils.toast
@@ -24,6 +26,7 @@ import com.mustafayusef.sharay.data.networks.repostorys.userRepostary
 import com.mustafayusef.sharay.databinding.SignUpUserFragmentBinding
 import com.mustafayusef.sharay.ui.MainActivity
 import com.mustafayusef.sharay.ui.auth.AuthLesener
+import com.mustafayusef.sharay.ui.auth.signup.Login
 import kotlinx.android.synthetic.main.login_fragment.*
 import kotlinx.android.synthetic.main.sign_up_user_fragment.*
 import kotlinx.android.synthetic.main.sign_up_user_fragment.signPhoto
@@ -94,7 +97,7 @@ class SignUpUser : Fragment(),AuthLesener {
         animation_loadingSignIn.visibility=View.GONE
         animation_loadingSignIn.pauseAnimation()
         if( !loginResponse.token.isNullOrEmpty()){
-            MainActivity.cacheObj.token=loginResponse.token
+
             view?.findNavController()?.navigate(R.id.signUp)
             context?.toast("you have account now")
         }else{

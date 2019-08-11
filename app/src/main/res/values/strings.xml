@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">sharay</string>
+    <string name="app_name">Central</string>
     <string name="Main">Main</string>
     <string name="sections">Sections</string>
     <string name="Add">Add</string>
@@ -93,4 +93,27 @@
     <string name="lastSearch">Last Search</string>
     <string name="slogan">Lead you to the Best</string>
 
+    <string name="addInfo">Post Information</string>
+    <string name="logInStep">Login Information</string>
+    <string name="deletSucc">Delete Succesfully</string>
+
+    <string name="complete">complet all the field to improve your sale chance</string>
+
+    <string name="showYourAdd">Your Post added Succesfully it will be publish soon
+    you can see it from MyAdds Section</string>
+
+    <string name="maximum">Muximum Image is 12 image please select less</string>
+    <string name="multiple">please select More than one image</string>
+
+    <string name="connectionMessage">there is no internet connection</string>
+    <string name="Approved">Approved</string>
+    <string name="Pending">Pending</string>
+    <string name="EnterPhoneCorrect">Your phone is incorrect</string>
+    <string name="Retry">Retry</string>
+    <string name="noNet">There is no connection</string>
+    <string name="PleaseWait">Please Wait for a second</string>
+
+    <string name="mainImage">Main Image</string>
+
+    <string name="Show">Show</string>
 </resources>

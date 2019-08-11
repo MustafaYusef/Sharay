@@ -6,6 +6,8 @@ import com.mustafayusef.holidaymaster.utils.corurtins
 import com.mustafayusef.holidaymaster.utils.noInternetExeption
 import com.mustafayusef.sharay.data.networks.repostorys.CarsRepostary
 import okhttp3.MultipartBody
+import java.net.ProtocolException
+import java.net.SocketException
 import java.net.SocketTimeoutException
 
 class AddFragmentViewModel(val repostary: CarsRepostary) : ViewModel() {
@@ -90,8 +92,40 @@ class AddFragmentViewModel(val repostary: CarsRepostary) : ViewModel() {
                 e.message?.let { Auth?.onFailer(it) }
             }catch (e: SocketTimeoutException){
                 e.message?.let { Auth?.onFailer(it) }}
+            catch (e: SocketException){
+                e.message?.let { Auth?.onFailer(it) }
+            }catch (e: ProtocolException){
+                e.message?.let { Auth?.onFailer(it) }
+            }
 
         }
 
+    }
+
+    fun addImages(images:MutableList<MultipartBody.Part>,id:Int){
+
+            Auth?.OnStartAddImages()
+
+            corurtins.main {
+                try {
+                    val CarsDetailsResponse=repostary.images (images,id)
+                    CarsDetailsResponse ?.let {it1->
+
+
+
+                        Auth?.onSucsessAddImages(it1.data)
+                    }
+
+                }catch (e: ApiExaptions){
+                    e.message?.let { Auth?.OnFailerAddImages(it) }
+
+                }catch (e: noInternetExeption){
+                    e.message?.let { Auth?.OnFailerAddImages(it) }
+                }catch (e: SocketTimeoutException){
+                    e.message?.let { Auth?.OnFailerAddImages(it) }}
+
+
+
+        }
     }
 }

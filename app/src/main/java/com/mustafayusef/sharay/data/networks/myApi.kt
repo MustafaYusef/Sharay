@@ -6,8 +6,11 @@ import com.mustafayusef.sharay.data.models.*
 import com.mustafayusef.sharay.data.models.favorite.addResFav
 import com.mustafayusef.sharay.data.models.favorite.favoriteModel
 import com.mustafayusef.sharay.data.models.sections.*
+import com.mustafayusef.sharay.data.models.userModels.UserInfo
 import com.mustafayusef.sharay.data.networks.repostorys.SignUpAuth
 import com.mustafayusef.sharay.data.networks.repostorys.UserAuth
+import com.mustafayusef.sharay.ui.MainActivity
+
 import okhttp3.*
 
 import retrofit2.Retrofit
@@ -24,9 +27,9 @@ interface myApi {
 
    // @FormUrlEncoded
    @Multipart
-    @POST("add")
+    @POST("car/add")
    suspend fun AddCar(
-
+       @Header("token")token:String,
         @Part("title") title: String,
     @Part("brand") brand: String,
     @Part("class") `class`: String,
@@ -56,8 +59,34 @@ interface myApi {
     @Part("active") active: Boolean,
     @Part("isRent") isRent: Boolean,
     @Part("isImported") isImported: Boolean,
-    @Part("image") image: MultipartBody.Part
+    @Part image: MultipartBody.Part
     ): Response<addRes>
+
+    @Multipart
+    @POST("car/image")
+    suspend fun Images(
+        @Part image0: MultipartBody.Part?,
+        @Part image1: MultipartBody.Part?,
+        @Part image2: MultipartBody.Part?,
+        @Part image3: MultipartBody.Part?,
+        @Part image4: MultipartBody.Part?,
+        @Part image5: MultipartBody.Part?,
+        @Part image6: MultipartBody.Part?,
+        @Part image7: MultipartBody.Part?,
+        @Part image8: MultipartBody.Part?,
+        @Part image9: MultipartBody.Part?,
+        @Part image10: MultipartBody.Part?,
+        @Part("id") id: Int,
+        @Header("token") token: String
+//        @Query("brand") brand: String?,
+//        @Query("class") `class`: String?,
+//        @Query("year") year: String?,
+//        @Query("warid") warid: String?,
+//        @Query("mileage") mileage: String?,
+//        @Query("priceMin") priceMin: String?,
+//        @Query("priceMax") priceMax: String?,
+//        @Query("location") location: String?
+    ): Response<delete>
 
 
     @POST("cars/filter?")
@@ -133,10 +162,20 @@ interface myApi {
     suspend fun AddFavorite(
         @Header("token")token:String,@Part("id") id:Int,@Part("type") type:Int): Response<addResFav>
 
-    @Multipart
-    @POST("favorite/delete?id={id}")
+
+
+
+
+
+
+    @HTTP(method = "DELETE", path = "car/delete", hasBody = true)
+    suspend fun DeleteMyCar(
+        @Header("token")token:String,@Body id:De): Response<delete>
+
+    @HTTP(method = "DELETE", path = "favorite/delete?", hasBody = true)
     suspend fun DeleteFavorite(
-        @Header("token")token:String,@Path("id") idUser:Int,@Part id:Int): Response<delete>
+        @Header("token")token:String, @Query("id")id:Int, @Body id1:De): Response<delete>
+
     companion object{
 
         operator fun invoke(
@@ -157,6 +196,7 @@ interface myApi {
             val client = OkHttpClient.Builder()
                 .connectTimeout(50, TimeUnit.SECONDS)
                 .readTimeout(50,TimeUnit.SECONDS)
+                .writeTimeout(50,TimeUnit.SECONDS)
                 .addInterceptor(networkIntercepter)
                 .connectionSpecs(Collections.singletonList(spec))
                 .connectionSpecs(Collections.singletonList(spec1))
@@ -175,3 +215,7 @@ data class delete(
     val `data`: String,
     val errMsg: String
     )
+data class De(
+
+    var id:String
+)

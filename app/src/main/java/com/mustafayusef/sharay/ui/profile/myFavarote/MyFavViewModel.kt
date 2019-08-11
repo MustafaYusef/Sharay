@@ -5,6 +5,8 @@ import com.mustafayusef.holidaymaster.utils.ApiExaptions
 import com.mustafayusef.holidaymaster.utils.corurtins
 import com.mustafayusef.holidaymaster.utils.noInternetExeption
 import com.mustafayusef.sharay.data.networks.repostorys.CarsRepostary
+import java.net.ProtocolException
+import java.net.SocketException
 import java.net.SocketTimeoutException
 
 class MyFavViewModel(val repostary: CarsRepostary) : ViewModel() {
@@ -34,6 +36,11 @@ class MyFavViewModel(val repostary: CarsRepostary) : ViewModel() {
                 e.message?.let { Fav?.onFailerFav(it) }
             }catch (e: SocketTimeoutException){
                 e.message?.let { Fav?.onFailerFav(it) }}
+            catch (e: SocketException){
+                e.message?.let { Fav?.onFailerFav(it) }
+            }catch (e: ProtocolException){
+                e.message?.let { Fav?.onFailerFav(it) }
+            }
 
         }
 

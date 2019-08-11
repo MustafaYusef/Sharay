@@ -19,7 +19,7 @@ android:orientation="vertical">
     </LinearLayout>
     <LinearLayout android:layout_width="match_parent" android:layout_height="75dp"
                   android:layout_margin="10dp" android:background="@color/white"
-                  android:elevation="5dp" android:gravity="right|center_vertical">
+                  android:elevation="5dp" android:gravity="right|center_vertical" android:id="@+id/whoWe">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:text="@string/who" android:layout_marginRight="10dp" android:textSize="20sp"
                   android:fontFamily="@font/font_regular"/>
@@ -28,7 +28,7 @@ android:orientation="vertical">
     </LinearLayout>
     <LinearLayout android:layout_width="match_parent" android:layout_height="75dp"
                   android:layout_margin="10dp" android:background="@color/white"
-                  android:elevation="5dp" android:gravity="right|center_vertical">
+                  android:elevation="5dp" android:gravity="right|center_vertical" android:id="@+id/contactUs">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:text="@string/contact" android:layout_marginRight="10dp" android:textSize="20sp"
                   android:fontFamily="@font/font_regular"/>

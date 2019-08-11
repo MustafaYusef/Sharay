@@ -11,6 +11,10 @@ interface MainCarLesener {
     fun onSucsessDetails(CarResponse: DataCarDetails)
     fun onSucsessBanners(CarResponse: banners)
 
+    fun onComplete(
+        carsResponse: CarsModel,
+        bannerResponse: banners
+    )
 
     fun onFailer(message:String)
 }

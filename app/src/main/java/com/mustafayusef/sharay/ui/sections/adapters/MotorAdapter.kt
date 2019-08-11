@@ -51,7 +51,7 @@ class MotorAdapter(
 
 //        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
 
-          holder.view.priceCar.text=carsP.price.toString()+"$"
+          holder.view.priceCar.text=carsP.price.toString()
           holder.view.carMile.text=carsP.miles .toString()
           holder.view.modelYear.text=carsP.year
           holder.view.carNmae.text=carsP.title

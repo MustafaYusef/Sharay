@@ -7,7 +7,8 @@ import com.mustafayusef.holidaymaster.utils.noInternetExeption
 import com.mustafayusef.sharay.data.models.DataCars
 import com.mustafayusef.sharay.data.networks.repostorys.CarsSearchRepostary
 import com.mustafayusef.sharay.database.entitis.latestCar
-import io.reactivex.Completable
+import java.net.ProtocolException
+import java.net.SocketException
 import java.net.SocketTimeoutException
 
 class SearchViewModel(val repostary: CarsSearchRepostary) : ViewModel() {
@@ -37,10 +38,37 @@ class SearchViewModel(val repostary: CarsSearchRepostary) : ViewModel() {
                 e.message?.let { litsener?.onFailerSerach(it) }
             }catch (e: SocketTimeoutException){
                 e.message?.let {litsener?.onFailerSerach(it) }}
+            catch (e: SocketException){
+                e.message?.let { litsener?.onFailerSerach(it) }
+            }catch (e: ProtocolException){
+                e.message?.let { litsener?.onFailerSerach(it) }
+            }
 
 
         }
     }
+
+    fun getDetails(id:Int) {
+        litsener?.onStartDetails()
+        corurtins.main {
+            try {
+                val NumbersResponse = repostary.getDetailsCars(id)
+                NumbersResponse?.let {
+                    litsener?.onSuccessDetails(NumbersResponse.data!![0])
+                }
+
+            } catch (e: ApiExaptions) {
+                e.message?.let { litsener?.onFailerDetails(it) }
+
+            } catch (e: noInternetExeption) {
+                e.message?.let { litsener?.onFailerDetails(it) }
+            }catch (e: SocketTimeoutException){
+                e.message?.let {litsener?.onFailerDetails(it) }}
+
+
+        }
+    }
+
 
     fun getData() {
 

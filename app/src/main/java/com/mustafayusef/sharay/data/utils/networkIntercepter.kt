@@ -11,6 +11,7 @@ import okhttp3.Response
 class networkIntercepter(context: Context):Interceptor {
     val appcontext=context.applicationContext
     override fun intercept(chain: Interceptor.Chain): Response {
+
         if (!isNetworkAvilable()){
          throw noInternetExeption("ther is no internet connection")
         }

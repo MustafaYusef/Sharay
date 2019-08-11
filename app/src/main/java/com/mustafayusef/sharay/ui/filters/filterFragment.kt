@@ -8,35 +8,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.Gson
 import com.mustafayusef.holidaymaster.networks.networkIntercepter
 import com.mustafayusef.holidaymaster.utils.toast
 
 import com.mustafayusef.sharay.R
 import com.mustafayusef.sharay.data.models.CarsModel
 import com.mustafayusef.sharay.data.models.DataCars
+import com.mustafayusef.sharay.data.models.carData
 import com.mustafayusef.sharay.data.networks.myApi
 import com.mustafayusef.sharay.data.networks.repostorys.CarsRepostary
-import com.mustafayusef.sharay.ui.main.MainAdapter
-import com.mustafayusef.sharay.ui.main.Main_fragmentDirections
-import com.mustafayusef.sharay.ui.main.cardetails.CarDetailsViewModel
-import com.mustafayusef.sharay.ui.main.cardetails.DetailsCarViewModelFactory
-import com.mustafayusef.sharay.ui.sections.adapters.CarSaleAdapter
 import kotlinx.android.synthetic.main.filter_fragment.*
-import kotlinx.android.synthetic.main.filter_store.view.*
 import kotlinx.android.synthetic.main.filter_store.view.applayFilter
 import kotlinx.android.synthetic.main.filters_dilog1.view.*
 import kotlinx.android.synthetic.main.filters_dilog1.view.closeDf
 import kotlinx.android.synthetic.main.filters_dilog2.view.*
-import kotlinx.android.synthetic.main.main_fragment_fragment.*
-import kotlinx.android.synthetic.main.show_result_fragment.*
 
 class filterFragment : Fragment(),FilterCarLesener {
 
@@ -72,6 +63,8 @@ class filterFragment : Fragment(),FilterCarLesener {
     var selectSource:String?=null
     var selectMile:String?=null
     var PriceList: MutableList<String> = arrayListOf()
+
+    var index1=-1
     companion object {
         fun newInstance() = filterFragment()
     }
@@ -103,6 +96,17 @@ class filterFragment : Fragment(),FilterCarLesener {
         for(i in 0..100000 step 1000){
             PriceList.add(index++,i.toString())
         }
+
+        val suggest: Array<carData>
+        var json: String = ""
+        val objectArrayString: String = context?.resources?.openRawResource(R.raw.cars)?.bufferedReader()
+            .use { it!!.readText() }
+        val gson = Gson()
+        suggest = gson.fromJson(objectArrayString, Array<carData>::class.java)
+        var names = mutableListOf("")
+        for (i in suggest) {
+            names.add(i.name)
+        }
        // println(PriceList)
 
         applayFilters.setOnClickListener {
@@ -124,10 +128,18 @@ class filterFragment : Fragment(),FilterCarLesener {
             showYear()
         }
         carClassDilog.setOnClickListener {
-            showClass()
+
+            showClass(names)
         }
         carModelDilog.setOnClickListener {
-            showBrand()
+            if(index1==-1){
+                carClassDilog.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
+                classFilter.setHintTextColor(-0x01ffff)
+//                to.setHintTextColor(-0x01ffff)
+//                to.highlightColor=-0x01ffff
+            }else{
+                showBrand(suggest[index1].data)
+            }
         }
         locationDilog.setOnClickListener {
             showlocation()
@@ -193,15 +205,15 @@ class filterFragment : Fragment(),FilterCarLesener {
         }
     }
 
-    fun showClass() {
+    fun showClass(names: MutableList<String>) {
         val dview: View = layoutInflater.inflate(R.layout.filters_dilog1, null)
         val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
         val malert= builder?.show()
         malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dview.filterPicker.minValue = 0
-        dview.filterPicker.maxValue = locations.size-1
+        dview.filterPicker.maxValue = names.size-1
         dview.filterPicker.wrapSelectorWheel = true
-        dview.filterPicker.displayedValues = years.toTypedArray()
+        dview.filterPicker.displayedValues = names.toTypedArray()
         dview.filterTitle.text="Class"
         var index=0
         dview.filterPicker.setOnValueChangedListener { picker, oldVal, newVal ->
@@ -211,24 +223,26 @@ class filterFragment : Fragment(),FilterCarLesener {
             // println(country +"   cooodkl,dl")
         }
         dview.applayFilter.setOnClickListener {
-            selectClass = years[index]
-            classFilter.text=selectYear
+            selectClass = names[index]
+            classFilter.text=selectClass
+            index1=index-1
             malert?.dismiss()
         }
         dview.closeDf.setOnClickListener {
             malert?.dismiss()
         }
+
     }
-    fun showBrand() {
+    fun showBrand(data: List<String>) {
         val dview: View = layoutInflater.inflate(R.layout.filters_dilog1, null)
         val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
         val malert= builder?.show()
         malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         dview.filterPicker.minValue = 0
-        dview.filterPicker.maxValue = locations.size-1
+        dview.filterPicker.maxValue = data.size-1
         dview.filterPicker.wrapSelectorWheel = true
-        dview.filterPicker.displayedValues = years.toTypedArray()
+        dview.filterPicker.displayedValues = data.toTypedArray()
         dview.filterTitle.text="Brand"
         var index=0
         dview.filterPicker.setOnValueChangedListener { picker, oldVal, newVal ->
@@ -238,7 +252,7 @@ class filterFragment : Fragment(),FilterCarLesener {
             // println(country +"   cooodkl,dl")
         }
         dview.applayFilter.setOnClickListener {
-            selectBrand = years[index]
+            selectBrand = data[index]
             carModelFilter.text=selectBrand
             malert?.dismiss()
         }

@@ -9,12 +9,16 @@
                     android:scaleType="fitXY" android:id="@+id/carImage"
                    android:src="@drawable/car"
                    android:cropToPadding="true"/>
-        <LinearLayout android:layout_width="wrap_content" android:layout_marginTop="50dp"
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_marginTop="50dp"
+                      android:layout_gravity="left"
+                      android:layoutDirection="ltr"
                       android:background="@drawable/btn_car_price" android:layout_height="wrap_content"
                       android:paddingLeft="7dp" android:paddingRight="7dp" android:orientation="horizontal"
                       android:gravity="center">
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:id="@+id/priceCar"
+                      android:layout_weight="1"
                       android:text="25,000" android:textColor="#000"
                       android:textSize="18sp" android:fontFamily="@font/font_bold"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -27,6 +31,7 @@
         <LinearLayout android:layout_width="match_parent"
                       android:layout_gravity="bottom"
                       android:orientation="horizontal"
+                      android:layoutDirection="ltr"
                       android:layout_height="wrap_content"
                       android:background="#99000000"
                       android:weightSum="2" android:padding="10dp">
@@ -61,6 +66,7 @@
     </FrameLayout>
 
     <LinearLayout android:orientation="horizontal"
+                  android:layoutDirection="ltr"
                   android:layout_width="match_parent" android:layout_height="wrap_content"
 
                   android:background="#fff" android:paddingLeft="5dp">
@@ -72,7 +78,8 @@
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:textSize="20sp" android:text="hyondai santafia 33333c"
                   android:textAlignment="textEnd" android:padding="7dp" android:textColor="#000"
-                  android:id="@+id/carNmae" android:fontFamily="@font/font_bold"/>
+                  android:id="@+id/carNmae" android:fontFamily="@font/font_bold" android:gravity="end"
+                  android:layout_gravity="end"/>
     </LinearLayout>
 
 </LinearLayout>

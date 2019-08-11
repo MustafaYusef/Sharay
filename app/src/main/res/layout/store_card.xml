@@ -51,7 +51,7 @@
 
     <LinearLayout android:orientation="horizontal"
                   android:layout_width="match_parent" android:layout_height="wrap_content"
-                  android:elevation="10dp"
+
                   android:background="@drawable/back_number" android:paddingLeft="5dp">
         <LinearLayout android:layout_width="match_parent"
                       android:orientation="vertical"
@@ -68,12 +68,12 @@
                           android:textColor="#000"
                           android:id="@+id/locStore"
                           android:fontFamily="@font/font_regular"
-                          android:text="location"/>
+                          android:text="location" android:gravity="end"/>
 
             </LinearLayout>
             <LinearLayout android:layout_width="match_parent"
                           android:orientation="horizontal"
-                          android:layoutDirection="locale"
+
                           android:layout_height="wrap_content"
                           android:layout_gravity="center">
                 <ImageView android:layout_width="35dp" android:layout_height="match_parent"
@@ -83,7 +83,7 @@
                           android:textColor="#000"
                           android:fontFamily="@font/font_regular"
                           android:text="phone"
-                          android:id="@+id/phoneStore"/>
+                          android:id="@+id/phoneStore" android:gravity="end"/>
 
             </LinearLayout>
         </LinearLayout>

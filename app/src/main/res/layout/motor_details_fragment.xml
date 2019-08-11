@@ -248,8 +248,9 @@
                           android:layout_margin="5dp"
                           android:background="@color/white">
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                          android:textColor="@color/colorPrimary"
-                          android:textSize="18sp" android:text="@string/descrption"
+                           android:hint="@string/descrption"
+                          android:gravity="center"
+                          android:textSize="18sp"
                           android:fontFamily="@font/font_bold"
                           android:layout_weight="1"
                           android:id="@+id/desMotorD"

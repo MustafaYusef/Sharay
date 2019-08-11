@@ -1,37 +1,54 @@
 package com.mustafayusef.sharay.ui.sections.adapters
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.mustafayusef.sharay.R
-import com.mustafayusef.sharay.data.models.sections.Car
-
+import com.mustafayusef.sharay.data.models.sections.Data
 
 
 import kotlinx.android.synthetic.main.car_card.view.*
+import kotlinx.android.synthetic.main.first_store.*
+import kotlinx.android.synthetic.main.first_store.view.*
+import kotlinx.android.synthetic.main.first_store.view.imageStotre
+import kotlinx.android.synthetic.main.first_store.view.locDStore
+import kotlinx.android.synthetic.main.first_store.view.storeName
 
-import kotlinx.android.synthetic.main.store_card.view.*
-
-class storeDetailsAdapter(val context: Context, var cars:List<Car>?, val onNoteLisener:onStoreCarsClick) : RecyclerView.Adapter<storeDetailsAdapter.CustomViewHolder>(){
+class storeDetailsAdapter(val context: Context, var cars: Data, val onNoteLisener:onStoreCarsClick) : RecyclerView.Adapter<storeDetailsAdapter.CustomViewHolder>(){
     //
     private  var mOnNotlesener=onNoteLisener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         // println(holidayFeed)
+        if(viewType==1){
+            val layoutInflater =LayoutInflater.from(parent.context)
+            val cardItem=layoutInflater.inflate(com.mustafayusef.sharay.R.layout.car_card ,parent,false)
 
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val cardItem=layoutInflater.inflate(com.mustafayusef.sharay.R.layout.car_card ,parent,false)
+            return  CustomViewHolder(cardItem,mOnNotlesener)
+        }else{
+            val layoutInflater = LayoutInflater.from(parent.context)
+            val cardItem=layoutInflater.inflate(com.mustafayusef.sharay.R.layout.first_store ,parent,false)
 
-        return  CustomViewHolder(cardItem,mOnNotlesener)
+            return  CustomViewHolder(cardItem,mOnNotlesener)
+        }
+
     }
 
     override fun getItemCount(): Int {
         // count=holidayFeed!!.count().toString()
-        return cars?.size!!
+        return cars?.Cars?.size!!+1
 
+    }
+    override fun getItemViewType(position: Int): Int {
+        if(position==0){
+            return 0
+        }
+        else{
+            return 1
+        }
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
@@ -39,16 +56,34 @@ class storeDetailsAdapter(val context: Context, var cars:List<Car>?, val onNoteL
         //holder.view. OneContainer.startAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_in_list))
 
         // holder.view.LogoAir .startAnimation(AnimationUtils.loadAnimation(context,R.anim.left_to_right))
-        var carsP=cars?.get(position)
+        if (position==0){
+            context?.let {
+                Glide.with(it).load("http://api.centralmarketiq.com/"+cars.image+".png")
+                    .into(holder.view.imageStotre) }
+            holder.view.storeName.text=cars.name
+
+            holder.view. locDStore.text=cars.location
+            holder.view.callStore.setOnClickListener {
+                val intent = Intent(Intent.ACTION_DIAL).apply {
+                    data = Uri.parse("tel:${cars.phone}")
+                }
+
+                context. startActivity(intent)
+            }
+
+        }else{
+            var carsP=cars?.Cars?.get(position-1)
 
 
 //        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
 
-        holder.view.priceCar.text= carsP?.price.toString()+"$"
-        holder.view.carMile.text=carsP?.mileage.toString()
-        holder.view.modelYear.text=carsP?.year
-        holder.view.carNmae.text=carsP?.title
-        Glide.with(context).load("http://api.centralmarketiq.com/"+carsP?.image+".png").into(holder.view?.carImage)
+            holder.view.priceCar.text= carsP?.price.toString()
+            holder.view.carMile.text=carsP?.mileage.toString()
+            holder.view.modelYear.text=carsP?.year
+            holder.view.carNmae.text=carsP?.title
+            Glide.with(context).load("http://api.centralmarketiq.com/"+carsP?.image+".png").into(holder.view?.carImage)
+
+        }
 
         //   Glide.with(context).load(R.drawable.car).into(holder.view?.carImage)
 
@@ -60,6 +95,7 @@ class storeDetailsAdapter(val context: Context, var cars:List<Car>?, val onNoteL
     class CustomViewHolder(val view : View , var onNoteLisener: onStoreCarsClick ) : RecyclerView.ViewHolder(view),View.OnClickListener{
         var OnNotlesener:onStoreCarsClick
         override fun onClick(view: View?) {
+            if(layoutPosition !=0)
             onNoteLisener.onStoreCarsClick(layoutPosition)
         }
 

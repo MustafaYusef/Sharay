@@ -21,11 +21,24 @@
                              android:scaleType="centerInside"
                              android:id="@+id/deleteImage"
                              android:background="@color/trans" android:layout_margin="5dp"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:background="@drawable/main_image"
+                              android:layout_marginBottom="4dp"
+                              android:id="@+id/mainImage"
+                              android:visibility="gone"
+
+
+                              android:layout_gravity="bottom"
+                              android:gravity="center">
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="@string/mainImage"
+                              android:background="@color/trans"
+                              android:textSize="15sp" android:textColor="@color/white"/>
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
 
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:visibility="gone" android:id="@+id/index"/>
         </FrameLayout>
     </LinearLayout>
 </LinearLayout>

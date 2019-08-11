@@ -25,18 +25,32 @@ import com.mustafayusef.sharay.data.models.DataCarDetails
 import com.mustafayusef.sharay.data.models.banners
 import com.mustafayusef.sharay.data.models.favorite.addResFav
 import com.mustafayusef.sharay.data.models.imageData
+import com.mustafayusef.sharay.data.models.userModels.Favorite
+
+import com.mustafayusef.sharay.data.networks.delete
 import com.mustafayusef.sharay.data.networks.myApi
+
 import com.mustafayusef.sharay.data.networks.repostorys.CarsRepostary
-import com.mustafayusef.sharay.databinding.CarDetailsFragmentBinding
+
 import com.mustafayusef.sharay.ui.LocaleHelper
 import com.mustafayusef.sharay.ui.MainActivity
+import com.mustafayusef.sharay.ui.auth.signup.Login
 import com.mustafayusef.sharay.ui.main.MainCarLesener
+import com.mustafayusef.sharay.ui.profile.Profile_fragment
 import com.smarteist.autoimageslider.IndicatorAnimations
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
 
 
 class carDetails : Fragment(),MainCarLesener,FavCarLesener {
+    override fun onComplete(
+        carsResponse: CarsModel,
+        bannerResponse: banners
+    ) {
+
+    }
+
+
     override fun onSucsess(CarResponse: CarsModel) {
 
     }
@@ -46,9 +60,11 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
     override fun onSucsessBanners(CarResponse: banners) {
 
     }
-
+    var flage:Boolean=false
+   var phoneNum=""
     var amount =0
-    var binding: CarDetailsFragmentBinding?=null
+    var favId =0
+  //  var binding: CarDetailsFragmentBinding?=null
     val args: carDetailsArgs by navArgs()
     companion object {
         fun newInstance() = carDetails()
@@ -72,7 +88,6 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
         super.onActivityCreated(savedInstanceState)
       //  viewModel = ViewModelProviders.of(this).get(CarDetailsViewModel::class.java)
 
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,12 +95,19 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
         val networkIntercepter= context?.let { networkIntercepter(it) }
         val api= networkIntercepter?.let { myApi(it) }
         val repostary= CarsRepostary(api!!)
+
+
+//        val networkIntercepter2= context?.let { networkIntercepter(it) }
+//        val apiFav= networkIntercepter2?.let { MyFav(it) }
+//        val Favrepostary= MyFavRepostary(apiFav!!)
+
         val factory= DetailsCarViewModelFactory(repostary)
         viewModel=ViewModelProviders.of(this,factory).get(CarDetailsViewModel::class.java)
 
 
         viewModel?.Auth=this
-        if(arguments?.getInt("type",0)!=0){
+
+        if(arguments?.getInt("type",-1)!=-1){
             amount= arguments?.getInt("type")!!
         }else{
             amount=args.carId
@@ -93,14 +115,26 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
 
 
         viewModel.GetDetailsCars(amount)
+//        if(MainActivity.cacheObj.token!=""){
+//            favContainer?.visibility=View.VISIBLE
+//            viewModel.profile(MainActivity.cacheObj.token)
+//        }
 
         viewModel.Fav=this
-        favBtnD.setOnClickListener {
-            if(MainActivity.cacheObj.token!=""){
-                context?.toast("click")
-                favBtnD.setImageResource( R.drawable.star2)
+        favBtnD?.setOnClickListener {
+            if(MainActivity.cacheObj  .token!=""){
+                if(flage){
+                    context?.toast("delete")
+                    viewModel.DeleteFavorite (MainActivity.cacheObj .token,MainActivity.cacheObj  .id,favId)
+                    favBtnD?.setImageResource( R.drawable.star)
 
-                viewModel.AddFav(MainActivity.cacheObj.token,amount,1)
+                }else{
+                    context?.toast("add")
+                    viewModel.AddFav (MainActivity.cacheObj  .token,amount,1)
+                    favBtnD?.setImageResource( R.drawable.star2)
+
+                }
+
             }else{
                 context?.toast("you dont have account")
             }
@@ -108,7 +142,7 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
         }
         callNumberD.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL).apply {
-                data = Uri.parse("tel:07712790071")
+                data = Uri.parse("tel:$phoneNum")
             }
 
                 startActivity(intent)
@@ -128,37 +162,64 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
         }
     }
     override fun OnStart() {
-
+        detailsContainer?.visibility=View.INVISIBLE
+        animation_loadingCarDetails?.playAnimation()
+        animation_loadingCarDetails?.visibility=View.VISIBLE
     }
 
     override fun OnStartFav() {
-       context?.toast("start Fav")
-    }
 
+        context?.toast("start Fav")
+        favBtnD?.isClickable=false
+    }
+    override fun onSucsessDel(CarResponse: delete) {
+        favBtnD?.setImageResource( R.drawable.star)
+        flage=false
+        context?.toast(CarResponse.data)
+        favBtnD?.isClickable=true
+
+    }
     override fun onSucsessFav(CarResponse: addResFav) {
-        context?.toast("Success Fav")
+        favBtnD?.setImageResource( R.drawable.star2)
+        flage=true
+        context?.toast("Success add")
+        favBtnD?.isClickable=true
     }
 
     override fun onFailerFav(message: String) {
         context?.toast("Fail")
+        favBtnD.isClickable=true
+
     }
 
     override fun onSucsessDetails(data: DataCarDetails) {
-    //    context?.toast(data.year)
+        detailsContainer?.visibility=View.VISIBLE
+        animation_loadingCarDetails?.pauseAnimation()
+        animation_loadingCarDetails?.visibility=View.GONE
+        if(data.isImported){
+            favContainer?.visibility=View.INVISIBLE
 
+        }else if(data.isRent){
+            favContainer?.visibility=View.INVISIBLE
+        }else{
+            favContainer?.visibility=View.VISIBLE
+        }
+       // data.i
+    //    context?.toast(data.year)
+        phoneNum=data.phone
         val adapter = sliderAdapter(context!!, data.CarImages as List<imageData>)
 
-        carImageD.setSliderAdapter(adapter)
+        carImageD?.setSliderAdapter(adapter)
         //  context?.let { Glide.with(it).load(com.mustafayusef.sharay.R.drawable.car).into(carImageD) }
-        carImageD.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-        carImageD.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-        carImageD.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
-        carImageD.setIndicatorSelectedColor(Color.WHITE);
-        carImageD.setIndicatorUnselectedColor(Color.GRAY);
-        carImageD.setScrollTimeInSec(4); //set scroll delay in seconds :
-        carImageD.startAutoCycle();
+        carImageD?.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+        carImageD?.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        carImageD?.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+        carImageD?.setIndicatorSelectedColor(Color.WHITE);
+        carImageD?.setIndicatorUnselectedColor(Color.GRAY);
+        carImageD?.setScrollTimeInSec(4); //set scroll delay in seconds :
+        carImageD?.startAutoCycle();
        ClassCar?.text= data.`class`
-        airBags?.text= data.airBags
+
        modelCar?.text= data.brand
 
 
@@ -172,8 +233,6 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
         gear?.text= data.gear
 
 
-
-
        location?.text= data.location
        // carMileD.text= data.mileage.toString()
         modelCar?.text= data.brand
@@ -181,24 +240,52 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
        phone?.text= data.phone
         priceCarD?.text= data.price.toString()
        roof?.text= data.roof
-        seats?.text= data.seats
 
+        horse?.text= data.cylinders.toString()
         status?.text= data.status
          // p.text=data.horse.toString()
         titleD?.text= data.title
       //  turbo= data.turbo.toString()
       // ty= data.type
-
+        desD?.text=data.description
        warid?.text= data.warid
        // wheelSize= data.wheelSize.toString()
-        window?.text= data!!.window
+
         yearCar?.text= data.year
         location?.text=data.location
         color?.text=data.color
-
+    viewModel.profile(MainActivity.cacheObj  .token)
     }
 
     override fun onFailer(message: String) {
+        detailsContainer?.visibility=View.VISIBLE
+        animation_loadingCarDetails?.pauseAnimation()
+        animation_loadingCarDetails?.visibility=View.GONE
+    }
+
+    override fun OnStartProfile() {
+    context?.toast("starat profile")
+    }
+
+    override fun onSucsessProfile(CarResponse: List<Favorite>) {
+       // favContainer.visibility=View.VISIBLE
+
+        for (i in CarResponse){
+            if(i.carId==amount){
+               favId= i.id
+                flage=true
+                break
+            }
+        }
+        context?.toast("starat check")
+        if(flage){
+            favBtnD?.setImageResource( R.drawable.star2)
+        }else{
+            favBtnD?.setImageResource( R.drawable.star)
+        }
+    }
+
+    override fun onFailerProfile(message: String) {
     }
 
 }

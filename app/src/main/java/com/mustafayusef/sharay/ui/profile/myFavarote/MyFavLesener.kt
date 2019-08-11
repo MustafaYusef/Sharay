@@ -2,6 +2,7 @@ package com.mustafayusef.sharay.ui.profile.myFavarote
 
 
 import com.mustafayusef.sharay.data.models.favorite.favoriteModel
+import com.mustafayusef.sharay.data.models.userModels.UserInfo
 
 interface MyFavLesener {
 
@@ -12,4 +13,6 @@ interface MyFavLesener {
 
 
     fun onFailerFav(message:String)
+
+
 }

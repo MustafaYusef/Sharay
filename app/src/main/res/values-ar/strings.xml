@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">شراي</string>
+    <string name="app_name">مركزي</string>
     <string name="Main">الرئيسية</string>
     <string name="sections">الأقسام</string>
     <string name="Add">أضافة أعلان</string>
@@ -91,4 +91,29 @@
     <string name="lastSearch">أخر نتائج البحث</string>
     <string name="slogan">نرشدك إلى الأفضل</string>
 
+    <string name="addInfo">أعلن لدينا</string>
+    <string name="logInStep">تسجيل الدخول</string>
+
+    <string name="deletSucc">تم الحذف بنجاح</string>
+    <string name="complete">أكمل جميع الحقول لضمان بيع سيارتك</string>
+
+    <string name="showYourAdd">تم إضافة سيارتك بنجاح وسوف نقوم بنشرها قريبا يمكنك رؤية اعلانك بالذهاب الى قسم أعلاناتي</string>
+
+    <string name="maximum">الحد الأقصى للصور هو 12 صوره يرجى تقليل الصور</string>
+    <string name="multiple">يرجى إختيار اكر من صوره واحده</string>
+
+    <string name="connectionMessage">لا يوجد اتصال يرجى التأكد من الشبكة</string>
+
+    <string name="Approved">فعال</string>
+    <string name="Pending">غير فعال</string>
+
+    <string name="EnterPhoneCorrect">أدخل رقم هاتف صحيح</string>
+
+    <string name="Retry">إعادة المحاولة</string>
+    <string name="noNet">لا يوجد أتصال</string>
+    <string name="PleaseWait">يرجى الأنتظارِ</string>
+
+    <string name="mainImage">الصورة الرثيسية</string>
+
+    <string name="Show">عرض</string>
 </resources>

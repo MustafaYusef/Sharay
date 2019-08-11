@@ -1,4 +1,4 @@
-package com.mustafayusef.sharay.ui.profile.myads
+package com.mustafayusef.sharay.ui.profile.myAds
 
 
 import kotlinx.android.synthetic.main.car_card.view.*
@@ -16,7 +16,7 @@ import com.mustafayusef.sharay.data.models.favorite.favoriteModel
 import kotlinx.android.synthetic.main.car_card.view.carNmae
 import kotlinx.android.synthetic.main.car_card.view.modelYear
 import kotlinx.android.synthetic.main.car_card.view.priceCar
-import kotlinx.android.synthetic.main.car_card_favorite.view.*
+
 
 
 class myFavAdapter(val context:Context, var onNoteLisener: OnNoteLisener, val cars: List<favoriteModel>) : RecyclerView.Adapter<myFavAdapter.CustomViewHolder>(){
@@ -26,7 +26,7 @@ class myFavAdapter(val context:Context, var onNoteLisener: OnNoteLisener, val ca
         // println(holidayFeed)
 
         val layoutInflater =LayoutInflater.from(parent.context)
-        val cardItem=layoutInflater.inflate(com.mustafayusef.sharay.R.layout.car_card_favorite ,parent,false)
+        val cardItem=layoutInflater.inflate(com.mustafayusef.sharay.R.layout.car_card ,parent,false)
 
         return  CustomViewHolder(cardItem,mOnNotlesener)
     }
@@ -46,14 +46,13 @@ class myFavAdapter(val context:Context, var onNoteLisener: OnNoteLisener, val ca
 
 
 //        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
-
-        holder.view.priceCar.text=carsP.Car.price .toString()+"$"
-        holder.view.engainPower.text=carsP.Car.mileage .toString()
-        holder.view.modelYear.text=carsP.Car.year
-        holder.view.carNmae.text=carsP.Car.name
-        Glide.with(context).load("http://api.centralmarketiq.com/"+carsP.Car.image+".png").into(holder.view?.carImage1)
-        holder.view.deleteBtn.setOnClickListener {
-
+        carsP.let {
+            holder.view.priceCar.text = carsP.Car?.price.toString()
+            holder.view.carMile.text = carsP.Car?.mileage.toString()
+            holder.view.modelYear.text = carsP.Car?.year
+            holder.view.carNmae.text = carsP.Car?.name
+            Glide.with(context).load("http://api.centralmarketiq.com/" + carsP.Car?.image + ".png")
+                .into(holder.view?.carImage)
         }
     }
 

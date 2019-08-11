@@ -22,7 +22,7 @@ import com.mustafayusef.sharay.data.networks.myApi
 import com.mustafayusef.sharay.data.networks.repostorys.SectionRepostary
 import com.mustafayusef.sharay.ui.sections.adapters.storeDetailsAdapter
 import kotlinx.android.synthetic.main.details_store_fragment.*
-
+import kotlinx.android.synthetic.main.first_store.*
 
 
 class detailsStore : Fragment(),storeLesener,storeDetailsAdapter.onStoreCarsClick {
@@ -32,6 +32,7 @@ class detailsStore : Fragment(),storeLesener,storeDetailsAdapter.onStoreCarsClic
     companion object {
         fun newInstance() = detailsStore()
     }
+   var phoneC=""
    var cars:List<Car>?=null
     private lateinit var viewModel: DetailsStoreViewModel
 
@@ -63,6 +64,8 @@ class detailsStore : Fragment(),storeLesener,storeDetailsAdapter.onStoreCarsClic
         println("ffffffffffffffffffffffffffffffffffffffff id "+id)
         viewModel.storeDetails(id!!)
 
+
+
     }
     override fun onFailer(message: String) {
         context?.toast(message)
@@ -72,17 +75,18 @@ class detailsStore : Fragment(),storeLesener,storeDetailsAdapter.onStoreCarsClic
         println(response)
 
         response.let {it1->
-            imageStotre
 
-            context?.let {
-                Glide.with(it).load("http://api.centralmarketiq.com/"+response?.data.image+".png")
-                    .into(imageStotre) }
-            storeName.text=response.data.name
-            phoneDStore.text=response.data.phone
-            locDStore.text=response.data.location
+
+//            context?.let {
+//                Glide.with(it).load("http://api.centralmarketiq.com/"+response?.data.image+".png")
+//                    .into(imageStotre) }
+//            storeName.text=response.data.name
+//            phoneC= response.data.phone
+//            locDStore.text=response.data.location
+
             cars=response?.data?.Cars
             carStoreList?.layoutManager= LinearLayoutManager(context)
-            carStoreList?.adapter= context?.let { storeDetailsAdapter(it , it1.data.Cars,this)}
+            carStoreList?.adapter= context?.let { storeDetailsAdapter(it , it1.data,this)}
         }
 
 
@@ -93,7 +97,7 @@ class detailsStore : Fragment(),storeLesener,storeDetailsAdapter.onStoreCarsClic
 
     }
     override fun onStoreCarsClick(position: Int) {
-        val carId= cars?.get(position)!!.id
+        val carId= cars?.get(position-1)!!.id
         val action = detailsStoreDirections .detailsStoreToCarDetails(carId)
         view?.findNavController()?.navigate(action)
         val navBar = activity?.findViewById<BottomNavigationView> (R.id.bottomNav)

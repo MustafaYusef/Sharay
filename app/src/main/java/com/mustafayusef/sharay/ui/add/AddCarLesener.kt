@@ -10,4 +10,8 @@ interface AddCarLesener {
     fun OnStart()
     fun onSucsess(CarResponse: addRes)
     fun onFailer(message:String)
+
+    fun OnStartAddImages()
+    fun onSucsessAddImages(message: String)
+    fun OnFailerAddImages(message:String)
 }

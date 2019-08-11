@@ -1,6 +1,7 @@
 package com.mustafayusef.sharay.ui.search
 
 import com.mustafayusef.sharay.data.models.CarsModel
+import com.mustafayusef.sharay.data.models.DataCarDetails
 import com.mustafayusef.sharay.database.entitis.latestCar
 
 interface searchLesener {
@@ -10,4 +11,9 @@ interface searchLesener {
     fun onSuccessDatabasesave(message: String)
     fun onStartSearch()
 
+
+
+    fun onStartDetails()
+    fun onSuccessDetails(dataCarDetails: DataCarDetails)
+    fun onFailerDetails(message: String)
 }

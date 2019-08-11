@@ -7,6 +7,8 @@ import com.mustafayusef.holidaymaster.utils.corurtins
 import com.mustafayusef.holidaymaster.utils.noInternetExeption
 import com.mustafayusef.sharay.data.networks.repostorys.userRepostary
 import com.mustafayusef.sharay.ui.auth.AuthLesener
+import java.net.ProtocolException
+import java.net.SocketException
 import java.net.SocketTimeoutException
 
 class SignUpUserViewModel(val repostary: userRepostary) : ViewModel() {
@@ -39,6 +41,11 @@ class SignUpUserViewModel(val repostary: userRepostary) : ViewModel() {
                 e.message?.let { Auth?.onFailer(it) }
             }catch (e: SocketTimeoutException){
                 e.message?.let { Auth?.onFailer(it) }}
+            catch (e: SocketException){
+                e.message?.let { Auth?.onFailer(it) }
+            }catch (e: ProtocolException){
+                e.message?.let { Auth?.onFailer(it) }
+            }
 
         }
 

@@ -19,6 +19,7 @@
             android:focusable="auto"
             android:id="@+id/filterPicker"
             android:tooltipText="20sp"
+            android:theme="@style/NumberPickerText"
             android:filterTouchesWhenObscured="false"
             android:solidColor="@color/white"
             android:descendantFocusability="blocksDescendants"

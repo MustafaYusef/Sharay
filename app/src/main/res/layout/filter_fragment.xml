@@ -64,6 +64,7 @@
                       android:orientation="horizontal"
                       android:layout_marginRight="15dp"
                       android:layout_marginLeft="15dp"
+                      android:layoutDirection="ltr"
 
                       android:padding="5dp" android:id="@+id/yearDilog">
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -94,6 +95,7 @@
                       android:orientation="horizontal"
                       android:layout_marginRight="15dp"
                       android:layout_marginLeft="15dp"
+                      android:layoutDirection="ltr"
                       android:padding="5dp" android:id="@+id/carClassDilog">
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:gravity="left"
@@ -120,6 +122,7 @@
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="horizontal"
+                      android:layoutDirection="ltr"
                       android:layout_marginRight="15dp"
                       android:layout_marginLeft="15dp"
                       android:padding="5dp" android:id="@+id/carModelDilog">
@@ -145,6 +148,7 @@
         <LinearLayout android:layout_width="match_parent" android:layout_height="2dp"
                       android:orientation="horizontal"
                       android:layout_margin="10dp"
+                      android:layoutDirection="ltr"
                       android:background="@color/colorPrimary"
                       android:padding="5dp"/>
 
@@ -152,6 +156,7 @@
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="horizontal"
                       android:layout_marginRight="15dp"
+                      android:layoutDirection="ltr"
                       android:layout_marginLeft="15dp"
                       android:padding="5dp" android:id="@+id/locationDilog">
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -175,6 +180,7 @@
         <LinearLayout android:layout_width="match_parent" android:layout_height="2dp"
                       android:orientation="horizontal"
                       android:layout_margin="10dp"
+                      android:layoutDirection="ltr"
                       android:background="@color/colorPrimary"
                       android:padding="5dp"/>
 
@@ -182,6 +188,7 @@
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="horizontal"
                       android:layout_marginRight="15dp"
+                      android:layoutDirection="ltr"
                       android:layout_marginLeft="15dp"
 
                       android:padding="5dp" android:id="@+id/priceDilog">
@@ -206,6 +213,7 @@
         <LinearLayout android:layout_width="match_parent" android:layout_height="2dp"
                       android:orientation="horizontal"
                       android:layout_margin="10dp"
+                      android:layoutDirection="ltr"
                       android:background="@color/colorPrimary"
                       android:padding="5dp"/>
 
@@ -214,6 +222,7 @@
                       android:orientation="horizontal"
                       android:layout_marginRight="15dp"
                       android:layout_marginLeft="15dp"
+                      android:layoutDirection="ltr"
                       android:padding="5dp" android:id="@+id/sourceDilog">
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:gravity="left"
@@ -238,12 +247,14 @@
         <LinearLayout android:layout_width="match_parent" android:layout_height="2dp"
                       android:orientation="horizontal"
                       android:layout_margin="10dp"
+                      android:layoutDirection="ltr"
                       android:background="@color/colorPrimary"
                       android:padding="5dp"/>
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="horizontal"
                       android:layout_marginRight="15dp"
+                      android:layoutDirection="ltr"
                       android:layout_marginLeft="15dp"
                       android:padding="5dp" android:id="@+id/milesDilog">
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -280,7 +291,7 @@
                     android:layout_marginTop="20dp"
                     android:textSize="20sp" android:gravity="center" app:backgroundTint="@color/colorAccent"
                     app:cornerRadius="20dp"
-                    android:id="@+id/applayFilters" android:padding="5dp" app:strokeColor="@color/black"
+                    android:id="@+id/applayFilters" android:padding="10dp" app:strokeColor="@color/black"
                     android:shadowColor="@color/black" android:layout_marginBottom="20dp"/>
     </LinearLayout>
     </LinearLayout>

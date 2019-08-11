@@ -3,7 +3,7 @@ package com.mustafayusef.sharay.data.models.favorite
 
 
 data class favoriteModel(
-    val Car: CarFavoorite,
+    val Car: CarFavoorite?=null,
     val Motor: Any,
     val Number: Any,
     val Part: Any,

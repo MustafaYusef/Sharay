@@ -92,6 +92,17 @@ class CareRent : Fragment()
 
         viewModel.lesener =this
         type = arguments?.getString("type")
+        retryBtnPublic.setOnClickListener {
+            when(type){
+                "numbers"->viewModel.GetNumbers()
+                "stores"->viewModel.GetStores()
+                "rent"->viewModel.GetRent()
+                "parts"->viewModel.GetParts()
+                "import"->viewModel.GetImport()
+                "motore"->viewModel.GetMotor()
+                "cars"->viewModel.GetCars()
+            }
+        }
         when(type){
             "numbers"->viewModel.GetNumbers()
             "stores"->viewModel.GetStores()
@@ -117,6 +128,7 @@ class CareRent : Fragment()
         }
     }
     override fun OnStart() {
+        noNetContainerPublic?.visibility=View.GONE
         animation_loadingSections?.visibility=View.VISIBLE
     }
 
@@ -184,6 +196,7 @@ class CareRent : Fragment()
     sectionsList?.adapter= context?.let { CarResponse.data?.let { it1 -> RentAdapter(it , it1,this) } }    }
 
 override fun OnFailer(message: String) {
+    noNetContainerPublic?.visibility=View.VISIBLE
     animation_loadingSections?.visibility=View.GONE
    }
 
@@ -253,17 +266,18 @@ override fun OnFailer(message: String) {
         dview.provId.maxValue = locations.size-1
         dview.provId.wrapSelectorWheel = true
         dview.provId.displayedValues = locations.toTypedArray()
-
+        var index=0
         dview.provId.setOnValueChangedListener { picker, oldVal, newVal ->
             //
             //Display the newly selected number to text view
-            selectLoc = locations[newVal]
+            index=newVal
+
             // println(country +"   cooodkl,dl")
         }
 //            }
 
         dview.applayFilter.setOnClickListener {
-            applayFilter(selectLoc)
+            applayFilter(locations[index])
             malert?.dismiss()
 
             // national.clear()
@@ -274,9 +288,10 @@ override fun OnFailer(message: String) {
     }
 
     fun applayFilter(text:String){
-        context?.toast("start filter")
+
         temp.clear()
-        if(text=="الكل"){
+        if(locations.indexOf(text)==0){
+
             sectionsList?.layoutManager= LinearLayoutManager(context)
             sectionsList?.adapter= context?.let { storesAdapter(it , stores!!,this)}
         }else{

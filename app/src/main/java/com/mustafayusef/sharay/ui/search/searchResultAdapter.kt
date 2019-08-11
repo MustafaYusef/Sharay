@@ -83,10 +83,7 @@ class searchResultAdapter(val context:Context,var onNoteLisener: OnNoteLisener,v
     interface OnNoteLisener {
         fun onNoteClick( position: Int)
     }
-    fun updateList(list1: List<DataCars>) {
-        displayList = list1
-        notifyDataSetChanged()
-    }
+
 
 
 }

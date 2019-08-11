@@ -5,7 +5,19 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent" android:layout_height="match_parent"
         tools:context=".ui.add.Add_fragment" android:background="@color/gray">
+    <com.airbnb.lottie.LottieAnimationView
+            android:inputType="textEmailAddress|textNoSuggestions"
+            android:visibility="invisible"
+            android:id="@+id/animation_loadingAdd"
+            android:layout_width="234dp"
 
+            android:layout_height="162dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            app:lottie_rawRes="@raw/loading_animation"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="false"
+            android:translationZ="1dp"/>
     <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
 
 
@@ -90,6 +102,7 @@
                                                                 android:layout_height="45dp"
                                                                 android:layout_weight="1"
                                                                 android:layout_margin="10dp"
+                                                               android:textColor="@color/white"
                                                                 android:gravity="center"
                                                                 android:fontFamily="@font/font_regular"
                                                                 android:textSize="20sp"
@@ -103,7 +116,7 @@
                     <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
                                                                android:layout_height="45dp"
                                                                android:layout_weight="1"
-
+                                                               android:textColor="@color/white"
                                                                android:layout_margin="10dp"
                                                                android:gravity="center"
                                                                android:fontFamily="@font/font_regular"
@@ -327,48 +340,48 @@
                               android:layout_height="wrap_content"
                               android:orientation="horizontal" android:weightSum="2">
 
-                    <androidx.appcompat.widget.AppCompatEditText android:layout_width="match_parent"
-                                                               android:layout_height="45dp"
-                                                               android:layout_weight="1"
-                                                               android:textColor="@color/colorPrimary"
-                                                               android:layout_margin="10dp"
-                                                               android:gravity="center"
-                                                                 android:inputType="number"
-                                                               android:fontFamily="@font/font_regular"
-                                                               android:textSize="20sp"
-                                                               android:textColorHint="@color/colorPrimary"
-                                                               android:background="@drawable/add_input"
-                                                               android:id="@+id/SeatAdd"
-                                                               android:hint="@string/SeatsNo"/>
+                    <!--<androidx.appcompat.widget.AppCompatEditText android:layout_width="match_parent"-->
+                                                               <!--android:layout_height="45dp"-->
+                                                               <!--android:layout_weight="1"-->
+                                                               <!--android:textColor="@color/colorPrimary"-->
+                                                               <!--android:layout_margin="10dp"-->
+                                                               <!--android:gravity="center"-->
+                                                                 <!--android:inputType="number"-->
+                                                               <!--android:fontFamily="@font/font_regular"-->
+                                                               <!--android:textSize="20sp"-->
+                                                               <!--android:textColorHint="@color/colorPrimary"-->
+                                                               <!--android:background="@drawable/add_input"-->
+                                                               <!--android:id="@+id/SeatAdd"-->
+                                                               <!--android:hint="@string/SeatsNo"/>-->
 
-                    <androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"
-                                                               android:layout_height="45dp"
-                                                               android:layout_weight="1"
-                                                               android:textColor="@color/colorPrimary"
-                                                               android:layout_margin="10dp"
-                                                               android:gravity="center"
-                                                               android:fontFamily="@font/font_regular"
-                                                               android:textSize="20sp"
-                                                               android:textColorHint="@color/colorPrimary"
-                                                               android:background="@drawable/add_input"
-                                                               android:id="@+id/WindowAdd"
-                                                               android:hint="@string/WindowsSystem"/>
+                    <!--<androidx.appcompat.widget.AppCompatButton android:layout_width="match_parent"-->
+                                                               <!--android:layout_height="45dp"-->
+                                                               <!--android:layout_weight="1"-->
+                                                               <!--android:textColor="@color/colorPrimary"-->
+                                                               <!--android:layout_margin="10dp"-->
+                                                               <!--android:gravity="center"-->
+                                                               <!--android:fontFamily="@font/font_regular"-->
+                                                               <!--android:textSize="20sp"-->
+                                                               <!--android:textColorHint="@color/colorPrimary"-->
+                                                               <!--android:background="@drawable/add_input"-->
+                                                               <!--android:id="@+id/WindowAdd"-->
+                                                               <!--android:hint="@string/WindowsSystem"/>-->
                 </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputEditText android:layout_width="match_parent"
-                                                           android:layout_height="45dp"
-                                                           android:layout_weight="1"
-                                                           android:textColor="@color/colorPrimary"
-                                                           android:layout_margin="10dp"
-                                                           android:gravity="center"
-                                                           android:id="@+id/airBagAdd"
-                                                               android:inputType="number"
-                                                           android:fontFamily="@font/font_regular"
-                                                           android:textSize="20sp"
-                                                           android:textColorHint="@color/colorPrimary"
-                                                           android:background="@drawable/add_input"
+                <!--<com.google.android.material.textfield.TextInputEditText android:layout_width="match_parent"-->
+                                                           <!--android:layout_height="45dp"-->
+                                                           <!--android:layout_weight="1"-->
+                                                           <!--android:textColor="@color/colorPrimary"-->
+                                                           <!--android:layout_margin="10dp"-->
+                                                           <!--android:gravity="center"-->
+                                                           <!--android:id="@+id/airBagAdd"-->
+                                                               <!--android:inputType="number"-->
+                                                           <!--android:fontFamily="@font/font_regular"-->
+                                                           <!--android:textSize="20sp"-->
+                                                           <!--android:textColorHint="@color/colorPrimary"-->
+                                                           <!--android:background="@drawable/add_input"-->
 
-                                                           android:hint="@string/AirBags"/>
+                                                           <!--android:hint="@string/AirBags"/>-->
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                           android:textColor="@color/white" android:textSize="20sp"
                           android:text="@string/descrption"
@@ -406,19 +419,19 @@
                               android:orientation="vertical" >
 
 
-                    <androidx.appcompat.widget.AppCompatEditText android:layout_width="match_parent"
-                                                                 android:layout_height="45dp"
-                                                                 android:layout_weight="1"
+                    <!--<androidx.appcompat.widget.AppCompatEditText android:layout_width="match_parent"-->
+                                                                 <!--android:layout_height="45dp"-->
+                                                                 <!--android:layout_weight="1"-->
 
-                                                                 android:layout_margin="10dp"
-                                                                 android:gravity="center_horizontal"
-                                                                 android:fontFamily="@font/font_regular"
-                                                                 android:textSize="20sp"
-                                                                 android:inputType="text"
-                                                                 android:textColorHint="@color/colorPrimary"
-                                                                 android:background="@drawable/add_input"
-                                                                 android:id="@+id/NameAdd"
-                                                                 android:hint="@string/Name"/>
+                                                                 <!--android:layout_margin="10dp"-->
+                                                                 <!--android:gravity="center_horizontal"-->
+                                                                 <!--android:fontFamily="@font/font_regular"-->
+                                                                 <!--android:textSize="20sp"-->
+                                                                 <!--android:inputType="text"-->
+                                                                 <!--android:textColorHint="@color/colorPrimary"-->
+                                                                 <!--android:background="@drawable/add_input"-->
+                                                                 <!--android:id="@+id/NameAdd"-->
+                                                                 <!--android:hint="@string/Name"/>-->
                     <androidx.appcompat.widget.AppCompatEditText android:layout_width="match_parent"
                                                                  android:layout_height="45dp"
                                                                  android:layout_weight="1"

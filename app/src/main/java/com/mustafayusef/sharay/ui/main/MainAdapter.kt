@@ -15,16 +15,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import android.graphics.Color
 import com.mustafayusef.sharay.data.models.DataCars
+import com.mustafayusef.sharay.data.models.banners
 import com.smarteist.autoimageslider.IndicatorAnimations
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
+import kotlinx.android.synthetic.main.first.*
 import kotlinx.android.synthetic.main.first.view.*
+import kotlinx.android.synthetic.main.first.view.storeSlider
+import kotlinx.android.synthetic.main.main_fragment_fragment.*
 
 
 class MainAdapter(
     val context: Context,
     var onNoteLisener: OnNoteLisener,
-    val cars: List<DataCars>
+    val cars: List<DataCars>,val banners:banners
 ) : RecyclerView.Adapter<MainAdapter.CustomViewHolder>(){
 //
   private  var mOnNotlesener=onNoteLisener
@@ -65,17 +69,19 @@ class MainAdapter(
 
         // holder.view.LogoAir .startAnimation(AnimationUtils.loadAnimation(context,R.anim.left_to_right))
       if(position==0){
-//          val adapter = bannersAdapter(context!!,cars)
-//
-//          holder.view.storeSlider?.sliderAdapter = adapter
-//          //  context?.let { Glide.with(it).load(com.mustafayusef.sharay.R.drawable.car).into(carImageD) }
-//          holder.view.storeSlider?.setIndicatorAnimation(IndicatorAnimations.WORM) //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-//          holder.view.storeSlider?.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
-//          holder.view.storeSlider?.autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH
-//          holder.view. storeSlider?.indicatorSelectedColor = Color.WHITE
-//          holder.view. storeSlider?.indicatorUnselectedColor = Color.GRAY
-//          holder.view. storeSlider?.scrollTimeInSec = 4 //set scroll delay in seconds :
-//          holder.view. storeSlider?.startAutoCycle()
+         // animation_loadingMain?.visibility=View.GONE
+          val adapter = banners?.let { bannersAdapter(context!!, it.data) }
+
+          holder.view.storeSlider?.sliderAdapter = adapter
+
+          //  context?.let { Glide.with(it).load(com.mustafayusef.sharay.R.drawable.car).into(carImageD) }
+          holder.view.storeSlider?.setIndicatorAnimation(IndicatorAnimations.WORM) //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+          holder.view.storeSlider?.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
+          holder.view. storeSlider?.autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH
+          holder.view.storeSlider?.indicatorSelectedColor = Color.WHITE
+          holder.view. storeSlider?.indicatorUnselectedColor = Color.GRAY
+          holder.view. storeSlider?.scrollTimeInSec = 4 //set scroll delay in seconds :
+          holder.view. storeSlider?.startAutoCycle()
       }
         else{
           var carsP=cars.get(position-1)

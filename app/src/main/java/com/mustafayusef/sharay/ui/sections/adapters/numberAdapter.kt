@@ -40,7 +40,7 @@ class numberAdapter(val context:Context, val cars:List<NumberData> ) : RecyclerV
 
 
 //        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
-        holder.view.priceNumber.text=carsP.price.toString()
+        holder.view.price_number.text=carsP.price.toString()
         holder.view.phoneNumber .text=carsP.phone .toString()
         holder.view.locNumber .text=carsP.location .toString()
 

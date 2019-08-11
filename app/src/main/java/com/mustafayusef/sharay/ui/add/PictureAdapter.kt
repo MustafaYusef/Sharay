@@ -55,7 +55,9 @@ class PictureAdapter(val context:Context,var onNoteLisener: OnNoteLisener,var Li
              val bitmap= MediaStore.Images.Media.getBitmap(context.contentResolver,ListUri.get(position))
 
          val bitmapDrawable= BitmapDrawable(bitmap)
-
+         if(position==0){
+             holder.view?.mainImage.visibility=View.VISIBLE
+         }
 
         Glide.with(context).load(bitmapDrawable).into(holder.view?.carImage1)
 

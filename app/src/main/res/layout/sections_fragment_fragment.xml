@@ -16,7 +16,7 @@
                       android:layout_height="wrap_content"
                       android:weightSum="2" android:background="@color/gray" android:padding="5dp">
             <androidx.cardview.widget.CardView android:layout_width="match_parent"
-                                               android:layout_height="150dp"
+                                               android:layout_height="wrap_content"
                                                android:layout_weight="1"
                                                android:layout_margin="10dp"
                                                android:background="@drawable/round_section" app:cardCornerRadius="15dp"
@@ -37,7 +37,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView android:layout_width="match_parent"
-                                               android:layout_height="150dp"
+                                               android:layout_height="wrap_content"
                                                android:layout_weight="1"
                                                android:layout_margin="10dp"
                                                android:id="@+id/CarCompany"
@@ -62,7 +62,7 @@
                       android:layout_height="wrap_content"
                       android:weightSum="2" android:background="@color/gray" android:padding="5dp">
             <androidx.cardview.widget.CardView android:layout_width="match_parent"
-                                               android:layout_height="150dp"
+                                               android:layout_height="wrap_content"
                                                android:layout_weight="1"
                                                android:id="@+id/PartsCar"
 
@@ -84,7 +84,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView android:layout_width="match_parent"
-                                               android:layout_height="150dp"
+                                               android:layout_height="wrap_content"
                                                android:layout_weight="1"
                                                android:layout_margin="10dp"
                                                android:id="@+id/waredCar"
@@ -108,7 +108,7 @@
                       android:layout_height="wrap_content"
                       android:weightSum="2" android:background="@color/gray" android:padding="5dp">
             <androidx.cardview.widget.CardView android:layout_width="match_parent"
-                                               android:layout_height="150dp"
+                                               android:layout_height="wrap_content"
                                                android:layout_weight="1"
                                                android:layout_margin="10dp"
                                                android:id="@+id/CarNumbers"
@@ -129,7 +129,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView android:layout_width="match_parent"
-                                               android:layout_height="150dp"
+                                               android:layout_height="wrap_content"
                                                android:layout_weight="1"
                                                android:layout_margin="10dp"
                                                android:id="@+id/Motore"
@@ -154,7 +154,7 @@
                       android:weightSum="2" android:background="@color/gray" android:padding="5dp"
                       android:gravity="left">
             <androidx.cardview.widget.CardView android:layout_width="match_parent"
-                                               android:layout_height="150dp"
+                                               android:layout_height="wrap_content"
                                                android:layout_weight="1"
                                                android:id="@+id/CarForRent"
                                                android:layout_margin="10dp"
@@ -175,7 +175,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView android:layout_width="match_parent"
-                                               android:layout_height="150dp"
+                                               android:layout_height="wrap_content"
                                                android:layout_weight="1"
                                                android:visibility="invisible"
 
@@ -187,10 +187,10 @@
                               android:layout_margin="5dp" android:padding="5dp" android:orientation="vertical"
                               android:gravity="center">
                     <ImageView android:layout_width="match_parent" android:layout_height="96dp"
-                             android:scaleType="centerInside"/>
+                               android:scaleType="centerInside"/>
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                             android:layout_marginTop="5dp"
-                            />
+                              android:layout_marginTop="5dp"
+                    />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

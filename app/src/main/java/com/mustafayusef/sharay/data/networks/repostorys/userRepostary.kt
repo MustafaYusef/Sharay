@@ -2,11 +2,14 @@ package com.mustafayusef.sharay.data.networks.repostorys
 
 
 import com.mustafayusef.holidaymaster.networks.SafeApiRequest
-import com.mustafayusef.sharay.data.models.UserInfo
+
 import com.mustafayusef.sharay.data.models.addRes
 import com.mustafayusef.sharay.data.models.favorite.addResFav
 import com.mustafayusef.sharay.data.models.signInModel
 import com.mustafayusef.sharay.data.models.signUp
+import com.mustafayusef.sharay.data.models.userModels.UserInfo
+import com.mustafayusef.sharay.data.networks.De
+import com.mustafayusef.sharay.data.networks.delete
 import com.mustafayusef.sharay.data.networks.myApi
 import okhttp3.MultipartBody
 
@@ -41,70 +44,14 @@ class userRepostary(val api:myApi ):SafeApiRequest(){
 
             api.getUserInfo(token)
         }}
-
-
-    suspend fun AddCar(title: String,
-                       brand: String,
-                       `class`: String,
-                       status: String,
-                       year: Int,
-                       warid: String,
-                       mileage: Int,
-                       price: Int,
-                       gear: String,
-                       cylinders: Int,
-                       driveSystem: String,
-                       roof: String,
-                       seats: Int,
-                       type: String,
-                       window: String,
-                       airBags: String,
-                       color: String,
-                       description: String,
-                       name: String,
-                       phone: String,
-                       location: String,
-                       state: String,
-                       date: String,
-                       userId: Int,
-                       storeId: Int,
-                       active: Boolean,
-                       isRent: Boolean,
-                       isImported: Boolean,
-                       image: MultipartBody.Part): addRes {
-
+    suspend fun deletMyCar(token:String,carId:Int): delete {
+       var a= De(id=carId.toString())
         return SafeRequest{
 
-            api.AddCar( title,
-                 brand,
-               `class`,
-               status,
-             year,
-               warid,
-               mileage,
-                price,
-               gear,
-                 cylinders,
-                 driveSystem,
-            roof,
-                seats,
-              type,
-                window,
-                airBags,
-             color,
-               description,
-               name,
-              phone,
-                 location,
-                state,
-              date,
-              userId,
-               storeId,
-                 active,
-               isRent,
-                isImported,
-             image)
+            api.DeleteMyCar(token,a)
         }}
+
+//
     }
 
 data class UserAuth(

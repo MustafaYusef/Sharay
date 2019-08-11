@@ -1,11 +1,15 @@
 package com.mustafayusef.sharay.ui.auth.signup
 
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -13,6 +17,9 @@ import androidx.navigation.Navigation
 
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
+import com.chibatching.kotpref.Kotpref
+import com.chibatching.kotpref.KotprefModel
+import com.chibatching.kotpref.bulk
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mustafayusef.holidaymaster.networks.networkIntercepter
 import com.mustafayusef.holidaymaster.utils.toast
@@ -26,10 +33,15 @@ import com.mustafayusef.sharay.ui.MainActivity
 
 import com.mustafayusef.sharay.ui.auth.AuthLesener
 
+import kotlinx.android.synthetic.main.desc_parts.view.*
+import kotlinx.android.synthetic.main.info.view.*
+
 import kotlinx.android.synthetic.main.login_fragment.*
+import kotlinx.android.synthetic.main.setting_fragment_fragment.*
 
 
 class Login : Fragment(), AuthLesener {
+
     override fun onSucsessSignIn(loginResponse: signInModel) {
 
     }
@@ -69,7 +81,28 @@ class Login : Fragment(), AuthLesener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController= Navigation.findNavController(view)
+        Kotpref.init(context!!)
+
+        val dview: View = layoutInflater.inflate(R.layout.info, null)
+        val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
+        val malert= builder?.show()
+
+        malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dview.titleInfo.text=getResources().getString(R.string.logInStep)
+        dview.info?.text=  "تسجيل الدخول\n" +
+                    "خطوات بسيطة للتسجيل و اعلان سيارتك في السوق المركزي للسيارات\n" +
+                    "\n" +
+                    "انقر على ( تسجيل الدخول ) في الصفحة الرئيسية ثم كلمة (التسجيل)\n" +
+                    "ادخل بياناتك (الاسم الكامل) اضافة الى رقم الهاتف الخاص بكم.\n" +
+                    "سوف تتلقى رسالة نصية على رقم هاتفكم فيها رمز ، يتم ادخاله في الحقل المطلوب لتفعيل اشتراكك\n" +
+                    "ايضاً يمكنك ادخال بريدكم الالكتروني .\n" +
+                    "\n" +
+                    "\n" +
+
+
+        dview.goLog?.setOnClickListener {
+            malert?.dismiss()
+        }
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -105,7 +138,12 @@ class Login : Fragment(), AuthLesener {
     override fun onSucsess(loginResponse: signUp) {
         animation_loadingSignUp.visibility=View.GONE
         animation_loadingSignUp.pauseAnimation()
-        MainActivity.cacheObj.token=loginResponse.token
+
+        MainActivity.cacheObj .token =loginResponse.token
+        MainActivity.cacheObj .phoneLogin=viewModel.phone!!
+        MainActivity.cacheObj .PasswordLogin=viewModel.password!!
+
+
         view?.findNavController()?.navigate(R.id.profile_fragment)
 
     }

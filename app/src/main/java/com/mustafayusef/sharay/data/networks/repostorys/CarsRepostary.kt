@@ -8,8 +8,14 @@ import com.mustafayusef.sharay.data.models.banners
 import com.mustafayusef.sharay.data.models.carDetails
 import com.mustafayusef.sharay.data.models.favorite.addResFav
 import com.mustafayusef.sharay.data.models.favorite.favoriteModel
+import com.mustafayusef.sharay.data.models.userModels.UserInfo
+import com.mustafayusef.sharay.data.networks.De
 import com.mustafayusef.sharay.data.networks.delete
 import com.mustafayusef.sharay.data.networks.myApi
+
+import com.mustafayusef.sharay.ui.MainActivity
+import com.mustafayusef.sharay.ui.auth.signup.Login
+import com.mustafayusef.sharay.ui.profile.Profile_fragment
 import okhttp3.MultipartBody
 
 
@@ -40,10 +46,41 @@ class CarsRepostary(val api:myApi ):SafeApiRequest(){
             api.Filters(filter)
         }}
 
+    suspend fun images(image:List<MultipartBody.Part> ,id:Int):delete{
+        val filter=HashMap<Int,MultipartBody.Part>()
+        for (i in 0 until image.size) {
+
+            image.get(i)?.let { filter.put(i, it) }
+            image.get(i)?.let { filter.put(i, it) }
+            image.get(i)?.let { filter.put(i, it) }
+            image.get(i)?.let { filter.put(i, it) }
+            image.get(i)?.let { filter.put(i, it) }
+            image.get(i)?.let { filter.put(i, it) }
+            image.get(i)?.let { filter.put(i, it) }
+            image.get(i)?.let { filter.put(i, it) }
+            image.get(i)?.let { filter.put(i, it) }
+            image.get(i)?.let { filter.put(i, it) }
+            image.get(i)?.let { filter.put(i, it) }
+        }
+        return SafeRequest{
+            api.Images(filter[0],filter[1],filter[2],filter[3]
+                ,filter[4],filter[5],filter[6],filter[7],filter[8],filter[9],filter[10],id,MainActivity.cacheObj  .token)
+        }}
+
+
+
     suspend fun getDetailsCars(id:Int):carDetails{
         return SafeRequest{
             api.GetDetailsCar(id)
         }}
+
+    suspend fun getUserIn(token:String): UserInfo {
+
+        return SafeRequest{
+
+            api.getUserInfo(token)
+        }}
+
     suspend fun getBanners():banners{
         return SafeRequest{
             api.getBanners()
@@ -61,11 +98,7 @@ class CarsRepostary(val api:myApi ):SafeApiRequest(){
         }
     }
 
-    suspend fun DeleteFavorite(token: String,idUser:Int,idCarFav:Int): delete {
-        return SafeRequest {
-            api.DeleteFavorite(token,idUser,idCarFav)
-        }
-    }
+
 
     suspend fun AddCar( title: String,
                         brand: String,
@@ -98,7 +131,8 @@ class CarsRepostary(val api:myApi ):SafeApiRequest(){
                        isImported: Boolean,
                          image: MultipartBody.Part): addRes {
         return SafeRequest {
-            api.AddCar( title,
+            api.AddCar(MainActivity.cacheObj .token,
+                title,
                 brand,
                 `class`,
                 status,
@@ -128,6 +162,12 @@ class CarsRepostary(val api:myApi ):SafeApiRequest(){
                 isRent,
                 isImported,
                 image)
+        }
+    }
+    suspend fun deleteFav(token: String,id:Int,FavId:Int): delete {
+        var a= De(id=FavId.toString())
+        return SafeRequest {
+            api.DeleteFavorite(token,id,a)
         }
     }
 

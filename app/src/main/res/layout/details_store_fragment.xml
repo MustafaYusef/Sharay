@@ -28,83 +28,12 @@
                   android:layout_height="match_parent"
                   android:orientation="vertical"
                   android:gravity="center|top">
-        <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appBarLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/white"
-                android:fitsSystemWindows="true">
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                    android:id="@+id/collapsingToolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fitsSystemWindows="true"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                        >
-                <LinearLayout android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:gravity="center"
-                              android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                              android:textColor="@color/colorPrimary"
-                              android:fontFamily="@font/font_bold"
-                              android:text="Desgine your way"
-                              android:id="@+id/storeName"
-                              android:layout_margin="5dp" android:textSize="22sp"/>
-
-                    <LinearLayout android:layout_width="match_parent"
-                                  android:layout_height="2dp"
-                                  android:layout_marginRight="70dp"
-                                  android:background="@color/colorPrimary"
-                                  android:layout_marginLeft="70dp"
-                                  android:layout_marginBottom="5dp"/>
 
 
-                    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                                 android:layout_gravity="top"
-                    >
-                        <ImageView android:layout_width="match_parent" android:layout_height="110dp"
-                                   android:id="@+id/imageStotre"
 
-                                   android:scaleType="fitXY"/>
-                        <LinearLayout android:layout_width="wrap_content"
-                                      android:layout_height="wrap_content"
-                                      android:layout_gravity="left|center" android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                      android:textColor="@color/white" android:layout_gravity="center|left"
-                                      android:padding="5dp"
-                                      android:text="@string/Phone"
-                                      android:fontFamily="@font/font_regular" android:textSize="16sp"
-                                      android:layout_marginLeft="10dp" android:id="@+id/phoneDStore"/>
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                      android:textColor="@color/white" android:layout_gravity="center|left"
-                                      android:fontFamily="@font/font_regular" android:textSize="16sp"
-                                      android:layout_marginLeft="10dp" android:id="@+id/locDStore"
-                                      android:text="@string/Province"/>
 
-                        </LinearLayout>
 
-                    </FrameLayout>
-                </LinearLayout>
 
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:textColor="@color/colorPrimary"
-                  android:fontFamily="@font/font_bold"
-                  android:text="@string/Carforsale"
-                  android:layout_margin="5dp" android:textSize="22sp"/>
-
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="2dp"
-                      android:layout_marginRight="70dp"
-                      android:background="@color/colorPrimary"
-                      android:layout_marginLeft="70dp"
-                      android:layout_marginBottom="5dp"/>
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -39,9 +39,9 @@ class storesAdapter(val context: Context, val cars:List<StoresData>,val onNoteLi
 
 
 //        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
-        holder.view.storeTitle .text=carsP.name .toString()+"$"
+        holder.view.storeTitle .text=carsP.name .toString()
 
-        holder.view.phoneStore .text=carsP.phone .toString()+"$"
+        holder.view.phoneStore .text=carsP.phone .toString()
         holder.view.locStore .text=carsP.location .toString()
 
 

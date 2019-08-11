@@ -6,9 +6,13 @@ import com.mustafayusef.holidaymaster.utils.corurtins
 import com.mustafayusef.holidaymaster.utils.noInternetExeption
 import com.mustafayusef.sharay.data.networks.repostorys.CarsRepostary
 import com.mustafayusef.sharay.ui.main.MainCarLesener
+import java.net.ProtocolException
+import java.net.SocketException
 import java.net.SocketTimeoutException
 
-class CarDetailsViewModel(val repostary: CarsRepostary) : ViewModel() {
+class CarDetailsViewModel(
+    val repostary: CarsRepostary
+) : ViewModel() {
     var CarImages: List<String>?=null
     var ClassCar: String?=null
    // var active: Boolean?=null
@@ -98,6 +102,58 @@ class CarDetailsViewModel(val repostary: CarsRepostary) : ViewModel() {
                 e.message?.let { Fav?.onFailerFav(it) }
             } catch (e: SocketTimeoutException){
                 e.message?.let { Fav?.onFailerFav(it) }}
+            catch (e: SocketException){
+                e.message?.let { Auth?.onFailer(it) }
+            }catch (e: ProtocolException){
+                e.message?.let { Auth?.onFailer(it) }
+            }
+
+        }
+
+    }
+
+    fun  DeleteFavorite(token:String,UserId:Int,CarId:Int){
+        Fav?.OnStartFav()
+
+        corurtins.main {
+            try {
+                val CarsDetailsResponse=repostary.deleteFav(token,UserId,CarId)
+                CarsDetailsResponse ?.let {it1->
+
+
+
+                 Fav?.onSucsessDel(it1)
+                }
+
+            }catch (e: ApiExaptions){
+                e.message?.let { Fav?.onFailerFav(it) }
+
+            }catch (e: noInternetExeption){
+                e.message?.let { Fav?.onFailerFav(it) }
+            } catch (e: SocketTimeoutException){
+                e.message?.let { Fav?.onFailerFav(it) }}
+
+        }
+
+    }
+
+    fun profile(token:String){
+        Fav?.OnStartProfile()
+
+        corurtins.main {
+            try {
+                val onewayResponse=repostary.getUserIn(token)
+                onewayResponse.Favorites ?.let {
+                    Fav?.onSucsessProfile(it!!)
+                }
+
+            }catch (e: ApiExaptions){
+                e.message?.let { Fav?.onFailerProfile(it) }
+
+            }catch (e: noInternetExeption){
+                e.message?.let { Fav?.onFailerProfile(it) }
+            }catch (e: SocketTimeoutException){
+                e.message?.let { Fav?.onFailerProfile(it) }}
 
         }
 

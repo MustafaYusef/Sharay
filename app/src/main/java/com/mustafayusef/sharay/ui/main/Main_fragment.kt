@@ -33,6 +33,7 @@ import kotlinx.android.synthetic.main.first.*
 
 class Main_fragment : Fragment(),MainAdapter.OnNoteLisener,MainCarLesener {
 
+
     private lateinit var navController: NavController
     private lateinit var viewModel: MainFragmentViewModel
 
@@ -104,16 +105,21 @@ class Main_fragment : Fragment(),MainAdapter.OnNoteLisener,MainCarLesener {
         refSwap.setOnRefreshListener {
 
             viewModel.GetCars()
-            viewModel.getBanners ()
-            refSwap.isRefreshing=false
+           // viewModel.getBanners()
+            refSwap?.isRefreshing=false
         }
-
+        retryBtn?.setOnClickListener {
+            viewModel.GetCars()
+        }
     }
 
     override fun onNoteClick(position: Int) {
+
+       // var bundle = bundleOf("flage" to true)
         carId= responseCars?.get(position-1)!!.id
+        var array= arrayOf(carId,1)
         val action = Main_fragmentDirections.goTocarDetails(carId)
-        navController?.navigate(action)
+            navController?.navigate(action)
         val navBar = activity?.findViewById<BottomNavigationView> (R.id.bottomNav)
         val toolbar = activity?.findViewById<Toolbar> (R.id.ToolBar)
 
@@ -131,45 +137,56 @@ class Main_fragment : Fragment(),MainAdapter.OnNoteLisener,MainCarLesener {
 
 
     override fun OnStart() {
-
+        noNetContainer?.visibility=View.GONE
         animation_loadingMain?.visibility=View.VISIBLE
         animation_loadingMain?.playAnimation()
     }
 
     override fun onSucsess(CarResponse: CarsModel) {
         // viewModel.carData=CarResponse
-        animation_loadingMain?.visibility=View.GONE
-        //animation_loadingMain.pauseAnimation()
-        carList?.adapter= context?.let { MainAdapter(it ,this, CarResponse.data)}
 
 
-        responseCars=CarResponse.data
-        viewModel.getBanners ()
        }
 
     override fun onFailer(message: String) {
 
         animation_loadingMain?.visibility=View.GONE
         animation_loadingMain?.pauseAnimation()
+        noNetContainer?.visibility=View.VISIBLE
+        carList?.visibility=View.GONE
     context?.toast(message)}
     override fun onSucsessDetails(CarResponse: DataCarDetails) {
     }
+    override fun onComplete(
+        carsResponse: CarsModel,
+        bannerResponse: banners
+    ) {
+        noNetContainer?.visibility=View.GONE
+        carList?.visibility=View.VISIBLE
+        animation_loadingMain?.visibility=View.GONE
+        //animation_loadingMain.pauseAnimation()
+        carList?.adapter= context?.let { MainAdapter(it ,this, carsResponse.data,bannerResponse)}
 
+
+        responseCars=carsResponse.data
+
+    }
     override fun onSucsessBanners(CarResponse: banners) {
        // bannerResponse=CarResponse.data
-        animation_loadingMain?.visibility=View.GONE
-        val adapter = CarResponse?.let { bannersAdapter(context!!, it.data) }
 
-        storeSlider?.sliderAdapter = adapter
-
-        //  context?.let { Glide.with(it).load(com.mustafayusef.sharay.R.drawable.car).into(carImageD) }
-        storeSlider?.setIndicatorAnimation(IndicatorAnimations.WORM) //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-        storeSlider?.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
-        storeSlider?.autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH
-        storeSlider?.indicatorSelectedColor = Color.WHITE
-        storeSlider?.indicatorUnselectedColor = Color.GRAY
-        storeSlider?.scrollTimeInSec = 4 //set scroll delay in seconds :
-        storeSlider?.startAutoCycle()
+//        animation_loadingMain?.visibility=View.GONE
+//        val adapter = CarResponse?.let { bannersAdapter(context!!, it.data) }
+//
+//        storeSlider?.sliderAdapter = adapter
+//
+//        //  context?.let { Glide.with(it).load(com.mustafayusef.sharay.R.drawable.car).into(carImageD) }
+//        storeSlider?.setIndicatorAnimation(IndicatorAnimations.WORM) //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+//        storeSlider?.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
+//        storeSlider?.autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH
+//        storeSlider?.indicatorSelectedColor = Color.WHITE
+//        storeSlider?.indicatorUnselectedColor = Color.GRAY
+//        storeSlider?.scrollTimeInSec = 4 //set scroll delay in seconds :
+//        storeSlider?.startAutoCycle()
 
     }
 }

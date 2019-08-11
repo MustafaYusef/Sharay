@@ -20,6 +20,7 @@ import com.mustafayusef.sharay.R
 
 
 import com.mustafayusef.sharay.data.models.CarsModel
+import com.mustafayusef.sharay.data.models.DataCarDetails
 import com.mustafayusef.sharay.data.models.DataCars
 import com.mustafayusef.sharay.data.networks.myApi
 import com.mustafayusef.sharay.data.networks.repostorys.CarsSearchRepostary
@@ -43,6 +44,7 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
     var carId:Int = 0
     var responseCars:List<latestCar>?=null
     var listCars:List<DataCars>?=null
+    var searchCar:List<DataCars>?=null
  var temp:MutableList<DataCars> = arrayListOf()
     companion object {
         fun newInstance() = searchFragment()
@@ -102,6 +104,8 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
             override fun onQueryTextChange(newText: String?): Boolean {
 //                filter(newText.toString())
 //                up()
+                filter(newText.toString())
+                up()
                 return false
             }
         })
@@ -121,6 +125,7 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
             //use .toLowerCase() for better matches
             if(te.title.contains(text.toLowerCase())){
                 temp.add(te)
+
             }
         }
    }
@@ -147,9 +152,40 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
 
     override fun onNoteClick(position: Int) {
         context?.toast(position.toString())
-        val car=listCars?.get(position)
-        carId= listCars?.get(position)!!.id
-        val action = searchFragmentDirections .actionSearchFragmentToCarDetails(carId)
+      //  val car=listCars?.get(position)
+        carId= temp?.get(position)!!.id
+        var last=latestCar(`class`= listCars?.get(position)!!.`class`,
+            active=listCars?.get(position)!!.active,
+            airBags=listCars?.get(position)!!.airBags,
+            brand= listCars?.get(position)!!.brand,
+            color=listCars?.get(position)!!.color,
+            cylinders=listCars?.get(position)!!.cylinders,
+            date=listCars?.get(position)!!.date,
+            description=listCars?.get(position)!!.description,
+            driveSystem=listCars?.get(position)!!.driveSystem,
+            fuel=listCars?.get(position)!!.fuel,
+            gear=listCars?.get(position)!!.gear,
+            id=listCars?.get(position)!!.id ,
+            image=listCars?.get(position)!!.image,
+
+            location=listCars?.get(position)!!.location ,
+            mileage=listCars?.get(position)!!.mileage ,
+            name=listCars?.get(position)!!.name,
+            phone=listCars?.get(position)!!.phone ,
+            price=listCars?.get(position)!!.price ,
+            roof=listCars?.get(position)!!.roof ,
+            seats=listCars?.get(position)!!.seats ,
+            status=listCars?.get(position)!!.status ,
+            storeId=listCars?.get(position)!!.storeId,
+            title=listCars?.get(position)!!.title ,
+            type=listCars?.get(position)!!.type ,
+            userId=listCars?.get(position)!!.userId ,
+            warid=listCars?.get(position)!!.warid,
+            window=listCars?.get(position)!!.window ,
+            year=listCars?.get(position)!!.year )
+        viewModel.saveData(last)
+        viewModel.getData()
+                val action = searchFragmentDirections .actionSearchFragmentToCarDetails(carId)
         view?.findNavController()?.navigate(action)
         val navBar = activity?.findViewById<BottomNavigationView> (com.mustafayusef.sharay.R.id.bottomNav)
         val toolbar = activity?.findViewById<Toolbar> (com.mustafayusef.sharay.R.id.ToolBar)
@@ -164,39 +200,6 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
                 toolbar?.visibility = View.VISIBLE
             }
         }
-        val last=latestCar(  `class`= car?.`class`,
-         active=car?.active,
-         airBags=car?.airBags,
-         brand= car?.brand,
-         color=car?.color,
-         cylinders=car?.cylinders,
-         date=car?.date,
-         description=car?.description,
-         driveSystem=car?.driveSystem,
-         fuel=car?.fuel,
-         gear=car?.gear,
-         id=car?.id ,
-         image=car?.image,
-
-         location=car?.location ,
-         mileage=car?.mileage ,
-         name=car?.name,
-         phone=car?.phone ,
-         price=car?.price ,
-         roof=car?.roof ,
-         seats=car?.seats ,
-         status=car?.status ,
-         storeId=car?.storeId,
-         title=car?.title ,
-         type=car?.type ,
-         userId=car?.userId ,
-         warid=car?.warid,
-         window=car?.window ,
-         year=car?.year )
-        viewModel.saveData(last)
-        viewModel.getData()
-
-
     }
     override fun onSuccessDatabase(searchResult: List<latestCar>) {
         responseCars=searchResult
@@ -206,25 +209,41 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
     }
 
     override fun OnLastLisener(position: Int) {
-        carId= responseCars?.get(position)!!.id!!
-        val action = searchFragmentDirections .actionSearchFragmentToCarDetails(carId)
-        view?.findNavController()?.navigate(action)
-        val navBar = activity?.findViewById<BottomNavigationView> (com.mustafayusef.sharay.R.id.bottomNav)
-        val toolbar = activity?.findViewById<Toolbar> (com.mustafayusef.sharay.R.id.ToolBar)
-
-        view?.findNavController()?.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == com.mustafayusef.sharay.R.id.carDetails) {
-                navBar?.visibility = View.GONE
-                toolbar?.visibility = View.GONE
-
-            } else {
-                navBar?.visibility = View.VISIBLE
-                toolbar?.visibility = View.VISIBLE
-            }
-        }
+//        carId= responseCars?.get(position)!!.id!!
+//
+//
+//
+//
+//        val action = searchFragmentDirections .actionSearchFragmentToCarDetails(carId)
+//        view?.findNavController()?.navigate(action)
+//        val navBar = activity?.findViewById<BottomNavigationView> (com.mustafayusef.sharay.R.id.bottomNav)
+//        val toolbar = activity?.findViewById<Toolbar> (com.mustafayusef.sharay.R.id.ToolBar)
+//
+//        view?.findNavController()?.addOnDestinationChangedListener { _, destination, _ ->
+//            if(destination.id == com.mustafayusef.sharay.R.id.carDetails) {
+//                navBar?.visibility = View.GONE
+//                toolbar?.visibility = View.GONE
+//
+//            } else {
+//                navBar?.visibility = View.VISIBLE
+//                toolbar?.visibility = View.VISIBLE
+//            }
+//        }
     }
     override fun onSuccessDatabasesave(message: String) {
 
+        context?.toast(message)
+    }
+    override fun onStartDetails() {
+
+    }
+
+    override fun onSuccessDetails(dataCarDetails: DataCarDetails) {
+
+
+    }
+
+    override fun onFailerDetails(message: String) {
         context?.toast(message)
     }
 }

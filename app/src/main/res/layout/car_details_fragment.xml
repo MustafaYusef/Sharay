@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-
 <FrameLayout
 
         android:layout_width="match_parent"
@@ -71,7 +68,8 @@
 
                       android:layout_gravity="center|top"
                       android:theme="@style/ToolBarTheme"
-              >
+                      android:visibility="gone"
+                      android:id="@+id/favContainer">
                   <TextView android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -406,27 +404,27 @@
                     android:background="@color/colorPrimary"
                     android:gravity="center" android:padding="5dp"/>
 
-          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="horizontal" android:weightSum="2"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:layoutDirection="locale"
-                        android:background="@color/gray">
-              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp" android:text="@string/Sealing"
-                        android:fontFamily="@font/font_bold"
-                        android:layout_weight="1"
+          <!--<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal" android:weightSum="2"-->
+                        <!--android:paddingLeft="5dp"-->
+                        <!--android:paddingRight="5dp"-->
+                        <!--android:layoutDirection="locale"-->
+                        <!--android:background="@color/gray">-->
+              <!--<TextView android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                        <!--android:textColor="@color/colorPrimary"-->
+                        <!--android:textSize="18sp" android:text="@string/Sealing"-->
+                        <!--android:fontFamily="@font/font_bold"-->
+                        <!--android:layout_weight="1"-->
 
 
-                         android:padding="5dp"/>
-              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:textSize="18sp" android:text="Description"
-                        android:fontFamily="@font/font_regular"
-                        android:layout_weight="1"
+                         <!--android:padding="5dp"/>-->
+              <!--<TextView android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                        <!--android:textSize="18sp" android:text="Description"-->
+                        <!--android:fontFamily="@font/font_regular"-->
+                        <!--android:layout_weight="1"-->
 
-                        android:gravity="center" android:padding="5dp"/>
-          </LinearLayout>
+                        <!--android:gravity="center" android:padding="5dp"/>-->
+          <!--</LinearLayout>-->
 
           <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:orientation="horizontal" android:weightSum="2"
@@ -451,6 +449,105 @@
                         android:gravity="center" android:padding="5dp"/>
           </LinearLayout>
 
+          <!--<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal" android:weightSum="2"-->
+                        <!--android:paddingLeft="5dp"-->
+                        <!--android:paddingRight="5dp"-->
+                        <!--android:layoutDirection="locale"-->
+                        <!--android:background="@color/gray">-->
+              <!--<TextView android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                        <!--android:textColor="@color/colorPrimary"-->
+                        <!--android:textSize="18sp" android:text="@string/WindowsSystem"-->
+                        <!--android:fontFamily="@font/font_bold"-->
+                        <!--android:layout_weight="1"-->
+
+
+                         <!--android:padding="5dp"/>-->
+              <!--<TextView android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                        <!--android:textSize="18sp"-->
+                        <!--android:fontFamily="@font/font_regular"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:id="@+id/window"-->
+
+                        <!--android:gravity="center" android:padding="5dp"/>-->
+          <!--</LinearLayout>-->
+
+          <!--<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal" android:weightSum="2"-->
+                        <!--android:paddingLeft="5dp"-->
+                        <!--android:layoutDirection="locale"-->
+                        <!--android:paddingRight="5dp"-->
+                        <!--android:background="@color/white">-->
+              <!--<TextView android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                        <!--android:textColor="@color/colorPrimary"-->
+                        <!--android:textSize="18sp" android:text="@string/SeatsNo"-->
+                        <!--android:fontFamily="@font/font_bold"-->
+                        <!--android:layout_weight="1"-->
+
+
+                         <!--android:padding="5dp"/>-->
+              <!--<TextView android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                        <!--android:textSize="18sp"-->
+                        <!--android:fontFamily="@font/font_regular"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:id="@+id/seats"-->
+
+                        <!--android:gravity="center" android:padding="5dp"/>-->
+          <!--</LinearLayout>-->
+
+          <!--<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal" android:weightSum="2"-->
+                        <!--android:paddingLeft="5dp"-->
+                        <!--android:paddingRight="5dp"-->
+                        <!--android:layoutDirection="locale"-->
+                        <!--android:background="@color/gray">-->
+              <!--<TextView android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                        <!--android:textColor="@color/colorPrimary"-->
+                        <!--android:textSize="18sp" android:text="@string/AirBags"-->
+                        <!--android:fontFamily="@font/font_bold"-->
+                        <!--android:layout_weight="1"-->
+
+
+                         <!--android:padding="5dp"/>-->
+              <!--<TextView android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                        <!--android:textSize="18sp"-->
+                        <!--android:fontFamily="@font/font_regular"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:id="@+id/airBags"-->
+
+                        <!--android:gravity="center" android:padding="5dp"/>-->
+          <!--</LinearLayout>-->
+          <!--<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal" android:weightSum="2"-->
+                        <!--android:paddingLeft="5dp"-->
+                        <!--android:layoutDirection="locale"-->
+                        <!--android:paddingRight="5dp"-->
+                        <!--android:background="@color/white">-->
+              <!--<TextView android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                        <!--android:textColor="@color/colorPrimary"-->
+                        <!--android:textSize="18sp" android:text="@string/Screen"-->
+                        <!--android:fontFamily="@font/font_bold"-->
+                        <!--android:layout_weight="1"-->
+
+
+                        <!--android:padding="5dp"/>-->
+              <!--<TextView android:layout_width="match_parent" android:layout_height="wrap_content"-->
+                        <!--android:textSize="18sp" android:text="tt"-->
+                        <!--android:fontFamily="@font/font_regular"-->
+                        <!--android:layout_weight="1"-->
+
+
+                        <!--android:gravity="center" android:padding="5dp"/>-->
+          <!--</LinearLayout>-->
+          <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textSize="20sp" android:text="@string/descrption"
+                    android:fontFamily="@font/font_bold"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/white"
+                    android:layout_weight="1"
+
+                    android:gravity="center" android:padding="5dp"/>
+
           <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:orientation="horizontal" android:weightSum="2"
                         android:paddingLeft="5dp"
@@ -458,90 +555,16 @@
                         android:layoutDirection="locale"
                         android:background="@color/gray">
               <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp" android:text="@string/WindowsSystem"
-                        android:fontFamily="@font/font_bold"
-                        android:layout_weight="1"
 
-
-                         android:padding="5dp"/>
-              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:textSize="18sp"
-                        android:fontFamily="@font/font_regular"
-                        android:layout_weight="1"
-                        android:id="@+id/window"
-
-                        android:gravity="center" android:padding="5dp"/>
-          </LinearLayout>
-
-          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="horizontal" android:weightSum="2"
-                        android:paddingLeft="5dp"
-                        android:layoutDirection="locale"
-                        android:paddingRight="5dp"
-                        android:background="@color/white">
-              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp" android:text="@string/SeatsNo"
+                        android:gravity="center"
+                        android:id="@+id/desD"
                         android:fontFamily="@font/font_bold"
                         android:layout_weight="1"
-
-
-                         android:padding="5dp"/>
-              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/font_regular"
-                        android:layout_weight="1"
-                        android:id="@+id/seats"
-
-                        android:gravity="center" android:padding="5dp"/>
-          </LinearLayout>
-
-          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="horizontal" android:weightSum="2"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:layoutDirection="locale"
-                        android:background="@color/gray">
-              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp" android:text="@string/AirBags"
-                        android:fontFamily="@font/font_bold"
-                        android:layout_weight="1"
-
-
-                         android:padding="5dp"/>
-              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/font_regular"
-                        android:layout_weight="1"
-                        android:id="@+id/airBags"
-
-                        android:gravity="center" android:padding="5dp"/>
-          </LinearLayout>
-          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:orientation="horizontal" android:weightSum="2"
-                        android:paddingLeft="5dp"
-                        android:layoutDirection="locale"
-                        android:paddingRight="5dp"
-                        android:background="@color/white">
-              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp" android:text="@string/Screen"
-                        android:fontFamily="@font/font_bold"
-                        android:layout_weight="1"
-
 
                         android:padding="5dp"/>
-              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:textSize="18sp" android:text="tt"
-                        android:fontFamily="@font/font_regular"
-                        android:layout_weight="1"
 
-
-                        android:gravity="center" android:padding="5dp"/>
           </LinearLayout>
-
 
 
           <TextView android:layout_width="match_parent" android:layout_height="wrap_content"

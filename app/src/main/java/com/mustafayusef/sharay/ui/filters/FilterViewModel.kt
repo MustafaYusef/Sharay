@@ -5,6 +5,8 @@ import com.mustafayusef.holidaymaster.utils.ApiExaptions
 import com.mustafayusef.holidaymaster.utils.corurtins
 import com.mustafayusef.holidaymaster.utils.noInternetExeption
 import com.mustafayusef.sharay.data.networks.repostorys.CarsRepostary
+import java.net.ProtocolException
+import java.net.SocketException
 import java.net.SocketTimeoutException
 
 class FilterViewModel(var repostary: CarsRepostary) : ViewModel() {
@@ -39,6 +41,11 @@ class FilterViewModel(var repostary: CarsRepostary) : ViewModel() {
                 e.message?.let { Auth?.onFailer(it) }
             }catch (e: SocketTimeoutException){
                 e.message?.let { Auth?.onFailer(it) }}
+            catch (e: SocketException){
+                e.message?.let { Auth?.onFailer(it) }
+            }catch (e: ProtocolException){
+                e.message?.let { Auth?.onFailer(it) }
+            }
 
         }
 
