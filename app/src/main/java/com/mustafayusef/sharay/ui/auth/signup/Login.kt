@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.telephony.PhoneNumberFormattingTextWatcher
+import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +40,7 @@ import kotlinx.android.synthetic.main.info.view.*
 
 import kotlinx.android.synthetic.main.login_fragment.*
 import kotlinx.android.synthetic.main.setting_fragment_fragment.*
+import kotlinx.android.synthetic.main.sign_up_user_fragment.*
 
 
 class Login : Fragment(), AuthLesener {
@@ -82,8 +85,8 @@ class Login : Fragment(), AuthLesener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Kotpref.init(context!!)
-
-        val dview: View = layoutInflater.inflate(R.layout.info, null)
+        Password?.transformationMethod= PasswordTransformationMethod()
+           val dview: View = layoutInflater.inflate(R.layout.info, null)
         val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
         val malert= builder?.show()
 
@@ -95,9 +98,9 @@ class Login : Fragment(), AuthLesener {
                     "انقر على ( تسجيل الدخول ) في الصفحة الرئيسية ثم كلمة (التسجيل)\n" +
                     "ادخل بياناتك (الاسم الكامل) اضافة الى رقم الهاتف الخاص بكم.\n" +
                     "سوف تتلقى رسالة نصية على رقم هاتفكم فيها رمز ، يتم ادخاله في الحقل المطلوب لتفعيل اشتراكك\n" +
-                    "ايضاً يمكنك ادخال بريدكم الالكتروني .\n" +
-                    "\n" +
-                    "\n" +
+                    "ايضاً يمكنك ادخال بريدكم الالكتروني .\n"
+
+
 
 
         dview.goLog?.setOnClickListener {
@@ -140,10 +143,11 @@ class Login : Fragment(), AuthLesener {
         animation_loadingSignUp.pauseAnimation()
 
         MainActivity.cacheObj .token =loginResponse.token
-        MainActivity.cacheObj .phoneLogin=viewModel.phone!!
-        MainActivity.cacheObj .PasswordLogin=viewModel.password!!
-
-
+        println("looooooooooooooooooooooooog in   " +MainActivity.cacheObj .token)
+//        MainActivity.cacheObj .phoneLogin=viewModel.phone!!
+//        MainActivity.cacheObj .PasswordLogin=viewModel.password!!
+//            context?.toast(MainActivity.cacheObj .PasswordLogin)
+//        context?.toast(MainActivity.cacheObj .phoneLogin)
         view?.findNavController()?.navigate(R.id.profile_fragment)
 
     }

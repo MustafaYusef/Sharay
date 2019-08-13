@@ -1,12 +1,15 @@
 package com.mustafayusef.sharay.ui.profile
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import com.chibatching.kotpref.Kotpref
@@ -27,13 +30,14 @@ import com.mustafayusef.sharay.data.networks.repostorys.userRepostary
 import com.mustafayusef.sharay.ui.LocaleHelper
 import com.mustafayusef.sharay.ui.MainActivity
 import com.mustafayusef.sharay.ui.auth.signup.Login
+import kotlinx.android.synthetic.main.info.view.*
 import kotlinx.android.synthetic.main.profile_fragment_fragment.*
 
 
 class Profile_fragment : Fragment(),profileLesener {
     override fun onSucsessLog(loginResponse: signUp) {
-        MainActivity.cacheObj.token=loginResponse.token
-        viewModel.profile(MainActivity.cacheObj .token)
+      //  MainActivity.cacheObj.token=loginResponse.token
+
     }
 
     override fun OnStartDeletCar() {
@@ -65,7 +69,7 @@ class Profile_fragment : Fragment(),profileLesener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Kotpref.init(context!!)
+
 
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -78,14 +82,15 @@ class Profile_fragment : Fragment(),profileLesener {
         viewModel=ViewModelProviders.of(activity!!,factory).get(ProfileFragmentViewModel::class.java)
         viewModel.Auth =this
 
-        nameUser?.text=MainActivity.cacheObj .name
-        phoneUser?.text=MainActivity.cacheObj .phone
-        secondPhone?.text=MainActivity.cacheObj .Secondphone
-        emailUser?.text=MainActivity.cacheObj .Email
+//        nameUser?.text=MainActivity.cacheObj .name
+//        phoneUser?.text=MainActivity.cacheObj .phone
+//        secondPhone?.text=MainActivity.cacheObj .Secondphone
+//        emailUser?.text=MainActivity.cacheObj .Email
 
 
         if(MainActivity.cacheObj .token!=""){
-            viewModel.Login(MainActivity.cacheObj .phoneLogin,MainActivity.cacheObj.PasswordLogin)
+            viewModel.profile(MainActivity.cacheObj.token)
+            println("prooooooooooooooooooooooooooooofil in   " +MainActivity.cacheObj .token)
 
         }else{
             view?.findNavController()!!.navigate(R.id.goToLogin)
@@ -107,9 +112,29 @@ class Profile_fragment : Fragment(),profileLesener {
             view?.findNavController()?.navigate(R.id.myFavFragment)
         }
         logOut.setOnClickListener {
-            MainActivity.cacheObj .token=""
+            val dview: View? = layoutInflater?.inflate(R.layout.info, null)
+            val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
+            val malert= builder?.show()
 
-            view?.findNavController()?.navigate(R.id.goToLogin)
+            malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            dview?.info?.text=resources.getString(R.string.doyou)
+            dview?.info?.text=resources.getString(R.string.doyou)
+
+
+            dview?.titleInfo?.text=resources.getString(R.string.logout)
+            dview?.goLog?.text=resources.getString(R.string.logout)
+            dview?.goLog?.setOnClickListener {
+                malert?.dismiss()
+                MainActivity.cacheObj .token=""
+               MainActivity.cacheObj.name=""
+       MainActivity.cacheObj.phone=""
+       MainActivity.cacheObj.Secondphone=""
+                MainActivity.cacheObj.Email=""
+                MainActivity.cacheObj .id=0
+                view?.findNavController()?.navigate(R.id.goToLogin)
+            }
+
         }
     }
    override fun OnStart(){
@@ -122,13 +147,19 @@ class Profile_fragment : Fragment(),profileLesener {
         profileContainer?.visibility=View.VISIBLE
 
 
-            if(!userRes.name.isNullOrEmpty())  {
-                MainActivity.cacheObj .name=userRes.name
-            }
-            if(!userRes.phone.isNullOrEmpty())  {
-                MainActivity.cacheObj .phone=userRes.phone
-            }
 
+        nameUser?.text=userRes.name
+        phoneUser?.text=userRes.phone
+        secondPhone?.text=userRes.phoneSecond
+        emailUser?.text=userRes.email
+
+
+                MainActivity.cacheObj .name=userRes.name
+
+
+                MainActivity.cacheObj .phone=userRes.phone
+
+        MainActivity.cacheObj .id=userRes.id
 
            if(!userRes.email.isNullOrEmpty())  {
                MainActivity.cacheObj . Email=userRes.email
@@ -139,15 +170,15 @@ class Profile_fragment : Fragment(),profileLesener {
 
 
 
-        MainActivity.cacheObj .id=userRes.id
 
 
-
-
-        nameUser?.text=MainActivity.cacheObj.name
-        phoneUser?.text=MainActivity.cacheObj.phone
-        secondPhone?.text=MainActivity.cacheObj.Secondphone
-        emailUser?.text=MainActivity.cacheObj.Email
+//
+//
+//
+//        nameUser?.text=MainActivity.cacheObj.name
+//        phoneUser?.text=MainActivity.cacheObj.phone
+//        secondPhone?.text=MainActivity.cacheObj.Secondphone
+//        emailUser?.text=MainActivity.cacheObj.Email
 
        // myCar=userRes
     }

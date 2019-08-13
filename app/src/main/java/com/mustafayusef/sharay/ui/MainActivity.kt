@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         Kotpref.init(this)
         if(cacheObj.language!=""){
             this?.let { it1 -> LocaleHelper.setLocale(it1,cacheObj.language ) }
+
         }
         navController= Navigation.findNavController(this, com.mustafayusef.sharay.R.id.navHost)
        bottomNav.setupWithNavController(navController)

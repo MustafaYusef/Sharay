@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".ui.filters.show.ShowResult">
 
     <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
@@ -11,5 +11,20 @@
                                                android:layout_height="match_parent" >
 
     </androidx.recyclerview.widget.RecyclerView>
+    <LinearLayout android:layout_width="wrap_content"
+                  android:visibility="visible"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/noNetContainerFilter"
+                  android:orientation="vertical"
+                  android:layout_gravity="center" android:gravity="center">
+        <ImageView android:layout_width="100dp" android:layout_height="100dp"
+                   android:src="@drawable/no_404"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="@string/noResult"
+                  android:layout_margin="10dp" android:textSize="18sp" android:fontFamily="@font/font_regular"/>
+
+    </LinearLayout>
+
+
 
 </FrameLayout>

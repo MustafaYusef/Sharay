@@ -3,19 +3,22 @@ package com.mustafayusef.sharay.ui.add
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.*
 import android.content.ContentValues.TAG
-import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
+import android.database.Cursor.FIELD_TYPE_STRING
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.os.Environment
+import android.os.FileUtils
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,6 +26,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.*
+import androidx.annotation.RequiresApi
 
 
 import com.mustafayusef.sharay.R
@@ -41,6 +45,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
+
 import com.mustafayusef.holidaymaster.networks.networkIntercepter
 import com.mustafayusef.holidaymaster.utils.toast
 import com.mustafayusef.sharay.data.models.DataCars
@@ -50,14 +55,18 @@ import com.mustafayusef.sharay.data.networks.myApi
 import com.mustafayusef.sharay.data.networks.repostorys.CarsRepostary
 import com.mustafayusef.sharay.ui.auth.signup.Login
 import com.mustafayusef.sharay.ui.profile.Profile_fragment
+
 import kotlinx.android.synthetic.main.filters_dilog1.view.*
 import kotlinx.android.synthetic.main.filters_dilog1.view.applayFilter
 import kotlinx.android.synthetic.main.info.view.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import java.io.BufferedReader
 
 import java.io.File
+import java.io.IOException
+import java.io.InputStreamReader
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -67,7 +76,7 @@ import kotlin.collections.ArrayList
 class Add_fragment : Fragment(),PictureAdapter.OnNoteLisener,AddCarLesener {
 
 
-    val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE=123
+    private val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE=123
     var PICK_IMAGE_MULTIPLE = 1
     lateinit var imagePath: String
     var imagesPathList: MutableList<String> = arrayListOf()
@@ -146,7 +155,7 @@ class Add_fragment : Fragment(),PictureAdapter.OnNoteLisener,AddCarLesener {
   var ind=0
     var indClass=-1
     var indBrand=0
-    var indLoc=0
+    var indLoc=-1
 var loc2:List<carData>?=null
 
     var keyFlag:Boolean=false
@@ -212,6 +221,7 @@ var loc2:List<carData>?=null
         for (i in suggest) {
             names.add(i.name)
         }
+
         CarClassAdd.setOnClickListener {
             showClass(names as ArrayList<String>,CarClassAdd)
         }
@@ -235,8 +245,9 @@ var loc2:List<carData>?=null
         var provinc = mutableListOf("")
         for (i in location1) {
             locnames.add(i.name)
-        }
 
+        }
+println(locnames)
         provincAdd.setOnClickListener {
             showLoc(locnames as ArrayList<String>, CarClassAdd)
         }
@@ -431,7 +442,10 @@ var loc2:List<carData>?=null
             if (Build.VERSION.SDK_INT >=23) {
                 if(checkPermissionREAD_EXTERNAL_STORAGE(context!!)){
                     var intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+
                     intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                    intent.action= Intent.ACTION_GET_CONTENT
+                   // intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
                     intent.addCategory(Intent.CATEGORY_OPENABLE)
                     intent.type = "image/*"
                     startActivityForResult(intent, PICK_IMAGE_MULTIPLE);
@@ -439,15 +453,32 @@ var loc2:List<carData>?=null
                     context?.toast("you can not pick images")
                 }
             }else{
-                var intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+              //  var intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                var intent = Intent()
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                intent.addCategory(Intent.CATEGORY_OPENABLE)
+                intent.action= Intent.ACTION_GET_CONTENT
+               intent.addCategory(Intent.CATEGORY_OPENABLE)
                 intent.type = "image/*"
                 startActivityForResult(intent, PICK_IMAGE_MULTIPLE);
             }
 
 
             }
+
+
+//            TedImagePicker.with(context!!).max(12,"maximum")
+//                .min(2,"minimum").selectedUri(imagesPathListUri)
+//                .mediaType(gun0912.tedimagepicker.builder.type.MediaType.IMAGE)
+//                .startMultiImage { uriList ->showMulti(uriList)
+//
+//                  }
+
+//            TedRxImagePicker.with(context!!)
+//                .startMultiImage()
+//                .subscribe({ uriList ->
+//                    showMulti(uriList)
+//                }, Throwable::printStackTrace)
+
 
             }
 
@@ -465,6 +496,7 @@ var loc2:List<carData>?=null
 //
 //            .multi() // multi mode (default mode)
 //            .limit(12) // max images can be selected (99 by default)
+
 //
 //
 //
@@ -485,6 +517,41 @@ var loc2:List<carData>?=null
 //        }
 //        super.onActivityResult(requestCode, resultCode, data);
 //    }
+
+
+    fun showMulti(uriList:List<Uri>){
+
+        addedPictureList?.adapter = context?.let {
+            PictureAdapter(
+                it, this,
+                uriList.toTypedArray()
+            )
+        }
+
+
+                    var count = uriList.size
+        context?.toast(count.toString())
+                    for (i in 0 until count!!) {
+                        var imageUri: Uri = uriList.get(i)
+                        getPathFromURI(imageUri)
+
+                        var oregnal = File(imagesPathList.get(i))
+//                        var oregnal = File(getPathFromURI(imageUri))
+                        imageFile = RequestBody.create(
+                            MediaType.parse(context?.contentResolver?.getType(imageUri)!!),
+                            oregnal
+                        )
+                        if(i==0){
+                            imagesBodyList.add(i,MultipartBody.Part.createFormData("image", oregnal.name, imageFile))
+
+                        }else{
+                            imagesBodyList.add(i,MultipartBody.Part.createFormData("image${i-1}", oregnal.name, imageFile))
+
+                        }
+
+                    }
+    }
+
     fun Reuseable(
         array: ArrayList<String>,
          colorAdd: AppCompatButton
@@ -797,8 +864,11 @@ var loc2:List<carData>?=null
             indLoc=index-1
             carModelAdd.text=array[index]
             location=array[index]
-            malert?.dismiss()
-            showLoc2(this!!.loc2?.get(indLoc)?.data as ArrayList<String>, CarClassAdd)
+            if(indLoc!=-1){
+                malert?.dismiss()
+                showLoc2(this!!.loc2?.get(indLoc)?.data as ArrayList<String>, CarClassAdd)
+            }
+
 
         }
         dview.closeDf.setOnClickListener {
@@ -807,6 +877,7 @@ var loc2:List<carData>?=null
         }
 
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         super.onActivityResult(requestCode, resultCode, data)
@@ -846,8 +917,9 @@ var loc2:List<carData>?=null
                         getPathFromURI(imageUri)
 
                         var oregnal = File(imagesPathList.get(i))
+//                        var oregnal = File(getPathFromURI(imageUri))
                         imageFile = RequestBody.create(
-                            MediaType.parse(context?.contentResolver?.getType(imageUri)),
+                            MediaType.parse(context?.contentResolver?.getType(imageUri)!!),
                             oregnal
                         )
                         if(i==0){
@@ -910,6 +982,8 @@ var loc2:List<carData>?=null
 //            }
 //        });
 //    }
+
+
     @SuppressLint("NewApi")
     fun getPathFromURI(uri: Uri) {
         var path: String = uri.path!! // uri = any content Uri
@@ -937,15 +1011,85 @@ var loc2:List<carData>?=null
                 databaseUri,
                 projection, selection, selectionArgs, null
             )
+            if(cursor==null){
+                imagePath = path
+            }else
             if (cursor!!.moveToFirst()) {
                 val columnIndex = cursor!!.getColumnIndex(projection[0])
-                imagePath = cursor!!.getString(columnIndex)
+              //  if (cursor.getType(columnIndex) == FIELD_TYPE_STRING) {
+                    imagePath = cursor!!.getString(columnIndex)
+               // }
+
                 // Log.e("path", imagePath);
-                imagesPathList.add(imagePath)
+
             }
-            cursor!!.close()
+
+            imagesPathList.add(imagePath)
+            cursor?.close()
         } catch (e: Exception) {
             Log.e(TAG, e.message, e)
+        }
+    }
+
+//
+//    fun getPathFromURI2(uri: Uri) {
+//        var path: String = File(uri.path!!).absolutePath // uri = any content Uri
+//
+//
+//        val cursor = context?.contentResolver ?.query(
+//            uri,
+//            null, null, null, null
+//        )
+//        if(cursor==null){
+//            imagePath = uri.path!!
+//        }else
+//            { cursor.moveToFirst()
+////                val columnIndex = cursor!!.getColumnIndex(MediaStore.Images.ImageColumns.)
+//                imagePath = cursor.getString(columnIndex);
+//                cursor.close();
+//
+//
+//                // Log.e("path", imagePath);
+//            }
+//        imagesPathList.add(imagePath)
+//    }
+
+    fun dumpImageMetaData(uri: Uri) {
+
+        // The query, since it only applies to a single document, will only return
+        // one row. There's no need to filter, sort, or select fields, since we want
+        // all fields for one document.
+        val cursor: Cursor? = context!!.contentResolver.query( uri, null, null, null, null, null)
+
+        cursor?.use {
+            // moveToFirst() returns false if the cursor has 0 rows.  Very handy for
+            // "if there's anything to look at, look at it" conditionals.
+            if (it.moveToFirst()) {
+
+                // Note it's called "Display Name".  This is
+                // provider-specific, and might not necessarily be the file name.
+                val displayName: String =
+                    it.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                Log.i(TAG, "Display Name: $displayName")
+
+                val sizeIndex: Int = it.getColumnIndex(OpenableColumns.SIZE)
+                // If the size is unknown, the value stored is null.  But since an
+                // int can't be null in Java, the behavior is implementation-specific,
+                // which is just a fancy term for "unpredictable".  So as
+                // a rule, check if it's null before assigning to an int.  This will
+                // happen often:  The storage API allows for remote files, whose
+                // size might not be locally known.
+                val size: String = if (!it.isNull(sizeIndex)) {
+                    // Technically the column stores an int, but cursor.getString()
+                    // will do the conversion automatically.
+                    it.getString(sizeIndex)
+
+                } else {
+                    "Unknown"
+                }
+                imagesPathList.add(size)
+                Log.i(TAG, "Size: $size")
+            }
         }
     }
  fun checkPermissionREAD_EXTERNAL_STORAGE(
@@ -955,6 +1099,8 @@ var loc2:List<carData>?=null
         if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(context,
                     Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                showDialog("External storage", context,
+//                    Manifest.permission.READ_EXTERNAL_STORAGE);
                 if (ActivityCompat.shouldShowRequestPermissionRationale(
                         context as Activity ,
                         Manifest.permission.READ_EXTERNAL_STORAGE)) {
@@ -977,6 +1123,7 @@ var loc2:List<carData>?=null
             return true;
         }
     }
+
 fun showDialog(  msg:String, context:Context ,
               permission:String) {
         var alertBuilder:AlertDialog.Builder = AlertDialog.Builder(context);
@@ -1007,9 +1154,18 @@ fun showDialog(  msg:String, context:Context ,
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
+                    var intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+
+                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                    intent.action= Intent.ACTION_GET_CONTENT
+                    // intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                    intent.addCategory(Intent.CATEGORY_OPENABLE)
+                    intent.type = "image/*"
+                    startActivityForResult(intent, PICK_IMAGE_MULTIPLE);
                 } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
+                    context?.toast("tou can not pick image")
                 }
                 return
             }
@@ -1021,11 +1177,252 @@ fun showDialog(  msg:String, context:Context ,
             }
         }
     }
-
+    @Throws(IOException::class)
+    private fun readTextFromUri(uri: Uri): String {
+        val stringBuilder = StringBuilder()
+        context!!.contentResolver.openInputStream(uri)?.use { inputStream ->
+            BufferedReader(InputStreamReader(inputStream)).use { reader ->
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    stringBuilder.append(line)
+                    line = reader.readLine()
+                }
+            }
+        }
+        return stringBuilder.toString()
+    }
     override fun onDetach() {
         keyFlag=true
         navBar?.visibility=View.VISIBLE
         toolbar?.visibility=View.VISIBLE
         super.onDetach()
+    }
+
+
+    fun getUriRealPath(ctx:Context ,  uri:Uri):String
+    {
+        var ret = "";
+
+        if( isAboveKitKat() )
+        {
+            // Android OS above sdk version 19.
+            ret = getUriRealPathAboveKitkat(ctx, uri);
+        }else
+        {
+            // Android OS below sdk version 19
+            ret = getImageRealPath(context!!.contentResolver, uri, null);
+        }
+
+        return ret;
+    }
+    @SuppressLint("NewApi")
+    fun getUriRealPathAboveKitkat(ctx:Context ,  uri:Uri):String
+    {
+        var ret = "";
+
+        if(ctx != null && uri != null) {
+
+            if(isContentUri(uri))
+            {
+                if(isGooglePhotoDoc(uri.getAuthority()!!))
+                {
+                    ret = uri.getLastPathSegment()!!
+                }else {
+                    ret = getImageRealPath(ctx.contentResolver, uri, null);
+                }
+            }else if(isFileUri(uri)) {
+                ret = uri.path!!;
+            }else if(isDocumentUri(ctx, uri)){
+
+                // Get uri related document id.
+                var documentId = DocumentsContract.getDocumentId(uri);
+
+                // Get uri authority.
+                var uriAuthority = uri.getAuthority();
+
+                if(isMediaDoc(uriAuthority!!))
+                {
+                    var idArr = documentId.split(":");
+                    if(idArr.size == 2)
+                    {
+                        // First item is document type.
+                        var docType = idArr[0];
+
+                        // Second item is document real id.
+                        var realDocId = idArr[1];
+
+                        // Get content uri by document type.
+                        var mediaContentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                        if("image".equals(docType))
+                        {
+                            mediaContentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                        }
+
+                        // Get where clause with real document id.
+                        var whereClause = MediaStore.Images.Media._ID + " = " + realDocId;
+
+                        ret = getImageRealPath(ctx.contentResolver , mediaContentUri, whereClause);
+                    }
+
+                }else if(isDownloadDoc(uriAuthority!!))
+                {
+                    // Build download uri.
+                    var downloadUri = Uri.parse("content://downloads/public_downloads");
+
+                    // Append download document id at uri end.
+                    var downloadUriAppendId = ContentUris.withAppendedId(downloadUri,documentId.toLong());
+
+                    ret = getImageRealPath(ctx.contentResolver, downloadUriAppendId, null);
+
+                }
+            }
+        }
+
+        return ret;
+    }
+
+/* Check whether current android os version is bigger than kitkat or not. */
+    fun isAboveKitKat():Boolean
+    {
+        var ret = false;
+        ret = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        return ret;
+    }
+
+/* Check whether this uri represent a document or not. */
+@SuppressLint("NewApi")
+@RequiresApi(Build.VERSION_CODES.KITKAT)
+fun  isDocumentUri(ctx:Context, uri:Uri):Boolean
+    {
+        var ret = false;
+        if(ctx != null && uri != null) {
+            ret = DocumentsContract.isDocumentUri(ctx, uri);
+        }
+        return ret;
+    }
+
+/* Check whether this uri is a content uri or not.
+*  content uri like content://media/external/images/media/1302716
+*  */
+    fun  isContentUri( uri:Uri):Boolean
+    {
+        var ret = false;
+        if(uri != null) {
+            var uriSchema = uri.getScheme();
+            if("content".equals(uriSchema))
+            {
+                ret = true;
+            }
+        }
+        return ret;
+    }
+
+/* Check whether this uri is a file uri or not.
+*  file uri like file:///storage/41B7-12F1/DCIM/Camera/IMG_20180211_095139.jpg
+* */
+    fun  isFileUri( uri:Uri):Boolean
+    {
+        var ret = false;
+        if(uri != null) {
+            var uriSchema = uri.getScheme();
+            if("file".equals(uriSchema))
+            {
+                ret = true;
+            }
+        }
+        return ret;
+    }
+
+
+/* Check whether this document is provided by ExternalStorageProvider. */
+    fun  isExternalStoreDoc( uriAuthority:String):Boolean
+    {
+        var ret = false;
+
+        if("com.android.externalstorage.documents".equals(uriAuthority))
+        {
+            ret = true;
+        }
+
+        return ret;
+    }
+
+/* Check whether this document is provided by DownloadsProvider. */
+   fun isDownloadDoc( uriAuthority:String):Boolean
+    {
+        var ret = false;
+
+        if("com.android.providers.downloads.documents".equals(uriAuthority))
+        {
+            ret = true;
+        }
+
+        return ret;
+    }
+
+/* Check whether this document is provided by MediaProvider. */
+    fun  isMediaDoc( uriAuthority:String):Boolean
+    {
+        var ret = false;
+
+        if("com.android.providers.media.documents".equals(uriAuthority))
+        {
+            ret = true;
+        }
+
+        return ret;
+    }
+
+/* Check whether this document is provided by google photos. */
+    fun  isGooglePhotoDoc( uriAuthority:String):Boolean
+    {
+        var ret = false;
+
+        if("com.google.android.apps.photos.content".equals(uriAuthority))
+        {
+            ret = true;
+        }
+
+        return ret;
+    }
+
+/* Return uri represented document file real local path.*/
+    fun getImageRealPath(contentResolver: ContentResolver, uri:Uri, whereClause:String?):String
+    {
+        var ret = ""
+
+        // Query the uri with condition.
+        var cursor = contentResolver.query(uri, null, whereClause, null, null);
+
+        if(cursor!=null)
+        {
+            var moveToFirst = cursor.moveToFirst();
+            if(moveToFirst)
+            {
+
+                // Get columns name by uri type.
+                var columnName = MediaStore.Images.Media.DATA;
+
+                if( uri==MediaStore.Images.Media.EXTERNAL_CONTENT_URI )
+                {
+                    columnName = MediaStore.Images.Media.DATA;
+                }else if( uri==MediaStore.Audio.Media.EXTERNAL_CONTENT_URI )
+                {
+                    columnName = MediaStore.Audio.Media.DATA;
+                }else if( uri==MediaStore.Video.Media.EXTERNAL_CONTENT_URI )
+                {
+                    columnName = MediaStore.Video.Media.DATA;
+                }
+
+                // Get column index.
+                var imageColumnIndex = cursor.getColumnIndex(columnName);
+
+                // Get column value which is the uri related file local path.
+                if(imageColumnIndex!=-1)
+                ret = cursor.getString(imageColumnIndex);
+            }
+        }
+
+        return ret;
     }
 }

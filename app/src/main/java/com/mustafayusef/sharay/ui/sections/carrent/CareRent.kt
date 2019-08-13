@@ -51,7 +51,7 @@ class CareRent : Fragment()
     var stores:List<StoresData>?=null
     var temp:MutableList<StoresData> = arrayListOf()
     val numbers: IntArray = intArrayOf(10, 20, 30, 40, 50)
-   val locations= arrayListOf("الكل","بغداد","القادسية","دهوك","حلبجة","البصرة","بابل","انبار","اربيل","ذي قار","السليمانية","صلاح الدين","ديالى","كركوك","كربلاء","المثنى","ميسان","النجف","نينوى","واسط","الموصل")
+   val locations= arrayListOf("الكل","بغداد","القادسية","دهوك","البصرة","بابل","الأنبار","اربيل","ذي قار","السليمانية","صلاح الدين","ديالى","كركوك","كربلاء","المثنى","ميسان","النجف","واسط","الموصل")
     var type:String?=null
     var selectLoc:String=locations[0]
     private lateinit var navController: NavController
@@ -133,7 +133,7 @@ class CareRent : Fragment()
     }
 
     override fun onSucsessNumbers(SectionsResponse: NumbersModel) {
-        titlePublic?.text="Numbers"
+        titlePublic?.text=resources.getString(R.string.carnumber)
         animation_loadingSections?.visibility=View.GONE
         //animation_loadingMain.pauseAnimation()
         sectionsList?.layoutManager = GridLayoutManager(context, 2) as RecyclerView.LayoutManager?
@@ -142,7 +142,7 @@ class CareRent : Fragment()
 
     override fun onSucsessRent(CarResponse: RentModel) {
         RentResponse=CarResponse.data
-        titlePublic.text="Cars for Rent"
+        titlePublic.text=resources.getString(R.string.carrent)
         animation_loadingSections?.visibility=View.GONE
         //animation_loadingMain.pauseAnimation()
         sectionsList?.layoutManager = LinearLayoutManager(context)
@@ -150,7 +150,7 @@ class CareRent : Fragment()
 
     override fun onSucsessStores(CarResponse: StoresModel) {
         stores=CarResponse.data
-        titlePublic.text="Cars Room"
+        titlePublic.text=resources.getString(R.string.carcompany)
         filterBtnP.visibility=View.VISIBLE
         animation_loadingSections?.visibility=View.GONE
         //animation_loadingMain.pauseAnimation()
@@ -160,7 +160,7 @@ class CareRent : Fragment()
     }
 
     override fun onSucsessCars(CarResponse: CarsModel) {
-        titlePublic.text="Car for Sale"
+        titlePublic.text=resources.getString(R.string.Carforsale)
         animation_loadingSections?.visibility=View.GONE
         //animation_loadingMain.pauseAnimation()
         sectionsList?.layoutManager= LinearLayoutManager(context)
@@ -170,7 +170,7 @@ class CareRent : Fragment()
 
     override fun onSucsessParts(CarResponse: PartsModel) {
         partResponse=CarResponse.data
-        titlePublic?.text="Parts"
+        titlePublic?.text=resources.getString(R.string.carparts)
         animation_loadingSections?.visibility=View.GONE
         //animation_loadingMain.pauseAnimation()
         sectionsList?.layoutManager = GridLayoutManager(context, 2) as RecyclerView.LayoutManager?
@@ -178,7 +178,7 @@ class CareRent : Fragment()
     }
     override fun onSucsessMotor(CarResponse: motorModel) {
         MotorResponse=CarResponse.data
-        titlePublic?.text="Parts"
+        titlePublic?.text=resources.getString(R.string.motorcycle)
         animation_loadingSections?.visibility=View.GONE
         //animation_loadingMain.pauseAnimation()
         sectionsList?.layoutManager = LinearLayoutManager(context)
@@ -189,7 +189,7 @@ class CareRent : Fragment()
     override fun onSucsessImport(CarResponse: RentModel) {
 
     RentResponse=CarResponse.data
-    titlePublic.text="Import car"
+    titlePublic.text=resources.getString(R.string.importcar)
     animation_loadingSections?.visibility=View.GONE
     //animation_loadingMain.pauseAnimation()
     sectionsList?.layoutManager = LinearLayoutManager(context)

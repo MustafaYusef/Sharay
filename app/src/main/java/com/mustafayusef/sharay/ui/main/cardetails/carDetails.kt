@@ -10,7 +10,9 @@ import android.view.ViewGroup
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -40,6 +42,7 @@ import com.mustafayusef.sharay.ui.profile.Profile_fragment
 import com.smarteist.autoimageslider.IndicatorAnimations
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
+import kotlinx.android.synthetic.main.info.view.*
 
 
 class carDetails : Fragment(),MainCarLesener,FavCarLesener {
@@ -47,7 +50,6 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
         carsResponse: CarsModel,
         bannerResponse: banners
     ) {
-
     }
 
 
@@ -60,6 +62,8 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
     override fun onSucsessBanners(CarResponse: banners) {
 
     }
+    var isAdd=false
+    var isClick=true
     var flage:Boolean=false
    var phoneNum=""
     var amount =0
@@ -123,20 +127,25 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
         viewModel.Fav=this
         favBtnD?.setOnClickListener {
             if(MainActivity.cacheObj  .token!=""){
-                if(flage){
-                    context?.toast("delete")
-                    viewModel.DeleteFavorite (MainActivity.cacheObj .token,MainActivity.cacheObj  .id,favId)
-                    favBtnD?.setImageResource( R.drawable.star)
 
-                }else{
-                    context?.toast("add")
-                    viewModel.AddFav (MainActivity.cacheObj  .token,amount,1)
-                    favBtnD?.setImageResource( R.drawable.star2)
+                    if(flage){
 
-                }
+                            //context?.toast("delete")
+                            viewModel.DeleteFavorite(MainActivity.cacheObj.token, MainActivity.cacheObj.id, favId)
+                            favBtnD?.setImageResource(R.drawable.star)
+
+
+                        } else {
+                        // context?.toast("add")
+                        viewModel.AddFav (MainActivity.cacheObj .token,amount,1)
+                        favBtnD?.setImageResource( R.drawable.star2)
+
+                    }
+
+
 
             }else{
-                context?.toast("you dont have account")
+                context?.toast(resources.getString(R.string.haveAcount))
             }
 
         }
@@ -168,27 +177,38 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
     }
 
     override fun OnStartFav() {
-
-        context?.toast("start Fav")
-        favBtnD?.isClickable=false
+        isClick=false
+        favBtnD?.visibility=View.GONE
+     //   context?.toast("start Fav")
+//        favBtnD?.isClickable=false
+//        favBtnD?.isEnabled=false
     }
     override fun onSucsessDel(CarResponse: delete) {
         favBtnD?.setImageResource( R.drawable.star)
         flage=false
-        context?.toast(CarResponse.data)
-        favBtnD?.isClickable=true
+        isClick=true
+       // context?.toast(CarResponse.data)
+        favBtnD?.visibility=View.VISIBLE
+
 
     }
     override fun onSucsessFav(CarResponse: addResFav) {
         favBtnD?.setImageResource( R.drawable.star2)
         flage=true
-        context?.toast("Success add")
+        isClick=true
+        isAdd=false
+       // context?.toast("Success add")
+        favBtnD?.visibility=View.VISIBLE
         favBtnD?.isClickable=true
+        favBtnD?.isEnabled=true
+        isAdd=false
     }
 
     override fun onFailerFav(message: String) {
-        context?.toast("Fail")
-        favBtnD.isClickable=true
+        favBtnD?.isClickable=true
+        favBtnD?.isEnabled=true
+        favBtnD?.visibility=View.VISIBLE
+        context?.toast(message)
 
     }
 
@@ -261,10 +281,11 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
         detailsContainer?.visibility=View.VISIBLE
         animation_loadingCarDetails?.pauseAnimation()
         animation_loadingCarDetails?.visibility=View.GONE
+
     }
 
     override fun OnStartProfile() {
-    context?.toast("starat profile")
+
     }
 
     override fun onSucsessProfile(CarResponse: List<Favorite>) {
@@ -274,10 +295,11 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
             if(i.carId==amount){
                favId= i.id
                 flage=true
+                isAdd=false
                 break
             }
         }
-        context?.toast("starat check")
+      //  context?.toast("starat check")
         if(flage){
             favBtnD?.setImageResource( R.drawable.star2)
         }else{
@@ -286,6 +308,7 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
     }
 
     override fun onFailerProfile(message: String) {
+        context?.toast(message)
     }
 
 }

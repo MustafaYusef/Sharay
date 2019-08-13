@@ -27,7 +27,7 @@
     <string name="addedPhoto">Added Pictures</string>
 
     <string name="EnterEmail">Enter your Email</string>
-    <string name="EnterSecondPhone">Enter your Second Phone number</string>
+    <string name="EnterSecondPhone">Enter your Second Phone number (Optional)</string>
 
     <string name="password">Enter Password</string>
     <string name="login">Login</string>
@@ -116,4 +116,14 @@
     <string name="mainImage">Main Image</string>
 
     <string name="Show">Show</string>
+
+    <string name="logout">Log out</string>
+    <string name="doyou">Do you want to logout</string>
+    <string name="haveAcount">You do not have account</string>
+
+    <string name="noResult">No Resulte Found</string>
+    <string name="sorry">Sorry</string>
+
+    <string name="noAccept">Your Post is not published yet</string>
+
 </resources>

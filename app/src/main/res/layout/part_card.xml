@@ -14,7 +14,7 @@
 
             <ImageView android:layout_width="165dp" android:layout_height="150dp"
                        android:scaleType="fitXY" android:id="@+id/partImage"
-                       android:src="@drawable/car"
+
                        android:cropToPadding="true"/>
 
         </androidx.cardview.widget.CardView>

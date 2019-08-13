@@ -2,6 +2,7 @@ package com.mustafayusef.sharay.ui.auth.signin
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -84,6 +85,7 @@ class SignUpUser : Fragment(),AuthLesener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController= Navigation.findNavController(view)
+        passText?.transformationMethod=PasswordTransformationMethod()
     }
     override fun OnStart() {
         animation_loadingSignIn.visibility=View.VISIBLE

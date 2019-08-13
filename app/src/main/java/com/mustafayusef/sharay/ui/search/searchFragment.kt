@@ -91,7 +91,19 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
         viewModel.getData()
 
 
+        val navBar = activity?.findViewById<BottomNavigationView> (R.id.bottomNav)
+        val toolbar = activity?.findViewById<Toolbar> (R.id.ToolBar)
 
+        view?.findNavController()?.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id == R.id.searchFragment) {
+                navBar?.visibility = View.GONE
+                toolbar?.visibility = View.GONE
+            } else {
+                navBar?.visibility = View.VISIBLE
+                toolbar?.visibility = View.VISIBLE
+            }
+
+        }
         searchCars.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 // do something on text submit
@@ -154,53 +166,58 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
         context?.toast(position.toString())
       //  val car=listCars?.get(position)
         carId= temp?.get(position)!!.id
-        var last=latestCar(`class`= listCars?.get(position)!!.`class`,
-            active=listCars?.get(position)!!.active,
-            airBags=listCars?.get(position)!!.airBags,
-            brand= listCars?.get(position)!!.brand,
-            color=listCars?.get(position)!!.color,
-            cylinders=listCars?.get(position)!!.cylinders,
-            date=listCars?.get(position)!!.date,
-            description=listCars?.get(position)!!.description,
-            driveSystem=listCars?.get(position)!!.driveSystem,
-            fuel=listCars?.get(position)!!.fuel,
-            gear=listCars?.get(position)!!.gear,
-            id=listCars?.get(position)!!.id ,
-            image=listCars?.get(position)!!.image,
-
-            location=listCars?.get(position)!!.location ,
-            mileage=listCars?.get(position)!!.mileage ,
-            name=listCars?.get(position)!!.name,
-            phone=listCars?.get(position)!!.phone ,
-            price=listCars?.get(position)!!.price ,
-            roof=listCars?.get(position)!!.roof ,
-            seats=listCars?.get(position)!!.seats ,
-            status=listCars?.get(position)!!.status ,
-            storeId=listCars?.get(position)!!.storeId,
-            title=listCars?.get(position)!!.title ,
-            type=listCars?.get(position)!!.type ,
-            userId=listCars?.get(position)!!.userId ,
-            warid=listCars?.get(position)!!.warid,
-            window=listCars?.get(position)!!.window ,
-            year=listCars?.get(position)!!.year )
+        var last=latestCar(
+            id=temp?.get(position)!!.id ,
+            image=temp?.get(position)!!.image,
+            title=temp?.get(position)!!.title
+        )
+//        var last=latestCar(`class`= listCars?.get(position)!!.`class`,
+//            active=listCars?.get(position)!!.active,
+//            airBags=listCars?.get(position)!!.airBags,
+//            brand= listCars?.get(position)!!.brand,
+//            color=listCars?.get(position)!!.color,
+//            cylinders=listCars?.get(position)!!.cylinders,
+//            date=listCars?.get(position)!!.date,
+//            description=listCars?.get(position)!!.description,
+//            driveSystem=listCars?.get(position)!!.driveSystem,
+//            fuel=listCars?.get(position)!!.fuel,
+//            gear=listCars?.get(position)!!.gear,
+//            id=listCars?.get(position)!!.id ,
+//            image=listCars?.get(position)!!.image,
+//
+//            location=listCars?.get(position)!!.location ,
+//            mileage=listCars?.get(position)!!.mileage ,
+//            name=listCars?.get(position)!!.name,
+//            phone=listCars?.get(position)!!.phone ,
+//            price=listCars?.get(position)!!.price ,
+//            roof=listCars?.get(position)!!.roof ,
+//            seats=listCars?.get(position)!!.seats ,
+//            status=listCars?.get(position)!!.status ,
+//            storeId=listCars?.get(position)!!.storeId,
+//            title=listCars?.get(position)!!.title ,
+//            type=listCars?.get(position)!!.type ,
+//            userId=listCars?.get(position)!!.userId ,
+//            warid=listCars?.get(position)!!.warid,
+//            window=listCars?.get(position)!!.window ,
+//            year=listCars?.get(position)!!.year )
         viewModel.saveData(last)
         viewModel.getData()
                 val action = searchFragmentDirections .actionSearchFragmentToCarDetails(carId)
         view?.findNavController()?.navigate(action)
-        val navBar = activity?.findViewById<BottomNavigationView> (com.mustafayusef.sharay.R.id.bottomNav)
-        val toolbar = activity?.findViewById<Toolbar> (com.mustafayusef.sharay.R.id.ToolBar)
-
-        view?.findNavController()?.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == com.mustafayusef.sharay.R.id.carDetails) {
-                navBar?.visibility = View.GONE
-                toolbar?.visibility = View.GONE
-
-            } else {
-                navBar?.visibility = View.VISIBLE
-                toolbar?.visibility = View.VISIBLE
+//        val navBar = activity?.findViewById<BottomNavigationView> (com.mustafayusef.sharay.R.id.bottomNav)
+//        val toolbar = activity?.findViewById<Toolbar> (com.mustafayusef.sharay.R.id.ToolBar)
+//
+//        view?.findNavController()?.addOnDestinationChangedListener { _, destination, _ ->
+//            if(destination.id == com.mustafayusef.sharay.R.id.carDetails) {
+//                navBar?.visibility = View.GONE
+//                toolbar?.visibility = View.GONE
+//
+//            } else {
+//                navBar?.visibility = View.VISIBLE
+//                toolbar?.visibility = View.VISIBLE
             }
-        }
-    }
+
+
     override fun onSuccessDatabase(searchResult: List<latestCar>) {
         responseCars=searchResult
         SearchLastList?.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,true)

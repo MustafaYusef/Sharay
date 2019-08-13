@@ -31,6 +31,7 @@ import com.mustafayusef.sharay.ui.profile.profileFactory
 import com.mustafayusef.sharay.ui.profile.profileLesener
 import kotlinx.android.synthetic.main.desc_parts.view.*
 import kotlinx.android.synthetic.main.fragment_my_add.*
+import kotlinx.android.synthetic.main.info.view.*
 
 
 class myAdd : Fragment(),myCarsAdapter.OnNoteLisener ,profileLesener{
@@ -106,12 +107,19 @@ class myAdd : Fragment(),myCarsAdapter.OnNoteLisener ,profileLesener{
                 }
             }
         }else{
-            val dview: View = layoutInflater.inflate(R.layout.desc_parts, null)
+            val dview: View? = layoutInflater?.inflate(R.layout.info, null)
             val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
             val malert= builder?.show()
-            dview.title.text="عذراً"
             malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dview.descPart?.text="لم تتم الموافقه على اعلانك بعد"
+            dview?.titleInfo?.text=resources.getString(R.string.sorry)
+
+            dview?.info?.text=resources.getString(R.string.noAccept)
+
+            dview?.goLog?.text=resources.getString(R.string.applay)
+            dview?.goLog?.setOnClickListener {
+                malert?.dismiss()
+
+            }
         }
 
     }

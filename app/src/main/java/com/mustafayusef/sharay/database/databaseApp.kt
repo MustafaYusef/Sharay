@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 import com.mustafayusef.sharay.database.entitis.latestCar
 
-@Database(entities = [latestCar::class], version = 1)
+@Database(entities = [latestCar::class], version = 2)
 public abstract class databaseApp : RoomDatabase() {
 
 
@@ -30,7 +30,7 @@ public abstract class databaseApp : RoomDatabase() {
                 context.applicationContext,
                 databaseApp::class.java,
                 "sharay"
-            ).build()
+            ).fallbackToDestructiveMigration().build()
 
     }
 }

@@ -80,7 +80,7 @@
     <string name="miles">المسافة</string>
 
     <string name="GearNum">ناقل السرعة</string>
-    <string name="EnterSecondPhone">ادخل الرقم الثاني</string>
+    <string name="EnterSecondPhone">ادخل الرقم الثاني (أختياري)</string>
     <string name="applay">تم</string>
     <string name="descrption">الوصف</string>
     <string name="MotoreModel">نوع الدراجة</string>
@@ -116,4 +116,14 @@
     <string name="mainImage">الصورة الرثيسية</string>
 
     <string name="Show">عرض</string>
+
+    <string name="logout">تسجبل الخروج</string>
+    <string name="doyou">هل تريد تسجيل الخروج</string>
+
+    <string name="haveAcount">ليس لديك حساب</string>
+
+    <string name="noResult">لا يوجد نتائج</string>
+    <string name="sorry">عذرا</string>
+    <string name="noAccept">لم تتم الموافقه على اعلانك بعد</string>
+
 </resources>

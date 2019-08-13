@@ -9,7 +9,7 @@
 
     <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
                                                android:layout_height="match_parent"
-    android:id="@+id/myCarsList"></androidx.recyclerview.widget.RecyclerView>
+                                               android:id="@+id/myCarsList"/>
 
     <LinearLayout android:layout_width="250dp"
                   android:visibility="gone"

@@ -54,7 +54,8 @@ class lastSearchAdapter(val context:Context, var onNoteLisener: OnLastLisener,va
 //        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
 
 //        Glide.with(context).load(com.mustafayusef.sharay.R.drawable.car).into(holder.view?.carImage)
-        holder.view.card_title_search.text=car.title
+        if(car.title!!.length>10)
+        holder.view.card_title_search.text=car.title?.substring(0,10)+".."
 
        Glide.with(context).load("http://api.centralmarketiq.com/"+car.image+".png")
            .apply(RequestOptions.circleCropTransform())
