@@ -82,10 +82,10 @@ class Profile_fragment : Fragment(),profileLesener {
         viewModel=ViewModelProviders.of(activity!!,factory).get(ProfileFragmentViewModel::class.java)
         viewModel.Auth =this
 
-//        nameUser?.text=MainActivity.cacheObj .name
-//        phoneUser?.text=MainActivity.cacheObj .phone
-//        secondPhone?.text=MainActivity.cacheObj .Secondphone
-//        emailUser?.text=MainActivity.cacheObj .Email
+        nameUser?.text=MainActivity.cacheObj .name
+        phoneUser?.text=MainActivity.cacheObj .phone
+        secondPhone?.text=MainActivity.cacheObj .Secondphone
+        emailUser?.text=MainActivity.cacheObj .Email
 
 
         if(MainActivity.cacheObj .token!=""){

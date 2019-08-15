@@ -80,7 +80,7 @@ class myCarsAdapter(
             val malert= builder?.show()
             dview.title.visibility=View.GONE
             malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dview.descPart?.text="هل تريد أزالة الأعلان"
+            dview.descPart?.text=context?.getResources().getString(R.string.doYou)
             dview.conform?.visibility=View.VISIBLE
             dview.conform?.setOnClickListener {
                 viewModel.DeletMyCar(MainActivity.cacheObj  .token,carsP.id)

@@ -60,12 +60,12 @@
                                                                          android:textColorHint="@color/colorPrimary"
                                                                          android:hint="@string/EnterPhone"
                                                                          android:textSize="18sp"
-
+                                                                         android:textAlignment="center"
                                                                          android:paddingBottom="5dp"
                                                                          android:padding="10dp"
                                                                          android:id="@+id/userName"
                                                                          android:layout_margin="15dp"
-                                                                         android:inputType="number"
+                                                                         android:inputType="phone"
                                                                          android:layoutDirection="locale"/>
 
 
@@ -79,10 +79,11 @@
                                                                          android:textColorHint="@color/colorPrimary"
                                                                          android:hint="@string/password"
                                                                          android:textSize="18sp"
+                                                                         android:textAlignment="center"
                                                                          android:padding="10dp"
                                                                          android:id="@+id/Password"
                                                                          android:layout_margin="15dp"
-                                                                         android:inputType="text"/>
+                                                                         android:inputType="textPassword"/>
 
 
                 <Button android:layout_width="match_parent" android:layout_height="wrap_content"

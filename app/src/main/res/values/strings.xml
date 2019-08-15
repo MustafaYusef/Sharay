@@ -126,4 +126,9 @@
 
     <string name="noAccept">Your Post is not published yet</string>
 
+    <string name="doYou">Do you want to remove this post</string>
+
+    <string name="doYouCall">Do you want to Make a call phone</string>
+
+
 </resources>

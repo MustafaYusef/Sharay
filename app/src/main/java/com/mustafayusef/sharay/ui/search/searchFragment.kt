@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.CursorAdapter
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
@@ -45,6 +47,7 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
     var responseCars:List<latestCar>?=null
     var listCars:List<DataCars>?=null
     var searchCar:List<DataCars>?=null
+    var Suggest:MutableList<String> = arrayListOf()
  var temp:MutableList<DataCars> = arrayListOf()
     companion object {
         fun newInstance() = searchFragment()
@@ -104,7 +107,8 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
             }
 
         }
-        searchCars.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+        searchCars?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 // do something on text submit
                 filter(query.toString())
@@ -148,7 +152,9 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
     override fun onSuccessSearch(searchResult: CarsModel) {
 
         listCars=searchResult.data
-
+//        for(i in 0 until  listCars!!.size){
+//            Suggest.add(i, listCars!!.get(i).title)
+//        }
         list_of_search_cars?.layoutManager= LinearLayoutManager(context)
         searchCars.isClickable=true
 

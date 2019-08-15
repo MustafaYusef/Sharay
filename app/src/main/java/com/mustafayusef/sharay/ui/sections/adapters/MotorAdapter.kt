@@ -6,15 +6,22 @@ import kotlinx.android.synthetic.main.car_card.view.*
 
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.mustafayusef.sharay.R
 import com.mustafayusef.sharay.data.models.DataCars
 import com.mustafayusef.sharay.data.models.sections.motorData
+import kotlinx.android.synthetic.main.desc_parts.view.*
 
 
 class MotorAdapter(
@@ -50,7 +57,7 @@ class MotorAdapter(
 
 
 //        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
-
+        holder.view.con.visibility=View.INVISIBLE
           holder.view.priceCar.text=carsP.price.toString()
           holder.view.carMile.text=carsP.miles .toString()
           holder.view.modelYear.text=carsP.year
@@ -58,7 +65,25 @@ class MotorAdapter(
           Glide.with(context).load("http://api.centralmarketiq.com/"+carsP.image+".png").into(holder.view?.carImage)
 
 
+        holder.view.callNumber.setOnClickListener {
+            val dview: View = View.inflate(context, R.layout.desc_parts, null)
+            val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
+            val malert= builder?.show()
+            dview.title.visibility=View.GONE
+            malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dview.descPart?.text=context?.getResources().getString(R.string.doYouCall)
+            dview.conform?.visibility=View.VISIBLE
+            dview.conform?.setOnClickListener {
+                malert?.dismiss()
+                val intent = Intent(Intent.ACTION_DIAL).apply {
+                    data = Uri.parse("tel:${carsP.phone}")
+                }
 
+                context?.startActivity(intent)
+
+//                context?.toast(context?.getResources().getString(R.string.deletSucc))
+            }
+        }
     }
 
 

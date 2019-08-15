@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
@@ -23,6 +24,7 @@ import com.mustafayusef.sharay.data.models.DataCars
 import com.mustafayusef.sharay.data.models.carData
 import com.mustafayusef.sharay.data.networks.myApi
 import com.mustafayusef.sharay.data.networks.repostorys.CarsRepostary
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.filter_fragment.*
 import kotlinx.android.synthetic.main.filter_store.view.applayFilter
 import kotlinx.android.synthetic.main.filters_dilog1.view.*
@@ -83,6 +85,21 @@ class filterFragment : Fragment(),FilterCarLesener {
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        val toolbar = activity?.findViewById<ImageButton> (R.id.filterBtn)
+        view?.findNavController()?.addOnDestinationChangedListener{ _, destination, _ ->
+            if(destination.id == R.id.filterFragment) {
+                // navBar?.visibility = View.GONE
+                toolbar?.visibility = View.INVISIBLE
+
+            } else {
+                // navBar?.visibility = View.VISIBLE
+                toolbar?.visibility = View.VISIBLE
+            }
+        }
+
+
+
+
         val networkIntercepter= context?.let { networkIntercepter(it) }
         val api= networkIntercepter?.let { myApi(it) }
         val repostary= CarsRepostary(api!!)

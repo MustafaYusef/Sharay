@@ -42,7 +42,7 @@ class ShowResult : Fragment(),CarSaleAdapter.OnNoteLisener {
 
         val type:CarsModel? = arguments?.getSerializable("Cars") as CarsModel?
         responseCars= type?.data
-        if(responseCars!!.isEmpty()){
+        if(responseCars!!.isNullOrEmpty()){
             noNetContainerFilter?.visibility=View.VISIBLE
         }
 

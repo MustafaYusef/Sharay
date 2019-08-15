@@ -89,7 +89,7 @@
                      android:src="@drawable/ic_call_black_24dp"
                      android:padding="4dp"
                      android:layout_margin="3dp"
-                     android:background="@drawable/phone" android:id="@+id/callNumber"/>
+                     android:background="@drawable/phone" android:id="@+id/callNumberF"/>
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:textSize="20sp" android:text="hyondai santafia 33333c"
                   android:textAlignment="textEnd" android:padding="7dp" android:textColor="#000"

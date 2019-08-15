@@ -125,5 +125,8 @@
     <string name="noResult">لا يوجد نتائج</string>
     <string name="sorry">عذرا</string>
     <string name="noAccept">لم تتم الموافقه على اعلانك بعد</string>
+    <string name="doYou">هل تريد أزالة الأعلان</string>
+
+    <string name="doYouCall">هل تريد اجراء مكالمة هاتفيه</string>
 
 </resources>

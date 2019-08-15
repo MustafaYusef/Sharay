@@ -79,7 +79,7 @@ class Setting_fragment : Fragment() {
                     "سوق الكتروني للسيارات يتيح لك البيع و الشراء من خلال نشر اعلانك و مشاهدة كافة العروض في كل المحافظات و مشاهدة عروض معارض السيارات بكل سهولة.\n" +
                     "ايضاً يوجد خدمات اضافية بكل ما يخص السيارات من مركز صيانة و محلات بيع قطع الغيار للتسهيل على كل الاشخاص."
 
-            dview.goLog?.visibility=View.INVISIBLE
+            dview.goLog?.visibility=View.GONE
         }
         contactUs.setOnClickListener {
 
@@ -89,12 +89,11 @@ class Setting_fragment : Fragment() {
 
             malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dview.titleInfo.text=getResources().getString(R.string.contact)
-            dview.info?.text=  "Inst: central.iq\n" +
-                    "Twi: central.iq\n" +
-                    "FB:https://m.facebook.com/\n" +
-                    "السوق-المركزي-للسيارات-Central-Market-1275942529247303/"
+            dview.info?.text=  "Gmail:Central.marketiq@gmail.com\n" +
+                    "07810006405\n" +
+                    "07714601419"
 
-            dview.goLog?.visibility=View.INVISIBLE
+            dview.goLog?.visibility=View.GONE
 //                    dview.goLog?.setOnClickListener {
 //                        malert?.dismiss()
 //                    }

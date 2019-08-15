@@ -48,6 +48,8 @@ class storesAdapter(val context: Context, val cars:List<StoresData>,val onNoteLi
         Glide.with(context).load("http://api.centralmarketiq.com/"+carsP.image+".png")
             .into(holder.view?.storeImage)
 
+
+
     }
 
 
