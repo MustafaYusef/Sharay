@@ -90,12 +90,12 @@ class MainAdapter(
           holder.view.storeSlider?.sliderAdapter = adapter
 
           //  context?.let { Glide.with(it).load(com.mustafayusef.sharay.R.drawable.car).into(carImageD) }
-          holder.view.storeSlider?.setIndicatorAnimation(IndicatorAnimations.WORM) //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-          holder.view.storeSlider?.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
-          holder.view. storeSlider?.autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH
+//          holder.view.storeSlider?.setIndicatorAnimation(IndicatorAnimations.WORM) //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+//          holder.view.storeSlider?.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
+         holder.view. storeSlider?.autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH
           holder.view.storeSlider?.indicatorSelectedColor = Color.WHITE
           holder.view. storeSlider?.indicatorUnselectedColor = Color.GRAY
-          holder.view. storeSlider?.scrollTimeInSec = 4 //set scroll delay in seconds :
+          holder.view. storeSlider?.scrollTimeInSec = 3 //set scroll delay in seconds :
           holder.view. storeSlider?.startAutoCycle()
       }
         else{
@@ -103,12 +103,18 @@ class MainAdapter(
 
 
 //        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
+         if(carsP.price==0){
+             holder.view.priceCar.text=context.resources.getString(R.string.callUs)
+         }else{
+             holder.view.priceCar.text=carsP.price.toString()
+         }
 
-          holder.view.priceCar.text=carsP.price.toString()+"$"
-          holder.view.carMile.text=carsP.mileage.toString()
+          holder.view.carMile.text=carsP.mileage.toString()+" mi"
           holder.view.modelYear.text=carsP.year
           holder.view.carNmae.text=carsP.title
-          Glide.with(context).load("http://api.centralmarketiq.com/"+carsP.image+".png").into(holder.view?.carImage)
+          Glide.with(context).load("http://api.centralmarketiq.com/"+carsP.image+".png")
+              .placeholder(R.drawable.placeholder)
+              .into(holder.view?.carImage)
 
 
           holder.view.callNumber.setOnClickListener {

@@ -20,7 +20,7 @@ class LoginViewModel(val repostary: userRepostary) : ViewModel() {
     fun Login(view: View){
         Auth?.OnStart()
         if(phone.isNullOrEmpty()||password.isNullOrEmpty()){
-            Auth?.onFailer("invalid password or email")
+            Auth?.onFailerIn()
             return
         }
                 corurtins.main {
@@ -34,13 +34,13 @@ class LoginViewModel(val repostary: userRepostary) : ViewModel() {
                         e.message?.let { Auth?.onFailer(it) }
 
                     }catch (e: noInternetExeption){
-                        e.message?.let { Auth?.onFailer(it) }
+                        e.message?.let { Auth?.onFailerNet() }
                     }catch (e: SocketTimeoutException){
-                        e.message?.let { Auth?.onFailer(it) }}
+                        e.message?.let { Auth?.onFailerNet() }}
                     catch (e: SocketException){
-                        e.message?.let { Auth?.onFailer(it) }
+                        e.message?.let { Auth?.onFailerNet() }
                     }catch (e: ProtocolException){
-                        e.message?.let { Auth?.onFailer(it) }
+                        e.message?.let { Auth?.onFailerNet() }
                     }
 
                 }

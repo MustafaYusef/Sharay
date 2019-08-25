@@ -33,6 +33,29 @@ import kotlinx.android.synthetic.main.sign_up_user_fragment.*
 import kotlinx.android.synthetic.main.sign_up_user_fragment.signPhoto
 
 class SignUpUser : Fragment(),AuthLesener {
+    override fun onFailerPas() {
+        context?.toast(resources.getString(R.string.EnterPassCorrect))
+        animation_loadingSignIn.visibility=View.GONE
+        animation_loadingSignIn.pauseAnimation()
+    }
+
+    override fun onFailerPh() {
+        context?.toast(resources.getString(R.string.EnterPhoneCorrect))
+        animation_loadingSignIn.visibility=View.GONE
+        animation_loadingSignIn.pauseAnimation()
+    }
+
+    override fun onFailerNet() {
+        context?.toast(resources.getString(R.string.problemCon))
+        animation_loadingSignIn.visibility=View.GONE
+        animation_loadingSignIn.pauseAnimation()
+    }
+
+    override fun onFailerIn() {
+        context?.toast(resources.getString(R.string.fillRequier))
+        animation_loadingSignIn.visibility=View.GONE
+        animation_loadingSignIn.pauseAnimation()
+    }
 
     private lateinit var navController: NavController
     companion object {
@@ -101,9 +124,10 @@ class SignUpUser : Fragment(),AuthLesener {
         if( !loginResponse.token.isNullOrEmpty()){
 
             view?.findNavController()?.navigate(R.id.signUp)
-            context?.toast("you have account now")
+            context?.toast(resources.getString(R.string.youHave))
         }else{
-            context?.toast("you already have account")
+
+            context?.toast(resources.getString(R.string.youHaveAlredy))
 
         }
 
@@ -114,6 +138,6 @@ class SignUpUser : Fragment(),AuthLesener {
     override fun onFailer(message: String) {
         animation_loadingSignIn.visibility=View.GONE
         animation_loadingSignIn.pauseAnimation()
-        context?.toast(message)
+        context?.toast(resources.getString(R.string.youHaveAlredy))
     }
 }

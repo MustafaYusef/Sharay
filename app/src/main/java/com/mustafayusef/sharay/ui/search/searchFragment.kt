@@ -36,7 +36,7 @@ import com.mustafayusef.sharay.ui.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.search_fragment.*
-
+import kotlinx.android.synthetic.main.show_result_fragment.*
 
 
 class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,searchResultAdapter.OnNoteLisener {
@@ -113,15 +113,35 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
                 // do something on text submit
                 filter(query.toString())
                 up()
+                if(temp.isNullOrEmpty()){
+                    noNetContainerSearch?.visibility=View.VISIBLE
+
+                }else{
+                    noNetContainerSearch?.visibility=View.GONE
+                }
                 lastContainer?.visibility=View.GONE
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-//                filter(newText.toString())
-//                up()
-                filter(newText.toString())
-                up()
+                 if(!newText!!.isEmpty()){
+                     filter(newText.toString())
+                     up()
+                     if(temp.isNullOrEmpty()){
+                       //  noNetContainerSearch?.visibility=View.VISIBLE
+                         lastContainer?.visibility=View.VISIBLE
+
+                     }else{
+                         noNetContainerSearch?.visibility=View.GONE
+                         lastContainer?.visibility=View.GONE
+                     }
+                 }else{
+                     filter(newText.toString())
+                     up()
+                     lastContainer?.visibility=View.VISIBLE
+                     noNetContainerSearch?.visibility=View.GONE
+                 }
+
                 return false
             }
         })
@@ -134,7 +154,7 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
 
     }
     fun filter(text:String){
-        context?.toast("start filter")
+       // context?.toast("start filter")
           temp.clear()
         for(te in this!!.listCars!!){
             //or use .equal(text) with you want equal match
@@ -255,7 +275,7 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
     }
     override fun onSuccessDatabasesave(message: String) {
 
-        context?.toast(message)
+        //context?.toast(message)
     }
     override fun onStartDetails() {
 

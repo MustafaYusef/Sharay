@@ -54,10 +54,15 @@ class lastSearchAdapter(val context:Context, var onNoteLisener: OnLastLisener,va
 //        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
 
 //        Glide.with(context).load(com.mustafayusef.sharay.R.drawable.car).into(holder.view?.carImage)
-        if(car.title!!.length>10)
-        holder.view.card_title_search.text=car.title?.substring(0,10)+".."
+        if(car.title!!.length>10){
+            holder.view.card_title_search.text=car.title?.substring(0,10)+".."
+        }else{
+            holder.view.card_title_search.text=car.title.toString()
+        }
+
 
        Glide.with(context).load("http://api.centralmarketiq.com/"+car.image+".png")
+           .placeholder(com.mustafayusef.sharay.R.drawable.placeholder)
            .apply(RequestOptions.circleCropTransform())
            .into( holder.view.card_image_search)
 

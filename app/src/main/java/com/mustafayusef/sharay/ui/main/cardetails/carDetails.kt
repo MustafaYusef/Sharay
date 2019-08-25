@@ -75,7 +75,7 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
     }
 
     private lateinit var viewModel: CarDetailsViewModel
-
+    var imagesd:MutableList<String> = arrayListOf()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -227,11 +227,11 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
        // data.i
     //    context?.toast(data.year)
         phoneNum=data.phone
-        val adapter = sliderAdapter(context!!, data.CarImages as List<imageData>)
+        val adapter = context?.let { sliderAdapter(it,data.CarImages as List<imageData>,data.image)}
 
         carImageD?.setSliderAdapter(adapter)
         //  context?.let { Glide.with(it).load(com.mustafayusef.sharay.R.drawable.car).into(carImageD) }
-        carImageD?.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+       // carImageD?.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         carImageD?.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
         carImageD?.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
         carImageD?.setIndicatorSelectedColor(Color.WHITE);
@@ -258,7 +258,12 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
         modelCar?.text= data.brand
       name?.text= data.name
        phone?.text= data.phone
-        priceCarD?.text= data.price.toString()
+        if(data.price==0){
+            priceCarD?.text=resources.getString(R.string.callUs)
+        }else{
+            priceCarD?.text= data.price.toString()
+        }
+
        roof?.text= data.roof
 
         horse?.text= data.cylinders.toString()
@@ -271,6 +276,7 @@ class carDetails : Fragment(),MainCarLesener,FavCarLesener {
        warid?.text= data.warid
        // wheelSize= data.wheelSize.toString()
 
+        douchmD?.text=data.type
         yearCar?.text= data.year
         location?.text=data.location
         color?.text=data.color

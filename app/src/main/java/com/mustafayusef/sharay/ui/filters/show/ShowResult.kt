@@ -42,13 +42,14 @@ class ShowResult : Fragment(),CarSaleAdapter.OnNoteLisener {
 
         val type:CarsModel? = arguments?.getSerializable("Cars") as CarsModel?
         responseCars= type?.data
+        var rev=responseCars!!.asReversed()
         if(responseCars!!.isNullOrEmpty()){
             noNetContainerFilter?.visibility=View.VISIBLE
         }
 
         FilterCar?.layoutManager= LinearLayoutManager(context)
 
-        FilterCar?.adapter= context?.let { responseCars?.let { it1 -> CarSaleAdapter(it, this, it1) } }
+        FilterCar?.adapter= context?.let { rev?.let { it1 -> CarSaleAdapter(it, this, it1) } }
 
     }
 

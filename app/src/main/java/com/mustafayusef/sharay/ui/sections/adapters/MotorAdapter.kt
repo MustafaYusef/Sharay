@@ -57,12 +57,17 @@ class MotorAdapter(
 
 
 //        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
-        holder.view.con.visibility=View.INVISIBLE
-          holder.view.priceCar.text=carsP.price.toString()
-          holder.view.carMile.text=carsP.miles .toString()
+       // holder.view.con.visibility=View.INVISIBLE
+        if(carsP.price==0){
+            holder.view.priceCar.text=context.resources.getString(R.string.callUs)
+        }else{
+            holder.view.priceCar.text=carsP.price.toString()
+        }
+          holder.view.carMile.text=carsP.miles .toString()+" mi"
           holder.view.modelYear.text=carsP.year
           holder.view.carNmae.text=carsP.title
-          Glide.with(context).load("http://api.centralmarketiq.com/"+carsP.image+".png").into(holder.view?.carImage)
+          Glide.with(context).load("http://api.centralmarketiq.com/"+carsP.image+".png")
+              .placeholder(R.drawable.placeholder).into(holder.view?.carImage)
 
 
         holder.view.callNumber.setOnClickListener {

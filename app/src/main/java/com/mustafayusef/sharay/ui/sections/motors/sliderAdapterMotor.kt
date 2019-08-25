@@ -24,7 +24,8 @@ class sliderAdapterMotor(val context: Context, val imges:List<MotorImage>) : Sli
       //  viewHolder.itemView. .text = "This is slider item $position"
 
         var imge=imges.get(position).image
-        Glide.with(context).load("http://api.centralmarketiq.com/"+imge+".png").into(  viewHolder.itemView.slid_Image)
+        Glide.with(context).load("http://api.centralmarketiq.com/"+imge+".png")
+            .placeholder(R.drawable.placeholder).into(  viewHolder.itemView.slid_Image)
 
 
     }

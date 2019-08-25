@@ -210,7 +210,8 @@
                                                                          android:inputType="number"
                                                                          android:textColorHint="@color/colorPrimary"
                                                                          android:background="@drawable/add_input"
-                                                                         android:hint="@string/price"/>
+                                                                         android:hint="@string/price"
+                                                                         android:maxLength="8"/>
 
 
             </LinearLayout>

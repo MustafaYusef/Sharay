@@ -67,6 +67,7 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.IOException
 import java.io.InputStreamReader
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -88,7 +89,7 @@ class Add_fragment : Fragment(),PictureAdapter.OnNoteLisener,AddCarLesener {
     var year: Int?=null
     var warid: String?=null
     var mileage: Int?=null
-    var price: Int?=null
+    var price: Int=0
     var gear: String?=null
     var cylinders: Int?=null
     var driveSystem: String?=null
@@ -98,7 +99,7 @@ class Add_fragment : Fragment(),PictureAdapter.OnNoteLisener,AddCarLesener {
     var window: String=" "
     var airBags: String=" "
     var color: String?=null
-    var description: String=" "
+    var description: String="لا يوجد وصف"
     var name=MainActivity.cacheObj  .name
     var phone: String?=null
     var location: String?=null
@@ -121,7 +122,7 @@ class Add_fragment : Fragment(),PictureAdapter.OnNoteLisener,AddCarLesener {
 
     val colors =arrayListOf ("ابيض","حليبي","سلفر","نيلي","سمائي","ازرق","احمر","ماروني","برتقالي","اصفر","اخضر","جوزي","قيلي","اسود","بنفسجي","وردي")
     val statusArr =arrayListOf ("جديد","جديد قطعة صبغ","جديد قطعتان صبغ","جديد ٣ قطع صبغ","جديد ٤ قطع صبغ","مستعمل","مستعمل قطعة صبغ","مستعمل قطعتان صبغ","مستعمل ٣ قطغ صبغ","مستعمل ٤ قطع صبغ","مستعمل ٥ قطع صبغ","مستعمل صبغ عام","غرقان")
-    val years =arrayListOf ("1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022")
+//    val years =arrayListOf ("1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022")
     val sources =arrayListOf ("امريكي","خليجي","كندي","كوري","اوربي")
 
     val milesArr =arrayListOf ("0","10000","  20000 ","  30000 ","  40000 ","  50000 ","   60000 ","  70000 ","  80000 ","  90000 ","  100000 ","  150000 ","  200000 ","  300000 ")
@@ -151,6 +152,7 @@ class Add_fragment : Fragment(),PictureAdapter.OnNoteLisener,AddCarLesener {
 
 //    var PICK_IMAGE_MULTIPLE = 1
 //    lateinit var imagePath: String
+var years: MutableList<String> = arrayListOf()
     var imagesPathListUri: MutableList<Uri> = arrayListOf()
   var ind=0
     var indClass=-1
@@ -207,9 +209,26 @@ var loc2:List<carData>?=null
         view?.findNavController()?.addOnDestinationChangedListener { _, destination, _ ->
             if(destination.id == R.id.add_fragment) {
 
-                if(MainActivity.cacheObj  .token=="")
+                if(MainActivity.cacheObj  .token==""){
                     view?.findNavController()?.navigate(R.id.fromAddToLogin)
+                }
+
+
+
             }
+
+        }
+        val dview: View = layoutInflater.inflate(R.layout.info, null)
+        val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
+        val malert= builder?.show()
+
+        malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dview.info?.text=resources.getString(R.string.postAnAdd)
+
+
+        dview.goLog?.setOnClickListener {
+            malert?.dismiss()
         }
         val suggest: Array<carData>
 
@@ -222,6 +241,12 @@ var loc2:List<carData>?=null
             names.add(i.name)
         }
 
+
+        var index1=0
+
+        for(i in 2022 downTo 1940){
+            years.add(index1++,i.toString())
+        }
         CarClassAdd.setOnClickListener {
             showClass(names as ArrayList<String>,CarClassAdd)
         }
@@ -251,21 +276,24 @@ println(locnames)
         provincAdd.setOnClickListener {
             showLoc(locnames as ArrayList<String>, CarClassAdd)
         }
+
          navBar= activity?.findViewById<BottomNavigationView> (R.id.bottomNav)
          toolbar = activity?.findViewById<Toolbar> (R.id.ToolBar)
 
         BtnAdd.setOnClickListener {
-
-
-            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        // context?.toast(MainTitleAdd.text.toString())
+//             var df = DateFormat.getDateInstance(DateFormat.LONG, Locale.ENGLISH);
+//            val currentDate=df.parse("yyyy/MM/dd")
+            val sdf = SimpleDateFormat("yyyy/MM/dd", Locale("en", "EN"))
             val currentDate = sdf.format(Date())
             date=currentDate
+           // context?.toast("date   "+date)
             if(brand==null||`class`==null||status==null
                 ||year==null||warid==null||mileage==null||gear==null||cylinders==null||
                 fuel==null||driveSystem==null||roof==null||seats==null||type==null||color==null
                 ||location==null
                 ||state==null||imagesBodyList.size==0||MainTitleAdd.text.toString()==""
-                ||PriceAdd.text.toString()==""||phoneNumAdd.text.toString()==""){
+                ||phoneNumAdd.text.toString()==""){
                   context?.toast(getResources().getString(R.string.complete))
             }else if(phoneNumAdd.text.toString().length<=10&&phoneNumAdd.text.toString().length<16){
                 context?.toast(getResources().getString(R.string.EnterPhoneCorrect))
@@ -275,14 +303,17 @@ println(locnames)
             }
             else{
                 title= MainTitleAdd.text.toString()
-                price=PriceAdd.text.toString().toInt()
+                if(PriceAdd.text.toString()!=""||PriceAdd.text.toString()!="0"){
+                    price=PriceAdd.text.toString().toInt()
+                }
+
                 phone=phoneNumAdd.text.toString()
                 navBar?.isClickable=false
                 toolbar?.isClickable=false
 
 
-                viewModel.AddCar( title!!, brand!!, `class`!!, status!!,
-                    year!!, warid!!, mileage!!, price!!, gear!!, cylinders!!, fuel!!, driveSystem!!,
+                viewModel.AddCar( title!!, `class`!!, brand!!, status!!,
+                    year!!, warid!!, mileage!!, price!!,driveSystem !!, cylinders!!, fuel!!, gear!!,
                     roof!!, seats!!, type!!, window!!, airBags!!, color!!, description!!,
                     name!!, phone!!, location!!, state!!, date!!,userId!!,
                     storeId!!, active!!, isRent!!, isImported!!, imagesBodyList.get(0)!!)
@@ -302,12 +333,12 @@ println(locnames)
 
             }
             YearAdd.setOnClickListener {
-                Reuseable(years,YearAdd)
+                Reuseable(years as ArrayList<String>,YearAdd)
 
             }
             sourceAdd.setOnClickListener {
 
-                Reuseable(statusArr,sourceAdd)
+                Reuseable(sources,sourceAdd)
 
             }
             MilesAdd.setOnClickListener {
@@ -349,83 +380,10 @@ println(locnames)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //navController= Navigation.findNavController(view)
-        val dview: View = layoutInflater.inflate(R.layout.info, null)
-        val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
-        val malert= builder?.show()
 
-        malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        dview.info?.text=
-            "\n" +
-                    "اعلان لدنيا\n" +
-                    "لاعلان سيارتكم انقر على (اضافة اعلان)،اتبع الخطوات بملئ الحقول جميعها من السعر (ينصح بكتابة السعر) وتحميل الصور على ان تكون صور في اضاءة جيدة و اختيار زوايا مناسبة لجوانب السيارة الاربعة كاملة دون اقتطاع ، مع صورتين لداخلية السيارة.\n" +
-                    "ستصلكم رسالة نصية على جوالكم عند نشر الاعلان\n" +
-                    "\n" +
-                    "للاستفسار او للمساعدة الفنية اتصل على \n" +
-                    "0781 000 6405\n" +
-                    "0771 460 1419\n" +
-                    "Central.marketiq@gmail.com"
-
-        dview.goLog?.setOnClickListener {
-            malert?.dismiss()
-        }
         addedPictureList?.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
 
-
-//        val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item,
-//            listOf(resources.getString(R.string.sections), resources.getString(R.string.Carforsale)
-//                ,resources.getString(R.string.carparts),resources.getString(R.string.motorcycle),
-//            resources.getString(R.string.carrent),resources.getString(R.string.carcompany),
-//                resources.getString(R.string.carnumber),resources.getString(R.string.importcar)))
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-
-    // if(ContextCompat.checkSelfPermission(context,android.Manifest.permission.READ_EXTERNAL_STORAGE))
-
-
-//        Intent.ACTION_PICK,
-//        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-
-//        openGallary.setOnClickListener {
-//
-//           // val intent = Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-//
-//            val intent = Intent(Intent.ACTION_GET_CONTENT)
-//            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true)
-//            intent.type = "image/*"
-//           // intent.action=Intent.ACTION_GET_CONTENT
-//            //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true)
-//
-//            startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1)
-//
-//        }
-// Here, thisActivity is the current activity
-
-//        if (ContextCompat.checkSelfPermission(context!!,
-//                Manifest.permission.READ_EXTERNAL_STORAGE)
-//            != PackageManager.PERMISSION_GRANTED) {
-//
-//            // Permission is not granted
-//            // Should we show an explanation?
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(activity?.parent!!,
-//                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
-//                // Show an explanation to the user *asynchronously* -- don't block
-//                // this thread waiting for the user's response! After the user
-//                // sees the explanation, try again to request the permission.
-//            } else {
-//                // No explanation needed, we can request the permission.
-//                ActivityCompat.requestPermissions(activity?.parent!!,
-//                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-//                    100)
-//
-//                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-//                // app-defined int constant. The callback method gets the
-//                // result of the request.
-//            }
-//        } else {
-//            // Permission has already been granted
-//        }
         openGallary.setOnClickListener {
            if (Build.VERSION.SDK_INT < 19) {
                 var intent = Intent()
@@ -465,92 +423,9 @@ println(locnames)
 
             }
 
-
-//            TedImagePicker.with(context!!).max(12,"maximum")
-//                .min(2,"minimum").selectedUri(imagesPathListUri)
-//                .mediaType(gun0912.tedimagepicker.builder.type.MediaType.IMAGE)
-//                .startMultiImage { uriList ->showMulti(uriList)
-//
-//                  }
-
-//            TedRxImagePicker.with(context!!)
-//                .startMultiImage()
-//                .subscribe({ uriList ->
-//                    showMulti(uriList)
-//                }, Throwable::printStackTrace)
-
-
             }
-
-
-
-        }
-//
-//        ImagePicker.create(this)
-//            .returnMode(ReturnMode.ALL) // set whether pick and / or camera action should return immediate result or not.
-//            .folderMode(true) // folder mode (false by default)
-//            .toolbarFolderTitle("Folder") // folder selection title
-//            .toolbarImageTitle("Tap to select") // image selection title
-//            .toolbarArrowColor(Color.BLACK) // Toolbar 'up' arrow color
-//
-//
-//            .multi() // multi mode (default mode)
-//            .limit(12) // max images can be selected (99 by default)
-
-//
-//
-//
-//
-//
-//            .enableLog(false) // disabling log
-//
-//            .start(); // start image picker activity with request code
-
-
-
-//   override fun onActivityResult(requestCode:Int,resultCode:Int, data:Intent) {
-//        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
-//            // Get a list of picked images
-//            List<Image> images = ImagePicker.getImages(data)
-//            // or get a single image only
-//            Image image = ImagePicker.getFirstImageOrNull(data)
-//        }
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
-
-
-    fun showMulti(uriList:List<Uri>){
-
-        addedPictureList?.adapter = context?.let {
-            PictureAdapter(
-                it, this,
-                uriList.toTypedArray()
-            )
         }
 
-
-                    var count = uriList.size
-        context?.toast(count.toString())
-                    for (i in 0 until count!!) {
-                        var imageUri: Uri = uriList.get(i)
-                        getPathFromURI(imageUri)
-
-                        var oregnal = File(imagesPathList.get(i))
-//                        var oregnal = File(getPathFromURI(imageUri))
-                        imageFile = RequestBody.create(
-                            MediaType.parse(context?.contentResolver?.getType(imageUri)!!),
-                            oregnal
-                        )
-                        if(i==0){
-                            imagesBodyList.add(i,MultipartBody.Part.createFormData("image", oregnal.name, imageFile))
-
-                        }else{
-                            imagesBodyList.add(i,MultipartBody.Part.createFormData("image${i-1}", oregnal.name, imageFile))
-
-                        }
-
-                    }
-    }
 
     fun Reuseable(
         array: ArrayList<String>,

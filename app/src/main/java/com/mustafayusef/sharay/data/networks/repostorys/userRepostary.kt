@@ -22,20 +22,20 @@ class userRepostary(val api:myApi ):SafeApiRequest(){
             api.getLogin(Auth)
         }}
 
-    suspend fun getSignUpDate(email:String, password:String,phone:String,phoneSecond:String, name:String):signInModel{
-      var Auth:SignUpAuth?=null
-       if(phoneSecond==""){
+    suspend fun getSignUpDate(email:String?, password:String,phone:String,phoneSecond:String?, name:String):signInModel{
+        val filter=HashMap<String,String>()
+        email?.let { filter.put("email", it) }
+        password?.let { filter.put("password", it) }
+        phoneSecond?.let { filter.put("phoneSecond", it) }
+        name?.let { filter.put("name", it) }
+        phone?.let { filter.put("phone", it) }
 
-           Auth=SignUpAuth(email,password,phone,phone,name)
-       }else{
-           Auth=SignUpAuth(email,password,phone,phoneSecond,name)
 
-       }
 
 
         return SafeRequest{
 
-            api.GetSignUp(Auth)
+            api.GetSignUp(filter)
         }}
 
     suspend fun getUserInfo(token:String): UserInfo {

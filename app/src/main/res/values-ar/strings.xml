@@ -15,17 +15,17 @@
     <string name="who">من نحن</string>
     <string name="contact">أتصل بنا</string>
     <string name="Carforsale">سيارات للبيع</string>
-    <string name="carcompany">معارض سيارات</string>
-    <string name="carparts">قطع غيار سيارات</string>
+    <string name="carcompany">معارض السيارات</string>
+    <string name="carparts">قطع غيار </string>
 
-    <string name="importcar">سيارات وارد</string>
-    <string name="carnumber">ارقام سيارات</string>
+    <string name="importcar">سيارات مستوردة</string>
+    <string name="carnumber">ارقام السيارات</string>
     <string name="motorcycle">دراجات نارية</string>
     <string name="carrent">سيارات للأيجار</string>
     <string name="changeLang">تغيير اللغة</string>
     <string name="cancel">خروج</string>
     <string name="addedPhoto">الصور المضافة</string>
-    <string name="EnterEmail">ادخل بريدك الألكتروني</string>
+    <string name="EnterEmail"> ادخل بريدك الألكتروني(أختياري) </string>
     <string name="password">أدخل كلمة المرور</string>
     <string name="login">دخول</string>
 
@@ -80,7 +80,7 @@
     <string name="miles">المسافة</string>
 
     <string name="GearNum">ناقل السرعة</string>
-    <string name="EnterSecondPhone">ادخل الرقم الثاني (أختياري)</string>
+    <string name="EnterSecondPhone">(أختياري) ادخل الرقم الثاني </string>
     <string name="applay">تم</string>
     <string name="descrption">الوصف</string>
     <string name="MotoreModel">نوع الدراجة</string>
@@ -128,5 +128,24 @@
     <string name="doYou">هل تريد أزالة الأعلان</string>
 
     <string name="doYouCall">هل تريد اجراء مكالمة هاتفيه</string>
+
+    <string name="callUs">أتصل بنا</string>
+    <string name="fillRequier">يرجى أدخال الحقول المطلوبة</string>
+
+    <string name="youHave">أصبح لديك حساب</string>
+
+    <string name="youHaveAlredy">لديك حساب مسبقا</string>
+
+    <string name="postAnAdd">
+        لاعلان سيارتكم انقر على (اضافة اعلان)،اتبع الخطوات بملئ الحقول جميعها من السعر (ينصح بكتابة السعر) وتحميل الصور على ان تكون صور في اضاءة جيدة و اختيار زوايا مناسبة لجوانب السيارة الاربعة كاملة دون اقتطاع ، مع صورتين لداخلية السيارة.
+        "ستصلكم رسالة نصية على جوالكم عند نشر الاعلان       </string>
+
+    <string name="abouteUs">سوق الكتروني للسيارات يتيح لك البيع و الشراء من خلال نشر اعلانك و مشاهدة كافة العروض في كل المحافظات و مشاهدة عروض معارض السيارات بكل سهولة.
+        ايضاً يوجد خدمات اضافية بكل ما يخص السيارات من مركز صيانة و محلات بيع قطع الغيار للتسهيل على كل الاشخاص.</string>
+
+    <string name="notAuth">ليس لديك حساب</string>
+
+    <string name="problemCon">مشكلة في الأتصال</string>
+    <string name="EnterPassCorrect">أدخل كلمة مرور قوية</string>
 
 </resources>

@@ -94,24 +94,56 @@ class CareRent : Fragment()
         type = arguments?.getString("type")
         retryBtnPublic.setOnClickListener {
             when(type){
-                "numbers"->viewModel.GetNumbers()
-                "stores"->viewModel.GetStores()
-                "rent"->viewModel.GetRent()
-                "parts"->viewModel.GetParts()
-                "import"->viewModel.GetImport()
-                "motore"->viewModel.GetMotor()
-                "cars"->viewModel.GetCars()
+                "numbers"-> {
+                    viewModel.GetNumbers()
+                    titlePublic.text = resources.getString(R.string.carnumber)
+                }
+                "stores"-> {
+                    viewModel.GetStores()
+                    titlePublic.text = resources.getString(R.string.carcompany)
+                }
+                "rent"->{viewModel.GetRent()
+                    titlePublic.text=resources.getString(R.string.carrent)
+                }
+                "parts"->{viewModel.GetParts()
+                    titlePublic.text=resources.getString(R.string.carparts)
+                }
+                "import"->{viewModel.GetImport()
+                    titlePublic?.text=resources.getString(R.string.importcar)}
+                "motore"->{viewModel.GetMotor()
+                    titlePublic?.text=resources.getString(R.string.motorcycle)}
+
+                "cars"->{viewModel.GetCars()
+                    titlePublic.text=resources.getString(R.string.Carforsale)
+                }
+
             }
         }
         when(type){
-            "numbers"->viewModel.GetNumbers()
-            "stores"->viewModel.GetStores()
-            "rent"->viewModel.GetRent()
-            "parts"->viewModel.GetParts()
-            "import"->viewModel.GetImport()
-            "motore"->viewModel.GetMotor()
-            "cars"->viewModel.GetCars()
+            "numbers"-> {
+                viewModel.GetNumbers()
+                titlePublic.text = resources.getString(R.string.carnumber)
+            }
+                "stores"-> {
+                viewModel.GetStores()
+                titlePublic.text = resources.getString(R.string.carcompany)
+            }
+                "rent"->{viewModel.GetRent()
+                titlePublic.text=resources.getString(R.string.carrent)
+            }
+            "parts"->{viewModel.GetParts()
+                titlePublic.text=resources.getString(R.string.carparts)
+            }
+            "import"->{viewModel.GetImport()
+            titlePublic?.text=resources.getString(R.string.importcar)}
+            "motore"->{viewModel.GetMotor()
+                    titlePublic?.text=resources.getString(R.string.motorcycle)}
+
+            "cars"->{viewModel.GetCars()
+            titlePublic.text=resources.getString(R.string.Carforsale)
         }
+
+    }
 
         //val navBar = activity?.findViewById<BottomNavigationView> (com.mustafayusef.sharay.R.id.bottomNav)
         val toolbar = activity?.findViewById<Toolbar> (com.mustafayusef.sharay.R.id.ToolBar)
@@ -136,35 +168,48 @@ class CareRent : Fragment()
         titlePublic?.text=resources.getString(R.string.carnumber)
         animation_loadingSections?.visibility=View.GONE
         //animation_loadingMain.pauseAnimation()
+        if(SectionsResponse.data.isNullOrEmpty()){
+            noResultSections?.visibility=View.VISIBLE
+        }
+        var rev=SectionsResponse.data!!.asReversed()
         sectionsList?.layoutManager = GridLayoutManager(context, 2) as RecyclerView.LayoutManager?
-        sectionsList?.adapter= context?.let { numberAdapter(it , SectionsResponse.data)}
+        sectionsList?.adapter= context?.let { numberAdapter(it , rev)}
         }
 
     override fun onSucsessRent(CarResponse: RentModel) {
         RentResponse=CarResponse.data
-        titlePublic.text=resources.getString(R.string.carrent)
         animation_loadingSections?.visibility=View.GONE
         //animation_loadingMain.pauseAnimation()
+        if(CarResponse.data.isNullOrEmpty()){
+            noResultSections?.visibility=View.VISIBLE
+        }
+        var rev=CarResponse.data!!.asReversed()
         sectionsList?.layoutManager = LinearLayoutManager(context)
-        sectionsList?.adapter= context?.let { CarResponse.data?.let { it1 -> RentAdapter(it , it1,this) } }    }
+        sectionsList?.adapter= context?.let { rev?.let { it1 -> RentAdapter(it , it1,this) } }    }
 
     override fun onSucsessStores(CarResponse: StoresModel) {
         stores=CarResponse.data
-        titlePublic.text=resources.getString(R.string.carcompany)
-        filterBtnP.visibility=View.VISIBLE
+        titlePublic?.text=resources.getString(R.string.carcompany)
+        filterBtnP?.visibility=View.VISIBLE
         animation_loadingSections?.visibility=View.GONE
         //animation_loadingMain.pauseAnimation()
        // CarResponse.data[0].location
+        if(CarResponse.data.isNullOrEmpty()){
+            noResultSections?.visibility=View.VISIBLE
+        }
         sectionsList?.layoutManager= LinearLayoutManager(context)
         sectionsList?.adapter= context?.let { storesAdapter(it , CarResponse.data,this)}
     }
 
     override fun onSucsessCars(CarResponse: CarsModel) {
-        titlePublic.text=resources.getString(R.string.Carforsale)
         animation_loadingSections?.visibility=View.GONE
         //animation_loadingMain.pauseAnimation()
+        if(CarResponse.data.isNullOrEmpty()){
+            noResultSections?.visibility=View.VISIBLE
+        }
+        var rev=CarResponse.data!!.asReversed()
         sectionsList?.layoutManager= LinearLayoutManager(context)
-       sectionsList?.adapter= context?.let { CarSaleAdapter(it, this, CarResponse.data) }
+       sectionsList?.adapter= context?.let { CarSaleAdapter(it, this,rev) }
         responseCars=CarResponse.data
     }
 
@@ -172,28 +217,40 @@ class CareRent : Fragment()
         partResponse=CarResponse.data
         titlePublic?.text=resources.getString(R.string.carparts)
         animation_loadingSections?.visibility=View.GONE
+        if(CarResponse.data.isNullOrEmpty()){
+            noResultSections?.visibility=View.VISIBLE
+        }
         //animation_loadingMain.pauseAnimation()
+        var rev=CarResponse.data!!.asReversed()
         sectionsList?.layoutManager = GridLayoutManager(context, 2) as RecyclerView.LayoutManager?
-        sectionsList?.adapter= context?.let { partsAdapter(it , CarResponse.data,this)}
+        sectionsList?.adapter= context?.let { partsAdapter(it , rev,this)}
     }
     override fun onSucsessMotor(CarResponse: motorModel) {
         MotorResponse=CarResponse.data
         titlePublic?.text=resources.getString(R.string.motorcycle)
         animation_loadingSections?.visibility=View.GONE
         //animation_loadingMain.pauseAnimation()
+        if(CarResponse.data.isNullOrEmpty()){
+            noResultSections?.visibility=View.VISIBLE
+        }
+        var rev=CarResponse.data!!.asReversed()
         sectionsList?.layoutManager = LinearLayoutManager(context)
-        sectionsList?.adapter= context?.let { MotorAdapter(it ,this, CarResponse.data)}
+        sectionsList?.adapter= context?.let { MotorAdapter(it ,this, rev)}
 //        sectionsList?.layoutManager = GridLayoutManager(context, 2) as RecyclerView.LayoutManager?
 //       sectionsList?.adapter= context?.let { MotorAdapter(it ,this, CarResponse.data)}
     }
     override fun onSucsessImport(CarResponse: RentModel) {
 
     RentResponse=CarResponse.data
-    titlePublic.text=resources.getString(R.string.importcar)
+
     animation_loadingSections?.visibility=View.GONE
     //animation_loadingMain.pauseAnimation()
+        if(CarResponse.data.isNullOrEmpty()){
+            noResultSections?.visibility=View.VISIBLE
+        }
+        var rev=CarResponse.data!!.asReversed()
     sectionsList?.layoutManager = LinearLayoutManager(context)
-    sectionsList?.adapter= context?.let { CarResponse.data?.let { it1 -> RentAdapter(it , it1,this) } }    }
+    sectionsList?.adapter= context?.let { rev?.let { it1 -> RentAdapter(it , it1,this) } }    }
 
 override fun OnFailer(message: String) {
     noNetContainerPublic?.visibility=View.VISIBLE

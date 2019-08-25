@@ -37,9 +37,7 @@ class Sections_fragment : Fragment() {
             context?.let { it1 -> LocaleHelper.setLocale(it1, MainActivity.cacheObj.language ) }
 
         }
-        view.carForSale .setOnClickListener {
-            Toast.makeText(context,"click",Toast.LENGTH_SHORT).show()
-        }
+
         return view
 
     }

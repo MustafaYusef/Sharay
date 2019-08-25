@@ -6,10 +6,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.splash.splashScreen"
-android:background="@color/colorPrimary">
-    <ImageView
+android:background="@color/white">
+    <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="184dp"
-            android:layout_height="151dp" app:srcCompat="@drawable/icon"
+            android:layout_height="155dp" android:src="@drawable/blue1"
             android:id="@+id/imageSplash"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"

@@ -68,12 +68,17 @@ class myCarsAdapter(
                holder.view. con.setBackgroundResource(R.drawable.reverse2)
            }
 
+        if(carsP.price==0){
+            holder.view.priceCar.text=context.resources.getString(R.string.callUs)
+        }else{
+            holder.view.priceCar.text=carsP.price.toString()
+        }
 
-        holder.view.priceCar.text=carsP.price.toString()
-        holder.view.carMile.text=carsP.mileage.toString()
+        holder.view.carMile.text=carsP.mileage.toString()+" mi"
         holder.view.modelYear.text=carsP.year
         holder.view.carNmae.text=carsP.title
-        Glide.with(context).load("http://api.centralmarketiq.com/"+carsP.image+".png").into(holder.view?.carImage)
+        Glide.with(context).load("http://api.centralmarketiq.com/"+carsP.image+".png")
+            .placeholder(R.drawable.placeholder).into(holder.view?.carImage)
         holder.view. deleteBtn.setOnClickListener {
             val dview: View = View.inflate(context,R.layout.desc_parts, null)
             val builder = context?.let { AlertDialog.Builder(it).setView(dview) }

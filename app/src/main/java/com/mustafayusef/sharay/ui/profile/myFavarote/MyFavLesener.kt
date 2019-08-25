@@ -13,6 +13,6 @@ interface MyFavLesener {
 
 
     fun onFailerFav(message:String)
-
+    fun onFailerNet(message:String)
 
 }

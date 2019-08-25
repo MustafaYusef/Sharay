@@ -66,11 +66,6 @@ class Main_fragment : Fragment(),MainAdapter.OnNoteLisener,MainCarLesener {
         }
 
 
-
-
-
-
-
         return view
     }
 
@@ -114,7 +109,6 @@ class Main_fragment : Fragment(),MainAdapter.OnNoteLisener,MainCarLesener {
     }
 
     override fun onNoteClick(position: Int) {
-
        // var bundle = bundleOf("flage" to true)
         carId= responseCars?.get(position-1)!!.id
         var array= arrayOf(carId,1)
@@ -161,14 +155,15 @@ class Main_fragment : Fragment(),MainAdapter.OnNoteLisener,MainCarLesener {
         carsResponse: CarsModel,
         bannerResponse: banners
     ) {
+        var rev=carsResponse.data.asReversed()
         noNetContainer?.visibility=View.GONE
         carList?.visibility=View.VISIBLE
         animation_loadingMain?.visibility=View.GONE
         //animation_loadingMain.pauseAnimation()
-        carList?.adapter= context?.let { MainAdapter(it ,this, carsResponse.data,bannerResponse)}
+        carList?.adapter= context?.let { MainAdapter(it ,this, rev,bannerResponse)}
 
 
-        responseCars=carsResponse.data
+        responseCars=rev
 
     }
     override fun onSucsessBanners(CarResponse: banners) {

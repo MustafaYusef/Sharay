@@ -33,13 +33,13 @@ class MyFavViewModel(val repostary: CarsRepostary) : ViewModel() {
                 e.message?.let { Fav?.onFailerFav(it) }
 
             }catch (e: noInternetExeption){
-                e.message?.let { Fav?.onFailerFav(it) }
+                e.message?.let { Fav?.onFailerNet(it) }
             }catch (e: SocketTimeoutException){
-                e.message?.let { Fav?.onFailerFav(it) }}
+                e.message?.let { Fav?.onFailerNet(it) }}
             catch (e: SocketException){
-                e.message?.let { Fav?.onFailerFav(it) }
+                e.message?.let { Fav?.onFailerNet(it) }
             }catch (e: ProtocolException){
-                e.message?.let { Fav?.onFailerFav(it) }
+                e.message?.let { Fav?.onFailerNet(it) }
             }
 
         }

@@ -40,7 +40,7 @@ class filterFragment : Fragment(),FilterCarLesener {
 
     val colors =arrayListOf ("ابيض","حليبي","سلفر","نيلي","سمائي","ازرق","احمر","ماروني","برتقالي","اصفر","اخضر","جوزي","قيلي","اسود","بنفسجي","وردي")
     val statusArr =arrayListOf ("جديد","جديد قطعة صبغ","جديد قطعتان صبغ","جديد ٣ قطع صبغ","جديد ٤ قطع صبغ","مستعمل","مستعمل قطعة صبغ","مستعمل قطعتان صبغ","مستعمل ٣ قطغ صبغ","مستعمل ٤ قطع صبغ","مستعمل ٥ قطع صبغ","مستعمل صبغ عام","غرقان")
-    val years =arrayListOf ("1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022")
+//    val years =arrayListOf ("1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022")
     val sources =arrayListOf ("امريكي","خليجي","كندي","كوري","اوربي")
 
     val milesArr =arrayListOf ("0","10000","  20000 ","  30000 ","  40000 ","  50000 ","   60000 ","  70000 ","  80000 ","  90000 ","  100000 ","  150000 ","  200000 ","  300000 ")
@@ -53,7 +53,7 @@ class filterFragment : Fragment(),FilterCarLesener {
     val windowsSystemArr = arrayListOf ("كهربائي", "يدوي")
 
 
-
+   var indBrand=0
     var selectYear:String?=null
     var selectClass:String?=null
 
@@ -65,8 +65,10 @@ class filterFragment : Fragment(),FilterCarLesener {
     var selectSource:String?=null
     var selectMile:String?=null
     var PriceList: MutableList<String> = arrayListOf()
+    var years: MutableList<String> = arrayListOf()
 
-    var index1=-1
+    var indClass=-1
+
     companion object {
         fun newInstance() = filterFragment()
     }
@@ -114,6 +116,12 @@ class filterFragment : Fragment(),FilterCarLesener {
             PriceList.add(index++,i.toString())
         }
 
+        var index1=0
+
+        for(i in 2022 downTo 1940){
+            years.add(index1++,i.toString())
+        }
+
         val suggest: Array<carData>
         var json: String = ""
         val objectArrayString: String = context?.resources?.openRawResource(R.raw.cars)?.bufferedReader()
@@ -132,10 +140,6 @@ class filterFragment : Fragment(),FilterCarLesener {
             viewModel.GetFiltersCars(selectBrand,selectClass,selectYear,selectSource,selectMile,selectMinPrice,selectMaxPrice,selectLoc)
 
         println("selectYear  "+selectYear)
-//            println("selectYear  "+selectLoc)
-//            println("selectYear  "+selectMinPrice)
-//            println("selectYear  "+selectMaxPrice)
-//            println("selectYear  "+selectSource)
         }
         closeFilter.setOnClickListener {
             view?.findNavController()?.popBackStack()
@@ -149,15 +153,16 @@ class filterFragment : Fragment(),FilterCarLesener {
             showClass(names)
         }
         carModelDilog.setOnClickListener {
-            if(index1==-1){
+            if(indClass==-1){
                 carClassDilog.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
-                classFilter.setHintTextColor(-0x01ffff)
-//                to.setHintTextColor(-0x01ffff)
-//                to.highlightColor=-0x01ffff
+               // classFilter.setHintTextColor(-0x01ffff)
+
             }else{
-                showBrand(suggest[index1].data)
+                showBrand(suggest[indClass].data as ArrayList<String>)
+
             }
         }
+
         locationDilog.setOnClickListener {
             showlocation()
         }
@@ -190,7 +195,7 @@ class filterFragment : Fragment(),FilterCarLesener {
 
     override fun onFailer(message: String) {
         animation_loadingFilter?.visibility=View.GONE
-        context?.toast(message)
+        context?.toast(resources.getString(R.string.problemCon))
     }
 
 
@@ -204,7 +209,7 @@ class filterFragment : Fragment(),FilterCarLesener {
         dview.filterPicker.maxValue = years.size-1
         dview.filterPicker.wrapSelectorWheel = true
         dview.filterPicker.displayedValues = years.toTypedArray()
-        dview.filterTitle.text="Year"
+        dview.filterTitle.text=resources.getString(R.string.Year)
         var index=0
         dview.filterPicker.setOnValueChangedListener { picker, oldVal, newVal ->
             //
@@ -231,7 +236,7 @@ class filterFragment : Fragment(),FilterCarLesener {
         dview.filterPicker.maxValue = names.size-1
         dview.filterPicker.wrapSelectorWheel = true
         dview.filterPicker.displayedValues = names.toTypedArray()
-        dview.filterTitle.text="Class"
+        dview.filterTitle.text=resources.getString(R.string.CarClass)
         var index=0
         dview.filterPicker.setOnValueChangedListener { picker, oldVal, newVal ->
             //
@@ -240,9 +245,10 @@ class filterFragment : Fragment(),FilterCarLesener {
             // println(country +"   cooodkl,dl")
         }
         dview.applayFilter.setOnClickListener {
+            indClass=index-1
             selectClass = names[index]
             classFilter.text=selectClass
-            index1=index-1
+
             malert?.dismiss()
         }
         dview.closeDf.setOnClickListener {
@@ -260,7 +266,7 @@ class filterFragment : Fragment(),FilterCarLesener {
         dview.filterPicker.maxValue = data.size-1
         dview.filterPicker.wrapSelectorWheel = true
         dview.filterPicker.displayedValues = data.toTypedArray()
-        dview.filterTitle.text="Brand"
+        dview.filterTitle.text=resources.getString(R.string.CarModel)
         var index=0
         dview.filterPicker.setOnValueChangedListener { picker, oldVal, newVal ->
             //
@@ -269,8 +275,10 @@ class filterFragment : Fragment(),FilterCarLesener {
             // println(country +"   cooodkl,dl")
         }
         dview.applayFilter.setOnClickListener {
-            selectBrand = data[index]
-            carModelFilter.text=selectBrand
+
+            indBrand=index-1
+            carModelFilter.text=data[index]
+            selectBrand=data[index]
             malert?.dismiss()
         }
         dview.closeDf.setOnClickListener {

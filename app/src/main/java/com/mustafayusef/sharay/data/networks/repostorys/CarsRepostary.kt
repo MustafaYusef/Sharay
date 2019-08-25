@@ -16,7 +16,10 @@ import com.mustafayusef.sharay.data.networks.myApi
 import com.mustafayusef.sharay.ui.MainActivity
 import com.mustafayusef.sharay.ui.auth.signup.Login
 import com.mustafayusef.sharay.ui.profile.Profile_fragment
+import okhttp3.MediaType
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.Part
 
 
 class CarsRepostary(val api:myApi ):SafeApiRequest(){
@@ -100,36 +103,62 @@ class CarsRepostary(val api:myApi ):SafeApiRequest(){
 
 
 
-    suspend fun AddCar( title: String,
-                        brand: String,
-                        `class`: String,
-                      status: String,
+    suspend fun AddCar( title1: String,
+                        brand1: String,
+                        class1: String,
+                      status1: String,
                         year: Int,
-                       warid: String,
+                       warid1: String,
                        mileage: Int,
                         price: Int,
-                         gear: String,
+                         gear1: String,
                          cylinders: Int,
-                        fuel:String,
-                        driveSystem: String,
-                         roof: String,
+                        fuel1:String,
+                        driveSystem1: String,
+                         roof1: String,
                         seats: Int,
-                      type: String,
-                        window: String,
-                        airBags: String,
-                       color: String,
-                         description: String,
-                       name: String,
-                         phone: String,
-                         location: String,
-                         state: String,
-                         date: String,
+                      type1: String,
+                        window1: String,
+                        airBags1: String,
+                       color1: String,
+                         description1: String,
+                       name1: String,
+                         phone1: String,
+                         location1: String,
+                         state1: String,
+                         date1: String,
                        userId: Int,
                         storeId: Int,
                         active: Boolean,
                          isRent: Boolean,
                        isImported: Boolean,
                          image: MultipartBody.Part): addRes {
+        var title= RequestBody.create(MediaType.parse("text/plain"),title1)
+        var brand= RequestBody.create(MediaType.parse("text/plain"),brand1)
+        var `class`= RequestBody.create(MediaType.parse("text/plain"),class1)
+        var status= RequestBody.create(MediaType.parse("text/plain"),status1)
+        var warid= RequestBody.create(MediaType.parse("text/plain"),warid1)
+        var gear= RequestBody.create(MediaType.parse("text/plain"),gear1)
+        var fuel= RequestBody.create(MediaType.parse("text/plain"),fuel1)
+        var driveSystem= RequestBody.create(MediaType.parse("text/plain"),driveSystem1)
+        var roof= RequestBody.create(MediaType.parse("text/plain"),roof1)
+
+        var type= RequestBody.create(MediaType.parse("text/plain"),type1)
+        var window= RequestBody.create(MediaType.parse("text/plain"),window1)
+        var airBags= RequestBody.create(MediaType.parse("text/plain"),airBags1)
+        var color= RequestBody.create(MediaType.parse("text/plain"),color1)
+
+        var description= RequestBody.create(MediaType.parse("text/plain"),description1)
+
+        var name= RequestBody.create(MediaType.parse("text/plain"),name1)
+        var phone= RequestBody.create(MediaType.parse("text/plain"),phone1)
+        var location= RequestBody.create(MediaType.parse("text/plain"),location1)
+        var state= RequestBody.create(MediaType.parse("text/plain"),state1)
+        var date= RequestBody.create(MediaType.parse("text/plain"),date1)
+
+
+
+
         return SafeRequest {
             api.AddCar(MainActivity.cacheObj .token,
                 title,

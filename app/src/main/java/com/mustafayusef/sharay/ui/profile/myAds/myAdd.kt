@@ -48,7 +48,11 @@ class myAdd : Fragment(),myCarsAdapter.OnNoteLisener ,profileLesener{
         animation_loadingMyadd?.visibility=View.GONE
         animation_loadingMyadd?.pauseAnimation()
         use=CarResponse.Cars
-        myCarsList?.adapter= context?.let { CarResponse.Cars?.let { it1 -> myCarsAdapter(it ,this, it1,viewModel) } }
+        var rev=use!!.asReversed()
+        if(CarResponse.Cars.isNullOrEmpty()){
+            noResultMyadd?.visibility=View.VISIBLE
+        }
+        myCarsList?.adapter= context?.let {rev?.let { it1 -> myCarsAdapter(it ,this, it1,viewModel) } }
 
     }
 

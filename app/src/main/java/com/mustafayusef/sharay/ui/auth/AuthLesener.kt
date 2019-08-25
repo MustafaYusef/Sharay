@@ -9,4 +9,9 @@ interface AuthLesener {
     fun onSucsess(loginResponse: signUp)
     fun onSucsessSignIn(loginResponse: signInModel)
     fun onFailer(message:String)
+    fun onFailerIn()
+   fun onFailerNet()
+
+    fun onFailerPh()
+    fun onFailerPas()
 }

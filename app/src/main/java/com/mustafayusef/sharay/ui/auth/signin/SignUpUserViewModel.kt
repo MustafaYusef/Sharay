@@ -17,19 +17,31 @@ class SignUpUserViewModel(val repostary: userRepostary) : ViewModel() {
     var password:String?=null
     var phone:String?=null
     var name:String?=null
-    var phoneSecond:String=""
+    var phoneSecond:String?=null
     var Auth: AuthLesener?=null
 
     fun SignIn(view: View){
+        if(phoneSecond.isNullOrEmpty()){
+            phoneSecond=null
+        }
+        if(email.isNullOrEmpty()){
+            email=null
+        }
         Auth?.OnStart()
-        if(email.isNullOrEmpty()||password.isNullOrEmpty()||phone.isNullOrEmpty()||name.isNullOrEmpty()
+        if(password.isNullOrEmpty()||phone.isNullOrEmpty()||name.isNullOrEmpty()
             ){
-            Auth?.onFailer("fill requerd field password or email")
+            Auth?.onFailerIn()
+            return
+        }else if(phone!!.length<10){
+            Auth?.onFailerPh()
+            return
+        }else if(password!!.length<4){
+            Auth?.onFailerPas()
             return
         }
         corurtins.main {
             try {
-                val onewayResponse=repostary.getSignUpDate(email!!,password!!,phone!!,phoneSecond!!,name!!)
+                val onewayResponse=repostary.getSignUpDate(email,password!!,phone!!,phoneSecond,name!!)
                 onewayResponse ?.let {
                     Auth?.onSucsessSignIn(it!!)
                 }
@@ -38,13 +50,13 @@ class SignUpUserViewModel(val repostary: userRepostary) : ViewModel() {
                 e.message?.let { Auth?.onFailer(it) }
 
             }catch (e: noInternetExeption){
-                e.message?.let { Auth?.onFailer(it) }
+                e.message?.let { Auth?.onFailerNet() }
             }catch (e: SocketTimeoutException){
-                e.message?.let { Auth?.onFailer(it) }}
+                e.message?.let { Auth?.onFailerNet() }}
             catch (e: SocketException){
-                e.message?.let { Auth?.onFailer(it) }
+                e.message?.let { Auth?.onFailerNet() }
             }catch (e: ProtocolException){
-                e.message?.let { Auth?.onFailer(it) }
+                e.message?.let { Auth?.onFailerNet() }
             }
 
         }

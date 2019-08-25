@@ -75,9 +75,8 @@ class Setting_fragment : Fragment() {
 
             dview.titleInfo.text=getResources().getString(R.string.who)
             malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dview.info?.text="من نحن\n" +
-                    "سوق الكتروني للسيارات يتيح لك البيع و الشراء من خلال نشر اعلانك و مشاهدة كافة العروض في كل المحافظات و مشاهدة عروض معارض السيارات بكل سهولة.\n" +
-                    "ايضاً يوجد خدمات اضافية بكل ما يخص السيارات من مركز صيانة و محلات بيع قطع الغيار للتسهيل على كل الاشخاص."
+            dview.info?.text=resources.getString(R.string.abouteUs)
+
 
             dview.goLog?.visibility=View.GONE
         }
@@ -89,9 +88,8 @@ class Setting_fragment : Fragment() {
 
             malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dview.titleInfo.text=getResources().getString(R.string.contact)
-            dview.info?.text=  "Gmail:Central.marketiq@gmail.com\n" +
-                    "07810006405\n" +
-                    "07714601419"
+            dview.info?.text=  "Central.marketiq@gmail.com\n" +
+                    "07810006405\n"
 
             dview.goLog?.visibility=View.GONE
 //                    dview.goLog?.setOnClickListener {

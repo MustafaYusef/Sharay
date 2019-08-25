@@ -13,26 +13,26 @@
     <string name="Languge">Languge</string>
     <string name="who">who we are</string>
     <string name="contact">Contact us</string>
-    <string name="Carforsale">Car for sale</string>
-    <string name="carcompany">Car Company</string>
-    <string name="carparts">Car parts</string>
+    <string name="Carforsale">Cars</string>
+    <string name="carcompany">Galleries Car</string>
+    <string name="carparts">Spare Parts</string>
 
-    <string name="importcar">Import car</string>
-    <string name="carnumber">Car plate</string>
-    <string name="motorcycle">Motor cycle</string>
-    <string name="carrent">Car for Rent</string>
+    <string name="importcar">Imported Cars</string>
+    <string name="carnumber">Car numbers</string>
+    <string name="motorcycle">Motorcycles</string>
+    <string name="carrent">Cars for Rent</string>
     <string name="changeLang">Change Language</string>
 
     <string name="cancel">Cencel</string>
     <string name="addedPhoto">Added Pictures</string>
 
-    <string name="EnterEmail">Enter your Email</string>
-    <string name="EnterSecondPhone">Enter your Second Phone number (Optional)</string>
+    <string name="EnterEmail">Enter your Email (Optional)</string>
+    <string name="EnterSecondPhone">Enter your second phone(Optional)</string>
 
     <string name="password">Enter Password</string>
     <string name="login">Login</string>
 
-    <string name="SignIn">SignIn</string>
+    <string name="SignIn">Sing up</string>
     <string name="EnterPhone">Enter your Phone</string>
     <string name="EnterFullName">Enter your FullName</string>
     <string name="goToSignIn">If you dont have account go to</string>
@@ -130,5 +130,24 @@
 
     <string name="doYouCall">Do you want to Make a call phone</string>
 
+    <string name="callUs">Call us</string>
+
+    <string name="fillRequier">fill requerd field password and email</string>
+    <string name="youHave">you have account now</string>
+
+    <string name="youHaveAlredy">you have already account</string>
+
+    <string name="postAnAdd">Post an Add
+        To post your car click on add car, fill all the fields including the price (we advise you to enter the price) and upload multiple images of your car with good lighting and suitable angles for all of the sides of the car without cutting anything and two images for the inside of the car.</string>
+
+<string name="abouteUs">We are an online market for cars that gives you the ability to buy and sell cars by publishing your ad along side with viewing all ads ad cars showrooms offers easily.
+    more services are also available such as maintenance centers and car parts stores.</string>
+
+<string name="notAuth">You do not have account</string>
+
+    <string name="problemCon">Problem in connection</string>
+
+
+    <string name="EnterPassCorrect">Your Password  is not valid</string>
 
 </resources>

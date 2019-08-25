@@ -44,6 +44,25 @@ import kotlinx.android.synthetic.main.sign_up_user_fragment.*
 
 
 class Login : Fragment(), AuthLesener {
+    override fun onFailerPh() {
+
+    }
+
+    override fun onFailerPas() {
+    }
+
+    override fun onFailerNet() {
+        context?.toast(resources.getString(R.string.problemCon))
+        animation_loadingSignUp.visibility=View.GONE
+        animation_loadingSignUp.pauseAnimation()
+    }
+
+    override fun onFailerIn() {
+        context?.toast(resources.getString(R.string.fillRequier))
+
+        animation_loadingSignUp.visibility=View.GONE
+        animation_loadingSignUp.pauseAnimation()
+    }
 
     override fun onSucsessSignIn(loginResponse: signInModel) {
 
@@ -85,25 +104,25 @@ class Login : Fragment(), AuthLesener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Kotpref.init(context!!)
-        Password?.transformationMethod= PasswordTransformationMethod()
-           val dview: View = layoutInflater.inflate(R.layout.info, null)
-        val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
-        val malert= builder?.show()
-
-        malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dview.titleInfo.text=getResources().getString(R.string.logInStep)
-        dview.info?.text=  "تسجيل الدخول\n" +
-                    "خطوات بسيطة للتسجيل و اعلان سيارتك في السوق المركزي للسيارات\n" +
-                    "\n" +
-                    "انقر على ( تسجيل الدخول ) في الصفحة الرئيسية ثم كلمة (التسجيل)\n" +
-                    "ادخل بياناتك (الاسم الكامل) اضافة الى رقم الهاتف الخاص بكم.\n"
-
-
-
-
-        dview.goLog?.setOnClickListener {
-            malert?.dismiss()
-        }
+//        Password?.transformationMethod= PasswordTransformationMethod()
+//           val dview: View = layoutInflater.inflate(R.layout.info, null)
+//        val builder = context?.let { AlertDialog.Builder(it).setView(dview) }
+//        val malert= builder?.show()
+//
+//        malert?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//        dview.titleInfo.text=getResources().getString(R.string.logInStep)
+//        dview.info?.text=  "تسجيل الدخول\n" +
+//                    "خطوات بسيطة للتسجيل و اعلان سيارتك في السوق المركزي للسيارات\n" +
+//                    "\n" +
+//                    "انقر على ( تسجيل الدخول ) في الصفحة الرئيسية ثم كلمة (التسجيل)\n" +
+//                    "ادخل بياناتك (الاسم الكامل) اضافة الى رقم الهاتف الخاص بكم.\n"
+//
+//
+//
+//
+//        dview.goLog?.setOnClickListener {
+//            malert?.dismiss()
+//        }
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -153,7 +172,7 @@ class Login : Fragment(), AuthLesener {
     override fun onFailer(message: String) {
         animation_loadingSignUp.visibility=View.GONE
         animation_loadingSignUp.pauseAnimation()
-        context?.toast(message)
+        context?.toast(resources.getString(R.string.notAuth))
     }
 }
 

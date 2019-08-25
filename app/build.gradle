@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
@@ -15,8 +14,8 @@ android {
         applicationId "com.mustafayusef.sharay"
         minSdkVersion 18
         targetSdkVersion 29
-        versionCode 3
-        versionName "1.2"
+        versionCode 9
+        versionName "1.8"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

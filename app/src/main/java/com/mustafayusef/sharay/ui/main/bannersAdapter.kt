@@ -30,11 +30,13 @@ class bannersAdapter(val context: Context,val images:List<bannersData>)
 
     override fun onBindViewHolder(viewHolder: SliderAdapterVH, position: Int) {
         if (position==0){
-            Glide.with(context).load(R.drawable.first_banner).into( viewHolder.itemView.slid_Image)
+            Glide.with(context).load(R.drawable.first_banner).placeholder(R.drawable.placeholder).into( viewHolder.itemView.slid_Image)
 
         }else{
             var im=images.get(position-1)
-            Glide.with(context).load("http://api.centralmarketiq.com/"+im.image+".png").into( viewHolder.itemView.slid_Image)
+            Glide.with(context).load("http://api.centralmarketiq.com/"+im.image+".png")
+                .placeholder(R.drawable.placeholder)
+                .into( viewHolder.itemView.slid_Image)
             viewHolder.itemView.setOnClickListener {
                 var bundle = bundleOf("id" to im.storeId)
                 viewHolder.itemView.findNavController()?.navigate(R.id.detailsStore,bundle)

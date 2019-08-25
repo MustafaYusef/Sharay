@@ -5,6 +5,7 @@ import com.mustafayusef.holidaymaster.utils.ApiExaptions
 import com.mustafayusef.holidaymaster.utils.corurtins
 import com.mustafayusef.holidaymaster.utils.noInternetExeption
 import com.mustafayusef.sharay.data.networks.repostorys.SectionRepostary
+import java.net.ProtocolException
 import java.net.SocketTimeoutException
 
 class CareRentViewModel (val repostary: SectionRepostary): ViewModel() {
@@ -30,6 +31,9 @@ class CareRentViewModel (val repostary: SectionRepostary): ViewModel() {
                 e.message?.let { lesener?.OnFailer(it) }
             }catch (e: SocketTimeoutException){
                 e.message?.let {lesener?.OnFailer(it) }}
+            catch (e: ProtocolException){
+                e.message?.let { lesener?.OnFailer(it) }
+            }
 
         }
     }
@@ -51,6 +55,9 @@ class CareRentViewModel (val repostary: SectionRepostary): ViewModel() {
                 e.message?.let { lesener?.OnFailer(it) }
             }catch (e: SocketTimeoutException){
                 e.message?.let {lesener?.OnFailer(it) }}
+            catch (e: ProtocolException){
+                e.message?.let { lesener?.OnFailer(it) }
+            }
 
         }
     }
@@ -72,6 +79,9 @@ class CareRentViewModel (val repostary: SectionRepostary): ViewModel() {
                 e.message?.let { lesener?.OnFailer(it) }
             }catch (e: SocketTimeoutException){
                 e.message?.let {lesener?.OnFailer(it) }}
+            catch (e: ProtocolException){
+                e.message?.let { lesener?.OnFailer(it) }
+            }
 
         }
     }
@@ -93,6 +103,9 @@ class CareRentViewModel (val repostary: SectionRepostary): ViewModel() {
                 e.message?.let { lesener?.OnFailer(it) }
             }catch (e: SocketTimeoutException){
                 e.message?.let {lesener?.OnFailer(it) }}
+            catch (e: ProtocolException){
+                e.message?.let { lesener?.OnFailer(it) }
+            }
 
         }
     }
@@ -114,6 +127,9 @@ class CareRentViewModel (val repostary: SectionRepostary): ViewModel() {
                 e.message?.let { lesener?.OnFailer(it) }
             }catch (e: SocketTimeoutException){
                 e.message?.let {lesener?.OnFailer(it) }}
+            catch (e: ProtocolException){
+                e.message?.let { lesener?.OnFailer(it) }
+            }
 
         }
     }
@@ -135,6 +151,9 @@ class CareRentViewModel (val repostary: SectionRepostary): ViewModel() {
                 e.message?.let { lesener?.OnFailer(it) }
             }catch (e: SocketTimeoutException){
                 e.message?.let {lesener?.OnFailer(it) }}
+            catch (e: ProtocolException){
+                e.message?.let { lesener?.OnFailer(it) }
+            }
 
         }
     }
@@ -155,6 +174,9 @@ class CareRentViewModel (val repostary: SectionRepostary): ViewModel() {
                 e.message?.let { lesener?.OnFailer(it) }
             }catch (e: SocketTimeoutException){
                 e.message?.let {lesener?.OnFailer(it) }}
+            catch (e: ProtocolException){
+                e.message?.let { lesener?.OnFailer(it) }
+            }
 
         }
     }

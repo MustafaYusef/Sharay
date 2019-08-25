@@ -147,17 +147,17 @@
                             android:background="@color/gray" android:layoutDirection="locale">
                   <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="18sp" android:text="@string/CarModel"
+                            android:textSize="18sp" android:text="@string/CarClass"
                             android:fontFamily="@font/font_bold"
                             android:layout_weight="1"
 
 
                             android:padding="5dp" android:layoutDirection="locale"/>
                   <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:textSize="18sp" android:text="@string/CarModel"
+                            android:textSize="18sp" android:text="@string/CarClass"
                             android:fontFamily="@font/font_regular"
                             android:layout_weight="1"
-                            android:id="@+id/ClassCar"
+                            android:id="@+id/modelCar"
                             android:padding="5dp" android:layoutDirection="locale" android:gravity="center"/>
               </LinearLayout>
 
@@ -178,7 +178,7 @@
                             android:textSize="18sp"
                             android:fontFamily="@font/font_regular"
                             android:layout_weight="1"
-                            android:id="@+id/modelCar"
+                            android:id="@+id/ClassCar"
                             android:gravity="center" android:padding="5dp"/>
               </LinearLayout>
 
@@ -255,7 +255,7 @@
                             android:paddingLeft="5dp"
                             android:layoutDirection="locale"
                             android:paddingRight="5dp"
-                            android:background="@color/gray">
+                            android:background="@color/white">
                   <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:textColor="@color/colorPrimary"
                             android:textSize="18sp" android:text="@string/Color"
@@ -434,7 +434,7 @@
                         android:background="@color/white">
               <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="18sp" android:text="@string/Douchmh"
+                        android:textSize="18sp" android:text="@string/Roof"
                         android:fontFamily="@font/font_bold"
                         android:layout_weight="1"
 
@@ -449,6 +449,28 @@
                         android:gravity="center" android:padding="5dp"/>
           </LinearLayout>
 
+          <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal" android:weightSum="2"
+                  android:paddingLeft="5dp"
+                  android:layoutDirection="locale"
+                  android:paddingRight="5dp"
+                  android:background="@color/gray">
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:textColor="@color/colorPrimary"
+                      android:textSize="18sp" android:text="@string/Douchmh"
+                      android:fontFamily="@font/font_bold"
+                      android:layout_weight="1"
+
+
+                      android:padding="5dp"/>
+              <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:textSize="18sp"
+                      android:fontFamily="@font/font_regular"
+                      android:layout_weight="1"
+                      android:id="@+id/douchmD"
+
+                      android:gravity="center" android:padding="5dp"/>
+          </LinearLayout>
           <!--<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"-->
                         <!--android:orientation="horizontal" android:weightSum="2"-->
                         <!--android:paddingLeft="5dp"-->
@@ -553,7 +575,7 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:layoutDirection="locale"
-                        android:background="@color/gray">
+                        android:background="@color/white">
               <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
 
                         android:textSize="18sp"

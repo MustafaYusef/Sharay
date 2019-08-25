@@ -1,4 +1,4 @@
-package com.mustafayusef.sharay.ui.profile.myAds
+package com.mustafayusef.sharay.ui.profile.myFavarote
 
 
 import kotlinx.android.synthetic.main.car_card.view.*
@@ -53,11 +53,16 @@ class myFavAdapter(val context:Context, var onNoteLisener: OnNoteLisener, val ca
 
 //        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
         carsP.let {
-            holder.view.priceCar.text = carsP.Car?.price.toString()
-            holder.view.carMile.text = carsP.Car?.mileage.toString()
+            if(carsP.Car!!.price==0){
+                holder.view.priceCar.text=context.resources.getString(R.string.callUs)
+            }else{
+                holder.view.priceCar.text=carsP.Car!!.price.toString()
+            }
+            holder.view.carMile.text = carsP.Car?.mileage.toString()+" mi"
             holder.view.modelYear.text = carsP.Car?.year
             holder.view.carNmae.text = carsP.Car?.name
             Glide.with(context).load("http://api.centralmarketiq.com/" + carsP.Car?.image + ".png")
+                .placeholder(R.drawable.placeholder)
                 .into(holder.view?.carImage)
 
             holder.view.callNumber.setOnClickListener {

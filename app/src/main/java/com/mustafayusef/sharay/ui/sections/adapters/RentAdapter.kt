@@ -53,11 +53,16 @@ class RentAdapter(val context:Context,val cars:List<CarRent>,val onNoteLisener:O
 
 //        Glide.with(context).load(holidays?.logoCover).apply(RequestOptions.centerCropTransform().circleCrop()).into(holder.view.LogoAir)
 
-        holder.view.priceCar.text=carsP.price.toString()
-        holder.view.carMile.text=carsP.mileage.toString()
+        if(carsP.price==0){
+            holder.view.priceCar.text=context.resources.getString(com.mustafayusef.sharay.R.string.callUs)
+        }else{
+            holder.view.priceCar.text=carsP.price.toString()
+        }
+        holder.view.carMile.text=carsP.mileage.toString()+" mi"
         holder.view.modelYear.text=carsP.year
         holder.view.carNmae.text=carsP.title
-        Glide.with(context).load("http://api.centralmarketiq.com/"+carsP.image+".png").into(holder.view?.carImage)
+        Glide.with(context).load("http://api.centralmarketiq.com/"+carsP.image+".png")
+            .placeholder(com.mustafayusef.sharay.R.drawable.placeholder).into(holder.view?.carImage)
 
 
         holder.view.callNumber.setOnClickListener {

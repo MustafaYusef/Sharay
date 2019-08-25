@@ -5,6 +5,7 @@ import com.mustafayusef.holidaymaster.utils.ApiExaptions
 import com.mustafayusef.holidaymaster.utils.corurtins
 import com.mustafayusef.holidaymaster.utils.noInternetExeption
 import com.mustafayusef.sharay.data.networks.repostorys.SectionRepostary
+import java.net.ProtocolException
 import java.net.SocketTimeoutException
 
 class DetailsStoreViewModel(val repostary: SectionRepostary) : ViewModel() {
@@ -26,6 +27,9 @@ class DetailsStoreViewModel(val repostary: SectionRepostary) : ViewModel() {
                 e.message?.let { litsener?.onFailer(it) }
             }catch (e: SocketTimeoutException){
                 e.message?.let {litsener?.onFailer(it) }}
+            catch (e: ProtocolException){
+                e.message?.let { litsener?.onFailer(it) }
+            }
 
 
         }

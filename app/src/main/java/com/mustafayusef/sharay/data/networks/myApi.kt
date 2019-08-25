@@ -24,36 +24,36 @@ import kotlin.collections.HashMap
 
 
 interface myApi {
-
-   // @FormUrlEncoded
+    //@Headers("Content-Type: application/json")
+ //   @FormUrlEncoded
    @Multipart
     @POST("car/add")
    suspend fun AddCar(
        @Header("token")token:String,
-        @Part("title") title: String,
-    @Part("brand") brand: String,
-    @Part("class") `class`: String,
-    @Part("status") status: String,
+        @Part("title") title: RequestBody,
+    @Part("brand") brand: RequestBody,
+    @Part("class") `class`: RequestBody,
+    @Part("status") status: RequestBody,
     @Part("year") year: Int,
-    @Part("warid") warid: String,
+    @Part("warid") warid: RequestBody,
     @Part("mileage") mileage: Int,
     @Part("price") price: Int,
-    @Part("gear") gear: String,
+    @Part("gear") gear: RequestBody,
     @Part("cylinders") cylinders: Int,
-        @Part("fuel") fuel: String,
-    @Part("driveSystem") driveSystem: String,
-    @Part("roof") roof: String,
+        @Part("fuel") fuel: RequestBody,
+    @Part("driveSystem") driveSystem: RequestBody,
+    @Part("roof") roof: RequestBody,
     @Part("seats") seats: Int,
-    @Part("type") type: String,
-    @Part("window") window: String,
-    @Part("airBags") airBags: String,
-    @Part("color") color: String,
-    @Part("description") description: String,
-    @Part("name") name: String,
-    @Part("phone") phone: String,
-    @Part("location") location: String,
-    @Part("state") state: String,
-    @Part("date") date: String,
+    @Part("type") type: RequestBody,
+    @Part("window") window: RequestBody,
+    @Part("airBags") airBags: RequestBody,
+    @Part("color") color: RequestBody,
+    @Part("description") description: RequestBody,
+    @Part("name") name: RequestBody,
+    @Part("phone") phone: RequestBody,
+    @Part("location") location: RequestBody,
+    @Part("state") state: RequestBody,
+    @Part("date") date: RequestBody,
     @Part("userId") userId: Int,
     @Part("storeId") storeId: Int,
     @Part("active") active: Boolean,
@@ -110,7 +110,7 @@ interface myApi {
     @Headers("Content-Type: application/json")
     @POST("signup")
     suspend fun GetSignUp(
-        @Body user: SignUpAuth
+        @Body  filter:HashMap<String,String>
     ): Response<signInModel>
 
     @GET("cars")

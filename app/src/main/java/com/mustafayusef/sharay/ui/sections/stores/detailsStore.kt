@@ -93,7 +93,7 @@ class detailsStore : Fragment(),storeLesener,storeDetailsAdapter.onStoreCarsClic
     }
 
     override fun OnStart() {
-        context?.toast("start")
+     //   context?.toast("start")
 
     }
     override fun onStoreCarsClick(position: Int) {
