@@ -111,20 +111,24 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
         searchCars?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 // do something on text submit
-                filter(query.toString())
-                up()
+                if(!query!!.isEmpty()&&!listCars.isNullOrEmpty()){
+                    filter(query.toString())
+                    up()
+
+
                 if(temp.isNullOrEmpty()){
                     noNetContainerSearch?.visibility=View.VISIBLE
 
                 }else{
                     noNetContainerSearch?.visibility=View.GONE
                 }
+                }
                 lastContainer?.visibility=View.GONE
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                 if(!newText!!.isEmpty()){
+                 if(!newText!!.isEmpty()&&!listCars.isNullOrEmpty()){
                      filter(newText.toString())
                      up()
                      if(temp.isNullOrEmpty()){
@@ -136,10 +140,10 @@ class searchFragment : Fragment(),lastSearchAdapter.OnLastLisener,searchLesener,
                          lastContainer?.visibility=View.GONE
                      }
                  }else{
-                     filter(newText.toString())
-                     up()
-                     lastContainer?.visibility=View.VISIBLE
-                     noNetContainerSearch?.visibility=View.GONE
+//                     filter(newText.toString())
+//                     up()
+//                     lastContainer?.visibility=View.VISIBLE
+//                     noNetContainerSearch?.visibility=View.GONE
                  }
 
                 return false
